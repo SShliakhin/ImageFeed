@@ -15,6 +15,10 @@
 		5A82A92E295261B1006FDBA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A92C295261B1006FDBA0 /* LaunchScreen.storyboard */; };
 		5A82A93629526409006FDBA0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A93529526409006FDBA0 /* README.md */; };
 		5A82A93B2952815E006FDBA0 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A93A2952815E006FDBA0 /* APIKey.swift */; };
+		5A82A94329528D95006FDBA0 /* YSDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A94029528D95006FDBA0 /* YSDisplay-Bold.ttf */; };
+		5A82A94429528D95006FDBA0 /* YSDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A94129528D95006FDBA0 /* YSDisplay-Medium.ttf */; };
+		5A82A9462952B8E0006FDBA0 /* YSDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A9452952B8E0006FDBA0 /* YSDisplay-Regular.ttf */; };
+		5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A94729533CE3006FDBA0 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		5A82A92F295261B1006FDBA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A82A93529526409006FDBA0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5A82A93A2952815E006FDBA0 /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		5A82A94029528D95006FDBA0 /* YSDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YSDisplay-Bold.ttf"; sourceTree = "<group>"; };
+		5A82A94129528D95006FDBA0 /* YSDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YSDisplay-Medium.ttf"; sourceTree = "<group>"; };
+		5A82A9452952B8E0006FDBA0 /* YSDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YSDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		5A82A94729533CE3006FDBA0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				5A82A93A2952815E006FDBA0 /* APIKey.swift */,
+				5A82A94729533CE3006FDBA0 /* Theme.swift */,
 				5A82A921295261AF006FDBA0 /* AppDelegate.swift */,
 				5A82A923295261AF006FDBA0 /* SceneDelegate.swift */,
 			);
@@ -96,6 +105,9 @@
 		5A82A93929527F5C006FDBA0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				5A82A94029528D95006FDBA0 /* YSDisplay-Bold.ttf */,
+				5A82A94129528D95006FDBA0 /* YSDisplay-Medium.ttf */,
+				5A82A9452952B8E0006FDBA0 /* YSDisplay-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -179,9 +191,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A82A9462952B8E0006FDBA0 /* YSDisplay-Regular.ttf in Resources */,
 				5A82A92E295261B1006FDBA0 /* LaunchScreen.storyboard in Resources */,
 				5A82A92B295261B1006FDBA0 /* Assets.xcassets in Resources */,
 				5A82A93629526409006FDBA0 /* README.md in Resources */,
+				5A82A94329528D95006FDBA0 /* YSDisplay-Bold.ttf in Resources */,
+				5A82A94429528D95006FDBA0 /* YSDisplay-Medium.ttf in Resources */,
 				5A82A929295261AF006FDBA0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,6 +210,7 @@
 			files = (
 				5A82A926295261AF006FDBA0 /* ViewController.swift in Sources */,
 				5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */,
+				5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */,
 				5A82A93B2952815E006FDBA0 /* APIKey.swift in Sources */,
 				5A82A924295261AF006FDBA0 /* SceneDelegate.swift in Sources */,
 			);
