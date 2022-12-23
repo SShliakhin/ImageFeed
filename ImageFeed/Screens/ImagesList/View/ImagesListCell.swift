@@ -40,6 +40,7 @@ final class ImagesListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
+        applyStyle()
         applyLayout()
     }
     
@@ -61,6 +62,10 @@ private extension ImagesListCell {
             action: #selector(likeButtonTapped),
             for: .primaryActionTriggered
         )
+    }
+    
+    func applyStyle() {
+        backgroundColor = .clear
     }
     
     func applyLayout() {
