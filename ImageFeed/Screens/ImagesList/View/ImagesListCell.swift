@@ -11,15 +11,6 @@ final class ImagesListCell: UITableViewCell {
     
     static let reuseID = String(describing: ImagesListCell.self)
     
-    var rowHeight: CGFloat {
-        guard let picture = picture else { return 150 }
-        let imageSize = picture.image.size
-        let aspectRatio = imageSize.height / imageSize.width
-        let cellWidth = UIScreen.main.bounds.width - 32
-        let cellHeight = cellWidth * aspectRatio + 8
-        return cellHeight
-    }
-    
     private let pictureImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill

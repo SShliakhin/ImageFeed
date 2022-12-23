@@ -11,7 +11,7 @@ struct Picture {
     let asset: String
     let date: Date
     let isFavorite: Bool
-    var height: CGFloat
+    let height: CGFloat
 }
 
 // MARK: - MockData
@@ -22,8 +22,20 @@ extension Picture {
                 asset: String(describing: number),
                 date: Date(),
                 isFavorite: number % 2 == 0,
-                height: 0
+                height: getHeight(
+                    for: UIImage(named: String(describing: number))
+                )
             )
         }
     }()
+    
+    static func getHeight(for image: UIImage?) -> CGFloat {
+        guard let image = image else { return 0 }
+
+        let imageSize = image.size
+        let aspectRatio = imageSize.height / imageSize.width
+        let cellWidth = UIScreen.main.bounds.width - 32
+        let cellHeight = cellWidth * aspectRatio + 8
+        return cellHeight
+    }
 }

@@ -46,8 +46,6 @@ extension ImagesListDataSource: UITableViewDataSource {
         let pictureViewModel = convertToViewModel(picture)
         imageListCell.configure(with: pictureViewModel)
         
-        pictures[indexPath.row].height = imageListCell.rowHeight
-        
         return cell
     }
 }
