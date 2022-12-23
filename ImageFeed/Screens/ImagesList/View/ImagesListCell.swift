@@ -114,8 +114,8 @@ extension ImagesListCell {
 // MARK: - Action
 extension ImagesListCell {
     @objc private func likeButtonTapped(_ sender: UIButton) {
-        guard var picture = picture else { return }
-        picture.isFavorite.toggle()
-        setIsFavorite(picture.isFavorite)
+        setIsFavorite(
+            !(sender.backgroundImage(for: .normal) == Theme.image(kind: .favoriteActiveIcon))
+        )
     }
 }
