@@ -21,6 +21,29 @@ final class ImagesListCell: UITableViewCell {
     
     private let likeButton = UIButton(type: .custom)
     
+    private let gradientView: GradientView = {
+        let view = GradientView()
+        
+        view.configure(
+            colors: [
+                Theme.color(usage: .ypBlack).withAlphaComponent(0.2).cgColor,
+                Theme.color(usage: .ypBlack).withAlphaComponent(0).cgColor
+            ],
+            locations: [0, 0.5],
+            startPoint: CGPoint(x: 0, y: 0.5),
+            endPoint: CGPoint(x: 1, y: 0.5)
+        )
+        
+        view.layer.cornerRadius = 16
+        view.layer.maskedCorners = [
+            .layerMinXMaxYCorner,
+            .layerMaxXMaxYCorner
+        ]
+        view.layer.masksToBounds = true
+        
+        return view
+    }()
+    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = Theme.font(style: .regular13)
@@ -72,6 +95,7 @@ private extension ImagesListCell {
         [
             pictureImageView,
             likeButton,
+            gradientView,
             dateLabel
         ].forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +112,11 @@ private extension ImagesListCell {
             likeButton.topAnchor.constraint(equalTo: pictureImageView.topAnchor),
             likeButton.heightAnchor.constraint(equalToConstant: 42),
             likeButton.widthAnchor.constraint(equalToConstant: 42),
+            
+            gradientView.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor),
+            gradientView.trailingAnchor.constraint(equalTo: pictureImageView.trailingAnchor),
+            gradientView.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor),
+            gradientView.heightAnchor.constraint(equalToConstant: 30),
             
             dateLabel.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor, constant: 8),
             dateLabel.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor, constant: -8)
