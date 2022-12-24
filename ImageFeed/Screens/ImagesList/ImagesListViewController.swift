@@ -11,6 +11,13 @@ final class ImagesListViewController: UIViewController {
         
     private let tableView = UITableView()
     private let dataSource: ImagesListDataSource = .init(pictures: Picture.pictures)
+    
+    private let refreshControl = UIRefreshControl()
+    private var hasRefreshed = false {
+        didSet {
+            reloadView()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +31,7 @@ final class ImagesListViewController: UIViewController {
 private extension ImagesListViewController {
     private func setup() {
         setupTableView()
+        setupRefreshControl()
     }
     
     func setupTableView() {
@@ -33,6 +41,12 @@ private extension ImagesListViewController {
         tableView.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseID)
         
         tableView.reloadData()
+    }
+    
+    func setupRefreshControl() {
+        refreshControl.tintColor = Theme.color(usage: .ypWhite)
+        refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
     
     func applyStyle() {
@@ -59,6 +73,24 @@ private extension ImagesListViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+// MARK: - Actions
+private extension ImagesListViewController {
+    @objc func refreshContent() {
+        dataSource.pictures.shuffle()
+        hasRefreshed.toggle()
+    }
+    
+    func reloadView() {
+        tableView.refreshControl?.endRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+            self.tableView.beginUpdates()
+            self.tableView.reloadSections([0], with: .automatic)
+            self.tableView.endUpdates()
+        }
     }
 }
 
