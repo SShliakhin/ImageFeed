@@ -103,4 +103,20 @@ extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         dataSource.pictures[indexPath.row].height
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let degree: Double = 90
+        let rotationAngle = CGFloat(degree * .pi / 180)
+        let rotationTransform = CATransform3DMakeRotation(rotationAngle, 0, 1, 0)
+        cell.layer.transform = rotationTransform
+
+        UIView.animate(
+            withDuration: 0.85,
+            delay: 0.1,
+            options: .curveEaseInOut,
+            animations: {
+                cell.layer.transform = CATransform3DIdentity
+            }
+        )
+    }
 }
