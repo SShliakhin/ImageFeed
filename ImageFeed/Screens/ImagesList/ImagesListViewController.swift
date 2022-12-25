@@ -39,8 +39,6 @@ private extension ImagesListViewController {
         tableView.dataSource = dataSource
         
         tableView.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseID)
-        
-        tableView.reloadData()
     }
     
     func setupRefreshControl() {
