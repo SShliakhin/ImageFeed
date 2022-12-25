@@ -83,4 +83,25 @@ enum Theme {
     static func image(kind: ImageAsset) -> UIImage {
         return UIImage(named: kind.rawValue) ?? .actions
     }
+    
+    // MARK: - ContentInset
+    enum ContentInset {
+        case table
+    }
+    
+    static func contentInset(kind: ContentInset) -> UIEdgeInsets {
+        let customInsets: UIEdgeInsets
+        
+        switch kind {
+        case .table:
+            customInsets = UIEdgeInsets(
+                top: 12,
+                left: 0,
+                bottom: 12,
+                right: 0
+            )
+        }
+        
+        return customInsets
+    }
 }
