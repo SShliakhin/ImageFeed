@@ -14,7 +14,7 @@ final class ImagesListCell: UITableViewCell {
     private let pictureImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 16
+        imageView.layer.cornerRadius = Theme.size(kind: .cornerRadius)
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -34,7 +34,7 @@ final class ImagesListCell: UITableViewCell {
             endPoint: CGPoint(x: 1, y: 0.5)
         )
         
-        view.layer.cornerRadius = 16
+        view.layer.cornerRadius = Theme.size(kind: .cornerRadius)
         view.layer.maskedCorners = [
             .layerMinXMaxYCorner,
             .layerMaxXMaxYCorner
@@ -103,23 +103,23 @@ private extension ImagesListCell {
         }
         
         NSLayoutConstraint.activate([
-            pictureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            pictureImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
-            pictureImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            pictureImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            pictureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Theme.spacing(usage: .standardHalf)),
+            pictureImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Theme.spacing(usage: .standardHalf)),
+            pictureImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Theme.spacing(usage: .standard2)),
+            pictureImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.spacing(usage: .standard2)),
             
             likeButton.trailingAnchor.constraint(equalTo: pictureImageView.trailingAnchor),
             likeButton.topAnchor.constraint(equalTo: pictureImageView.topAnchor),
-            likeButton.heightAnchor.constraint(equalToConstant: 42),
-            likeButton.widthAnchor.constraint(equalToConstant: 42),
+            likeButton.heightAnchor.constraint(equalToConstant: Theme.size(kind: .likeButton)),
+            likeButton.widthAnchor.constraint(equalToConstant: Theme.size(kind: .likeButton)),
             
             gradientView.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: pictureImageView.trailingAnchor),
             gradientView.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor),
-            gradientView.heightAnchor.constraint(equalToConstant: 30),
+            gradientView.heightAnchor.constraint(equalToConstant: Theme.size(kind: .gradientHeight)),
             
-            dateLabel.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor, constant: 8),
-            dateLabel.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor, constant: -8)
+            dateLabel.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor, constant: Theme.spacing(usage: .standard)),
+            dateLabel.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor, constant: -Theme.spacing(usage: .standard))
         ])
     }
     

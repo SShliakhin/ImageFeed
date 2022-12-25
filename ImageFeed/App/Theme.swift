@@ -104,4 +104,48 @@ enum Theme {
         
         return customInsets
     }
+    
+    // MARK: - Spacing
+    enum Spacing {
+        case standard
+        case standard2
+        case standardHalf
+    }
+    
+    static func spacing(usage: Spacing) -> CGFloat {
+        let customSpacing: CGFloat
+        
+        switch usage {
+        case .standard:
+            customSpacing = 8
+        case .standard2:
+            customSpacing = 16
+        case .standardHalf:
+            customSpacing = 4
+        }
+        
+        return customSpacing
+    }
+    
+    // MARK: - Size
+    enum Size {
+        case cornerRadius
+        case likeButton
+        case gradientHeight
+    }
+    
+    static func size(kind: Size) -> CGFloat {
+        let customSize: CGFloat
+        
+        switch kind {
+        case .cornerRadius:
+            customSize = 16
+        case .likeButton:
+            customSize = 42
+        case .gradientHeight:
+            customSize = 30
+        }
+        
+        return customSize
+    }
 }

@@ -34,8 +34,8 @@ extension Picture {
 
         let imageSize = image.size
         let aspectRatio = imageSize.height / imageSize.width
-        let cellWidth = UIScreen.main.bounds.width - 32
-        let cellHeight = cellWidth * aspectRatio + 8
+        let cellWidth = UIScreen.main.bounds.width - Theme.spacing(usage: .standard2) * 2
+        let cellHeight = cellWidth * aspectRatio + Theme.spacing(usage: .standardHalf) * 2
         return cellHeight
     }
 }
