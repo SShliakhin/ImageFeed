@@ -23,6 +23,7 @@
 		5A82A9512954C66F006FDBA0 /* PictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */; };
 		5A82A953295520BB006FDBA0 /* ImagesListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A952295520BB006FDBA0 /* ImagesListDataSource.swift */; };
 		5ABFB28C29593D630037C159 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB28B29593D630037C159 /* Array+Extensions.swift */; };
+		5ABFB28E295947050037C159 /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB28D295947050037C159 /* UIView+Animations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureViewModel.swift; sourceTree = "<group>"; };
 		5A82A952295520BB006FDBA0 /* ImagesListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListDataSource.swift; sourceTree = "<group>"; };
 		5ABFB28B29593D630037C159 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		5ABFB28D295947050037C159 /* UIView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animations.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				5ABFB28B29593D630037C159 /* Array+Extensions.swift */,
+				5ABFB28D295947050037C159 /* UIView+Animations.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				5A82A94F2954C3EB006FDBA0 /* Picture.swift in Sources */,
 				5A82A924295261AF006FDBA0 /* SceneDelegate.swift in Sources */,
 				5A82A94D2953E441006FDBA0 /* ImagesListCell.swift in Sources */,
+				5ABFB28E295947050037C159 /* UIView+Animations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

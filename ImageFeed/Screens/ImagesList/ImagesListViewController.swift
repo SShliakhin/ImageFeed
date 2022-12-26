@@ -104,18 +104,11 @@ extension ImagesListViewController: UITableViewDelegate {
         guard didAnimateCells[indexPath] == nil else { return }
         didAnimateCells[indexPath] = true
         
-        let degree: Double = 90
-        let rotationAngle = CGFloat(degree * .pi / 180)
-        let rotationTransform = CATransform3DMakeRotation(rotationAngle, 0, 1, 0)
-        cell.layer.transform = rotationTransform
-
-        UIView.animate(
-            withDuration: 0.85,
-            delay: 0.1,
-            options: .curveEaseInOut,
-            animations: {
-                cell.layer.transform = CATransform3DIdentity
-            }
+        cell.transform3DMakeRotation(
+            degree: 90,
+            x: 0, y: 1, z: 0,
+            duration: 0.85,
+            delay: 0.1
         )
     }
 }
