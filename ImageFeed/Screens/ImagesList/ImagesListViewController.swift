@@ -12,9 +12,12 @@ final class ImagesListViewController: UIViewController {
     private let tableView = UITableView()
     private let dataSource: ImagesListDataSource = .init(pictures: Picture.pictures)
     
+    private var didAnimateCells: [IndexPath: Bool] = [:]
+    
     private let refreshControl = UIRefreshControl()
     private var hasRefreshed = false {
         didSet {
+            didAnimateCells = [:]
             reloadView()
         }
     }
@@ -98,6 +101,9 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard didAnimateCells[indexPath] == nil else { return }
+        didAnimateCells[indexPath] = true
+        
         let degree: Double = 90
         let rotationAngle = CGFloat(degree * .pi / 180)
         let rotationTransform = CATransform3DMakeRotation(rotationAngle, 0, 1, 0)
