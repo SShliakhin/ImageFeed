@@ -14,7 +14,6 @@
 		5A82A92B295261B1006FDBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A92A295261B1006FDBA0 /* Assets.xcassets */; };
 		5A82A92E295261B1006FDBA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A92C295261B1006FDBA0 /* LaunchScreen.storyboard */; };
 		5A82A93629526409006FDBA0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A93529526409006FDBA0 /* README.md */; };
-		5A82A93B2952815E006FDBA0 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A93A2952815E006FDBA0 /* APIKey.swift */; };
 		5A82A94329528D95006FDBA0 /* YSDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A94029528D95006FDBA0 /* YSDisplay-Bold.ttf */; };
 		5A82A94429528D95006FDBA0 /* YSDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A94129528D95006FDBA0 /* YSDisplay-Medium.ttf */; };
 		5A82A9462952B8E0006FDBA0 /* YSDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A82A9452952B8E0006FDBA0 /* YSDisplay-Regular.ttf */; };
@@ -35,7 +34,6 @@
 		5A82A92D295261B1006FDBA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A82A92F295261B1006FDBA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A82A93529526409006FDBA0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		5A82A93A2952815E006FDBA0 /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		5A82A94029528D95006FDBA0 /* YSDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YSDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		5A82A94129528D95006FDBA0 /* YSDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YSDisplay-Medium.ttf"; sourceTree = "<group>"; };
 		5A82A9452952B8E0006FDBA0 /* YSDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YSDisplay-Regular.ttf"; sourceTree = "<group>"; };
@@ -77,11 +75,9 @@
 		5A82A920295261AF006FDBA0 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				5A82A93E2952822E006FDBA0 /* Services */,
 				5A82A93C295281DD006FDBA0 /* Screens */,
 				5A82A93729527E70006FDBA0 /* App */,
 				5A82A93829527F29006FDBA0 /* Resources */,
-				5A82A93D2952821C006FDBA0 /* Helpers */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";
@@ -89,7 +85,6 @@
 		5A82A93729527E70006FDBA0 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				5A82A93A2952815E006FDBA0 /* APIKey.swift */,
 				5A82A94729533CE3006FDBA0 /* Theme.swift */,
 				5A82A921295261AF006FDBA0 /* AppDelegate.swift */,
 				5A82A923295261AF006FDBA0 /* SceneDelegate.swift */,
@@ -124,20 +119,6 @@
 				5A82A9492953DF65006FDBA0 /* ImagesList */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		5A82A93D2952821C006FDBA0 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		5A82A93E2952822E006FDBA0 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		5A82A9492953DF65006FDBA0 /* ImagesList */ = {
@@ -249,7 +230,6 @@
 				5A82A9512954C66F006FDBA0 /* PictureViewModel.swift in Sources */,
 				5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */,
 				5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */,
-				5A82A93B2952815E006FDBA0 /* APIKey.swift in Sources */,
 				5A82A94F2954C3EB006FDBA0 /* Picture.swift in Sources */,
 				5A82A924295261AF006FDBA0 /* SceneDelegate.swift in Sources */,
 				5A82A94D2953E441006FDBA0 /* ImagesListCell.swift in Sources */,
