@@ -80,9 +80,9 @@ private extension ImagesListViewController {
         tableView.refreshControl?.endRefreshing()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
-            self.tableView.beginUpdates()
-            self.tableView.reloadSections([0], with: .automatic)
-            self.tableView.endUpdates()
+            self.tableView.performBatchUpdates {
+                self.tableView.reloadSections([0], with: .automatic)
+            }
         }
     }
 }
