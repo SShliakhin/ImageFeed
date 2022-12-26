@@ -8,7 +8,7 @@
 import UIKit
 
 final class ImagesListDataSource: NSObject {
-    var pictures: [Picture]
+    private var pictures: [Picture]
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -20,13 +20,24 @@ final class ImagesListDataSource: NSObject {
     init(pictures: [Picture]) {
         self.pictures = pictures
     }
-    
+}
+
+extension ImagesListDataSource {
     private func convertToViewModel(_ model: Picture) -> PictureViewModel {
         .init(
             image: UIImage(named: model.asset) ?? .actions,
             dateString: dateFormatter.string(from: model.date),
             isFavorite: model.isFavorite
         )
+    }
+    
+    func getCellHeight(_ indexPath: IndexPath) -> CGFloat {
+        guard let height = pictures[safe: indexPath.row]?.height else { return 0.0 }
+        return height
+    }
+    
+    func shufflePictures() {
+        pictures.shuffle()
     }
 }
 

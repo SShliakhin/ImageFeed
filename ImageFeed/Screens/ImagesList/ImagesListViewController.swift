@@ -72,7 +72,7 @@ private extension ImagesListViewController {
 // MARK: - Actions
 private extension ImagesListViewController {
     @objc func refreshContent() {
-        dataSource.pictures.shuffle()
+        dataSource.shufflePictures()
         hasRefreshed.toggle()
     }
     
@@ -94,7 +94,7 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        dataSource.pictures[indexPath.row].height
+        dataSource.getCellHeight(indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
