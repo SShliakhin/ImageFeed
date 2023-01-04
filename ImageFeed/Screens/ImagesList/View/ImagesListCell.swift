@@ -75,7 +75,6 @@ final class ImagesListCell: UITableViewCell {
         super.prepareForReuse()
         setIsFavorite(false)
     }
-    
 }
 
 private extension ImagesListCell {
@@ -89,6 +88,7 @@ private extension ImagesListCell {
     
     func applyStyle() {
         backgroundColor = .clear
+        selectionStyle = .none
     }
     
     func applyLayout() {
