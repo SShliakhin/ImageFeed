@@ -33,7 +33,7 @@ private extension ImagesListViewController {
         adapter = ImagesListTableViewAdapter(
             tableView,
             self,
-            PictureViewModel.pictureViewModels
+            ImagesListData()
         )
         
         refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
@@ -79,7 +79,7 @@ private extension ImagesListViewController {
 
 // MARK: - ImagesListTableViewAdapterDelegate
 extension ImagesListViewController: ImagesListTableViewAdapterDelegate {
-    func didSelectImage(_ adapter: ImagesListTableViewAdapter, didSelect item: PictureViewModel) {
+    func didSelectImage(_ adapter: ImagesListTableViewAdapter, didSelect item: Picture) {
         print(item)
     }
 }

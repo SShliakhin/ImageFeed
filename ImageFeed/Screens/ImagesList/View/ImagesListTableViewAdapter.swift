@@ -8,24 +8,24 @@
 import UIKit
 
 protocol ImagesListTableViewAdapterDelegate: AnyObject {
-    func didSelectImage(_ adapter: ImagesListTableViewAdapter, didSelect item: PictureViewModel)
+    func didSelectImage(_ adapter: ImagesListTableViewAdapter, didSelect item: Picture)
 }
 
 final class ImagesListTableViewAdapter: NSObject {
     private let tableView: UITableView
     private weak var delegate: ImagesListTableViewAdapterDelegate?
-    private var pictures: [PictureViewModel]
+    private let data: ImagesListData
     
     private var didAnimateCells: [IndexPath: Bool] = [:]
     
     init(
         _ tableView: UITableView,
         _ delegate: ImagesListTableViewAdapterDelegate,
-        _ pictures: [PictureViewModel]
+        _ data: ImagesListData
     ) {
         self.tableView = tableView
         self.delegate = delegate
-        self.pictures = pictures
+        self.data = data
         super.init()
         
         tableView.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseID)
@@ -34,13 +34,8 @@ final class ImagesListTableViewAdapter: NSObject {
         tableView.delegate = self
     }
     
-    private func getCellHeight(_ indexPath: IndexPath) -> CGFloat {
-        guard let height = pictures[safe: indexPath.row]?.height else { return 0.0 }
-        return height
-    }
-    
     func shufflePictures() {
-        pictures.shuffle()
+        data.shuffleItems()
         didAnimateCells = [:]
     }
     
@@ -57,19 +52,22 @@ final class ImagesListTableViewAdapter: NSObject {
 // MARK: - UITableViewDataSource
 extension ImagesListTableViewAdapter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        pictures.count
+        data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseID, for: indexPath)
-        guard let imageListCell = cell as? ImagesListCell else {
+        guard
+            let imageListCell = cell as? ImagesListCell,
+            let picture = data.itemAt(index: indexPath.row)
+        else {
             return UITableViewCell()
         }
         
-        let picture = pictures[indexPath.row]
-        imageListCell.configure(with: picture)
-        imageListCell.didLikeTaped = { [weak self] like in
-            self?.pictures[indexPath.row].isFavorite = like
+        let pictureViewModel = PictureViewModel.convert(picture)
+        imageListCell.configure(with: pictureViewModel)
+        imageListCell.didLikeTaped = { [weak self] in
+            self?.data.toggleFavorite(at: indexPath.row)
         }
         
         return cell
@@ -80,12 +78,13 @@ extension ImagesListTableViewAdapter: UITableViewDataSource {
 extension ImagesListTableViewAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let picture = pictures[indexPath.row]
+        guard let picture = data.itemAt(index: indexPath.row) else { return }
         delegate?.didSelectImage(self, didSelect: picture)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        getCellHeight(indexPath)
+        guard let picture = data.itemAt(index: indexPath.row) else { return 0 }
+        return PictureViewModel.getCellHeight(by: UIImage(named: picture.image))
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -100,4 +99,3 @@ extension ImagesListTableViewAdapter: UITableViewDelegate {
         )
     }
 }
-

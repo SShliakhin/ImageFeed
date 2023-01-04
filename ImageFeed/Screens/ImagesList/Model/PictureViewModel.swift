@@ -10,23 +10,18 @@ import UIKit
 struct PictureViewModel {
     let image: UIImage?
     let dateString: String
-    var isFavorite: Bool
-    let height: CGFloat
+    let isFavorite: Bool
 }
 
-// MARK: MockData
+// MARK: Static methods
 extension PictureViewModel {
-    static let pictureViewModels: [PictureViewModel] = {
-        let pictures = Picture.pictures
-        return pictures.map { item in
-                .init(
-                    image: UIImage(named: item.image),
-                    dateString: dateFormatter.string(from: item.date),
-                    isFavorite: item.isFavorite,
-                    height: getCellHeight(by: UIImage(named: item.image))
-                )
-        }
-    }()
+    static func convert(_ model: Picture) -> PictureViewModel {
+        .init(
+            image: UIImage(named: model.image),
+            dateString: dateFormatter.string(from: model.date),
+            isFavorite: model.isFavorite
+        )
+    }
     
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()

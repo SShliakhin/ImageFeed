@@ -10,7 +10,7 @@ import Foundation
 struct Picture {
     let image: String
     let date: Date
-    let isFavorite: Bool
+    var isFavorite: Bool
 }
 
 // MARK: - MockData
