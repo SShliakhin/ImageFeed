@@ -20,6 +20,7 @@ final class ImagesListCell: UITableViewCell {
     }()
     
     private let likeButton = UIButton(type: .custom)
+    var didLikeTaped: ((Bool) -> Void)?
     
     private let gradientView: GradientView = {
         let view = GradientView()
@@ -143,8 +144,9 @@ extension ImagesListCell {
 // MARK: - Action
 extension ImagesListCell {
     @objc private func likeButtonTapped(_ sender: UIButton) {
-        setIsFavorite(
-            !(sender.backgroundImage(for: .normal) == Theme.image(kind: .favoriteActiveIcon))
-        )
+        let currentLike = sender.backgroundImage(for: .normal) == Theme.image(kind: .favoriteActiveIcon)
+        setIsFavorite(!currentLike)
+        guard let didLikeTaped = didLikeTaped else { return }
+        didLikeTaped(!currentLike)
     }
 }
