@@ -11,6 +11,7 @@ struct PictureViewModel {
     let image: UIImage?
     let dateString: String
     let isFavorite: Bool
+    var callback: (() -> Void)? = nil
 }
 
 // MARK: Static methods
@@ -38,5 +39,12 @@ extension PictureViewModel {
         let cellWidth = UIScreen.main.bounds.width - Theme.spacing(usage: .standard2) * 2
         let cellHeight = cellWidth * aspectRatio + Theme.spacing(usage: .standardHalf) * 2
         return cellHeight
+    }
+}
+
+// MARK: - CellViewModel
+extension PictureViewModel: CellViewModel {
+    func setup(cell: ImagesListCell) {
+        cell.picture = self
     }
 }
