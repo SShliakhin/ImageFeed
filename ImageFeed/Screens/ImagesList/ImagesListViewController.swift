@@ -10,7 +10,7 @@ import UIKit
 final class ImagesListViewController: UIViewController {
         
     private let tableView = UITableView()
-    private var adapter: ImagesListTableViewAdapter?
+    private let adapter: IImagesListTableViewAdapter
     
     private let refreshControl = UIRefreshControl()
     private var hasRefreshed = false {
@@ -18,7 +18,16 @@ final class ImagesListViewController: UIViewController {
             reloadView()
         }
     }
-
+    
+    init(adapter: IImagesListTableViewAdapter) {
+        self.adapter = adapter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,11 +39,8 @@ final class ImagesListViewController: UIViewController {
 
 private extension ImagesListViewController {
     private func setup() {
-        adapter = ImagesListTableViewAdapter(
-            tableView,
-            self,
-            ImagesListData()
-        )
+        adapter.delegate = self
+        adapter.setupTableView(tableView)
         
         refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
         tableView.refreshControl = refreshControl
@@ -67,19 +73,19 @@ private extension ImagesListViewController {
 // MARK: - Actions
 private extension ImagesListViewController {
     @objc func refreshContent() {
-        adapter?.shufflePictures()
+        adapter.shufflePictures()
         hasRefreshed.toggle()
     }
     
     func reloadView() {
         tableView.refreshControl?.endRefreshing()
-        adapter?.reloadView()
+        adapter.reloadTableView(tableView)
     }
 }
 
 // MARK: - ImagesListTableViewAdapterDelegate
-extension ImagesListViewController: ImagesListTableViewAdapterDelegate {
-    func didSelectImage(_ adapter: ImagesListTableViewAdapter, didSelect item: Picture) {
+extension ImagesListViewController: IImagesListTableViewAdapterDelegate {
+    func didSelectImage(_ adapter: IImagesListTableViewAdapter, didSelect item: Picture) {
         print(item)
     }
 }

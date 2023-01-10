@@ -19,8 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        window.rootViewController = ImagesListViewController()
+        window.rootViewController = makeImagesListModule()
         window.makeKeyAndVisible()
         self.window = window
+    }
+    
+    private func makeImagesListModule() -> UIViewController {
+        let adapter = ImagesListTableViewAdapter(dataSet: ImagesListData())
+        let viewController = ImagesListViewController(adapter: adapter)
+        return viewController
     }
 }
