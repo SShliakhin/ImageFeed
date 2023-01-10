@@ -118,6 +118,7 @@ private extension ImagesListCell {
             gradientView.heightAnchor.constraint(equalToConstant: Theme.size(kind: .gradientHeight)),
             
             dateLabel.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor, constant: Theme.spacing(usage: .standard)),
+            dateLabel.trailingAnchor.constraint(lessThanOrEqualTo: pictureImageView.trailingAnchor, constant: -Theme.spacing(usage: .standard)),
             dateLabel.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor, constant: -Theme.spacing(usage: .standard))
         ])
     }
