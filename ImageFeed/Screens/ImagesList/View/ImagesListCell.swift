@@ -8,9 +8,6 @@
 import UIKit
 
 final class ImagesListCell: UITableViewCell {
-    
-    static let reuseID = String(describing: ImagesListCell.self)
-    
     private let pictureImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
