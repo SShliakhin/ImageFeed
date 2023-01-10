@@ -102,11 +102,13 @@ private extension ImagesListCell {
             contentView.addSubview(item)
         }
         
+        let pictureInsets = Theme.contentInset(kind: .image)
+        
         NSLayoutConstraint.activate([
-            pictureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Theme.spacing(usage: .standardHalf)),
-            pictureImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Theme.spacing(usage: .standardHalf)),
-            pictureImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Theme.spacing(usage: .standard2)),
-            pictureImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Theme.spacing(usage: .standard2)),
+            pictureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: pictureInsets.top),
+            pictureImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -pictureInsets.bottom),
+            pictureImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: pictureInsets.left),
+            pictureImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -pictureInsets.right),
             
             likeButton.trailingAnchor.constraint(equalTo: pictureImageView.trailingAnchor),
             likeButton.topAnchor.constraint(equalTo: pictureImageView.topAnchor),
