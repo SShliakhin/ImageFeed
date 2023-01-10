@@ -87,6 +87,7 @@ enum Theme {
     // MARK: - ContentInset
     enum ContentInset {
         case table
+        case image
     }
     
     static func contentInset(kind: ContentInset) -> UIEdgeInsets {
@@ -99,6 +100,13 @@ enum Theme {
                 left: 0,
                 bottom: 12,
                 right: 0
+            )
+        case .image:
+            customInsets = UIEdgeInsets(
+                top: 4,
+                left: 16,
+                bottom: 4,
+                right: 16
             )
         }
         
@@ -132,6 +140,7 @@ enum Theme {
         case cornerRadius
         case likeButton
         case gradientHeight
+        case cellHeight(image: UIImage?)
     }
     
     static func size(kind: Size) -> CGFloat {
@@ -144,8 +153,25 @@ enum Theme {
             customSize = 42
         case .gradientHeight:
             customSize = 30
+        case let .cellHeight(image):
+            guard let image = image else { return 0 }
+            let imageInsets = contentInset(kind: .image)
+            
+            let imageSize = image.size
+            let aspectRatio = imageSize.height / imageSize.width
+            let cellWidth = UIScreen.main.bounds.width - imageInsets.left - imageInsets.right
+            
+            customSize = cellWidth * aspectRatio + imageInsets.top + imageInsets.bottom
         }
         
         return customSize
     }
+    
+    // MARK: - DateFormatter
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }()
 }

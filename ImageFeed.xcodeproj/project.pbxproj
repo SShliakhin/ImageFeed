@@ -145,6 +145,8 @@
 		5A82A94A2953E354006FDBA0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5AAA408E2966E51400A6C835 /* CellViewModel.swift */,
+				5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */,
 				5A82A94C2953E441006FDBA0 /* ImagesListCell.swift */,
 				5AAA40882963E23500A6C835 /* ImagesListTableViewAdapter.swift */,
 				5A22A46E295664270083617E /* GradientView.swift */,
@@ -155,9 +157,7 @@
 		5A82A94B2953E373006FDBA0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5AAA408E2966E51400A6C835 /* CellViewModel.swift */,
 				5A82A94E2954C3EB006FDBA0 /* Picture.swift */,
-				5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */,
 				5AAA408C2965C1BE00A6C835 /* ImagesListData.swift */,
 			);
 			path = Model;
