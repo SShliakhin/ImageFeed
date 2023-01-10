@@ -87,7 +87,7 @@
 			children = (
 				5A82A93C295281DD006FDBA0 /* Screens */,
 				5A82A93729527E70006FDBA0 /* App */,
-				5ABFB28A29593D420037C159 /* Helpers */,
+				5ABFB28A29593D420037C159 /* Utils */,
 				5A82A93829527F29006FDBA0 /* Resources */,
 			);
 			path = ImageFeed;
@@ -145,11 +145,9 @@
 		5A82A94A2953E354006FDBA0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5AAA408E2966E51400A6C835 /* CellViewModel.swift */,
 				5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */,
 				5A82A94C2953E441006FDBA0 /* ImagesListCell.swift */,
 				5AAA40882963E23500A6C835 /* ImagesListTableViewAdapter.swift */,
-				5A22A46E295664270083617E /* GradientView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,14 +161,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		5ABFB28A29593D420037C159 /* Helpers */ = {
+		5ABFB28A29593D420037C159 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				5ABFB28B29593D630037C159 /* Array+Extensions.swift */,
+				5AAA408E2966E51400A6C835 /* CellViewModel.swift */,
 				5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */,
+				5ABFB28B29593D630037C159 /* Array+Extensions.swift */,
 				5ABFB28D295947050037C159 /* UIView+Animations.swift */,
+				5A22A46E295664270083617E /* GradientView.swift */,
 			);
-			path = Helpers;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
