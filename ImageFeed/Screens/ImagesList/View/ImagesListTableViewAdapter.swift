@@ -7,23 +7,18 @@
 
 import UIKit
 
-protocol IImagesListTableViewAdapterDelegate: AnyObject {
-    func didSelectImage(_ adapter: IImagesListTableViewAdapter, didSelect item: Picture)
-}
-
 protocol IImagesListTableViewAdapter: AnyObject {
     func setupTableView(_ tableView: UITableView)
     func reloadTableView(_ tableView: UITableView)
     func shufflePictures()
-    var delegate: IImagesListTableViewAdapterDelegate? { get set }
 }
 
 final class ImagesListTableViewAdapter: NSObject {
-    
-    weak var delegate: IImagesListTableViewAdapterDelegate?
+
     private let dataSet: ImagesListData
-    
     private var didAnimateCells: [IndexPath: Bool] = [:]
+    
+    var onSelect: ((Picture) -> Void)?
     
     init(dataSet: ImagesListData) {
         self.dataSet = dataSet
@@ -73,8 +68,13 @@ extension ImagesListTableViewAdapter: UITableViewDataSource {
 extension ImagesListTableViewAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let picture = dataSet.itemAt(index: indexPath.row) else { return }
-        delegate?.didSelectImage(self, didSelect: picture)
+        guard
+            let picture = dataSet.itemAt(index: indexPath.row),
+            let onSelect = onSelect
+        else {
+            return
+        }
+        onSelect(picture)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

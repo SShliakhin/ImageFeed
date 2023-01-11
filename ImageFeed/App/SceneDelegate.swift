@@ -26,6 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func makeImagesListModule() -> UIViewController {
         let adapter = ImagesListTableViewAdapter(dataSet: ImagesListData())
+        adapter.onSelect = { picture in
+            print(picture)
+        }
         let viewController = ImagesListViewController(adapter: adapter)
         return viewController
     }

@@ -39,7 +39,6 @@ final class ImagesListViewController: UIViewController {
 
 private extension ImagesListViewController {
     private func setup() {
-        adapter.delegate = self
         adapter.setupTableView(tableView)
         
         refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
@@ -80,12 +79,5 @@ private extension ImagesListViewController {
     func reloadView() {
         tableView.refreshControl?.endRefreshing()
         adapter.reloadTableView(tableView)
-    }
-}
-
-// MARK: - ImagesListTableViewAdapterDelegate
-extension ImagesListViewController: IImagesListTableViewAdapterDelegate {
-    func didSelectImage(_ adapter: IImagesListTableViewAdapter, didSelect item: Picture) {
-        print(item)
     }
 }
