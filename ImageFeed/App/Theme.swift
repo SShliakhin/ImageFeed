@@ -78,6 +78,7 @@ enum Theme {
         case tabListIcon, tabProfileIcon
         case favoriteActiveIcon, favoriteNoActiveIcon
         case backwardIcon, exitIcon, shareIcon
+        case avatar
     }
     
     static func image(kind: ImageAsset) -> UIImage {
