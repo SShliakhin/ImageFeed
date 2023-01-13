@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        window.rootViewController = makeProfileModule()
+        window.rootViewController = makeTabBarModule()
         window.makeKeyAndVisible()
         self.window = window
     }
@@ -36,6 +36,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func makeProfileModule() -> UIViewController {
         let mockData = Profile.mockProfile
         let viewController = ProfileViewController(with: mockData)
+        return viewController
+    }
+    
+    private func makeTabBarModule() -> UIViewController {
+        let viewController = TabBarController()
+        let imagesList = makeImagesListModule()
+        imagesList.tabBarItem = .init(
+            title: "",
+            image: Theme.image(kind: .tabListIcon),
+            tag: 0)
+        let profile = makeProfileModule()
+        profile.tabBarItem = .init(
+            title: "",
+            image: Theme.image(kind: .tabProfileIcon),
+            tag: 1)
+        viewController.viewControllers = [imagesList, profile]
         return viewController
     }
 }

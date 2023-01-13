@@ -25,6 +25,7 @@
 		5A88661B297015AD006ADA77 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661A297015AD006ADA77 /* UIStackView+Extensions.swift */; };
 		5A88661E29702525006ADA77 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661D29702525006ADA77 /* Profile.swift */; };
 		5A88662029709CEE006ADA77 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661F29709CEE006ADA77 /* ProfileViewModel.swift */; };
+		5A886624297187D3006ADA77 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A886623297187D3006ADA77 /* TabBarController.swift */; };
 		5AAA40892963E23500A6C835 /* ImagesListTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA40882963E23500A6C835 /* ImagesListTableViewAdapter.swift */; };
 		5AAA408D2965C1BE00A6C835 /* ImagesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA408C2965C1BE00A6C835 /* ImagesListData.swift */; };
 		5AAA408F2966E51400A6C835 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA408E2966E51400A6C835 /* CellViewModel.swift */; };
@@ -54,6 +55,7 @@
 		5A88661A297015AD006ADA77 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		5A88661D29702525006ADA77 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		5A88661F29709CEE006ADA77 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		5A886623297187D3006ADA77 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5AAA40882963E23500A6C835 /* ImagesListTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListTableViewAdapter.swift; sourceTree = "<group>"; };
 		5AAA408C2965C1BE00A6C835 /* ImagesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListData.swift; sourceTree = "<group>"; };
 		5AAA408E2966E51400A6C835 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				5A82A9492953DF65006FDBA0 /* ImagesList */,
 				5A88661C29702508006ADA77 /* Profile */,
+				5A886623297187D3006ADA77 /* TabBarController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				5A82A9512954C66F006FDBA0 /* PictureViewModel.swift in Sources */,
 				5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */,
 				5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */,
+				5A886624297187D3006ADA77 /* TabBarController.swift in Sources */,
 				5A82A94F2954C3EB006FDBA0 /* Picture.swift in Sources */,
 				5A82A924295261AF006FDBA0 /* SceneDelegate.swift in Sources */,
 				5A88662029709CEE006ADA77 /* ProfileViewModel.swift in Sources */,
