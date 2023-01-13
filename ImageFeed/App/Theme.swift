@@ -119,6 +119,7 @@ enum Theme {
         case standard
         case standard2
         case standardHalf
+        case standard4
     }
     
     static func spacing(usage: Spacing) -> CGFloat {
@@ -131,6 +132,8 @@ enum Theme {
             customSpacing = 16
         case .standardHalf:
             customSpacing = 4
+        case .standard4:
+            customSpacing = 32
         }
         
         return customSpacing
@@ -142,6 +145,7 @@ enum Theme {
         case likeButton
         case gradientHeight
         case cellHeight(image: UIImage?)
+        case profileImage
     }
     
     static func size(kind: Size) -> CGFloat {
@@ -163,6 +167,8 @@ enum Theme {
             let cellWidth = UIScreen.main.bounds.width - imageInsets.left - imageInsets.right
             
             customSize = cellWidth * aspectRatio + imageInsets.top + imageInsets.bottom
+        case .profileImage:
+            customSize = 70
         }
         
         return customSize

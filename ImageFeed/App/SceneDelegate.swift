@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        window.rootViewController = makeImagesListModule()
+        window.rootViewController = makeProfileModule()
         window.makeKeyAndVisible()
         self.window = window
     }
@@ -30,6 +30,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print(picture)
         }
         let viewController = ImagesListViewController(adapter: adapter)
+        return viewController
+    }
+    
+    private func makeProfileModule() -> UIViewController {
+        let mockData = Profile.mockProfile
+        let viewController = ProfileViewController(with: mockData)
         return viewController
     }
 }
