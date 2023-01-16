@@ -99,9 +99,9 @@
 		5A82A920295261AF006FDBA0 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				5A82A93C295281DD006FDBA0 /* Screens */,
 				5A82A93729527E70006FDBA0 /* App */,
-				5ABFB28A29593D420037C159 /* Utils */,
+				5A82A93C295281DD006FDBA0 /* Screens */,
+				5ABFB28A29593D420037C159 /* Library */,
 				5A82A93829527F29006FDBA0 /* Resources */,
 			);
 			path = ImageFeed;
@@ -204,16 +204,40 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		5ABFB28A29593D420037C159 /* Utils */ = {
+		5ABFB28A29593D420037C159 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				5AFFC999297579AC00BDD49E /* Protocols */,
+				5AFFC9982975799B00BDD49E /* Views */,
+				5AFFC99A297579F800BDD49E /* Utils */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		5AFFC9982975799B00BDD49E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5A22A46E295664270083617E /* GradientView.swift */,
+				5A88662729736BB8006ADA77 /* FullScreenImageScrollView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5AFFC999297579AC00BDD49E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				5AAA408E2966E51400A6C835 /* CellViewModel.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5AFFC99A297579F800BDD49E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
 				5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */,
 				5ABFB28B29593D630037C159 /* Array+Extensions.swift */,
 				5ABFB28D295947050037C159 /* UIView+Animations.swift */,
 				5A88661A297015AD006ADA77 /* UIStackView+Extensions.swift */,
-				5A22A46E295664270083617E /* GradientView.swift */,
-				5A88662729736BB8006ADA77 /* FullScreenImageScrollView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
