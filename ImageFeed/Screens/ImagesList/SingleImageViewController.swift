@@ -11,15 +11,15 @@ class SingleImageViewController: UIViewController {
     private let picture: Picture
     private var image: UIImage? {
         didSet {
-            guard let image = image else { return }
-            imageView.image = image
+            guard let image = image else {
+                return
+            }
+            fullScreenImageScrollView.configure(image: image)
         }
     }
     
-    private var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
+    private lazy var fullScreenImageScrollView: FullScreenImageScrollView = {
+        .init(frame: view.bounds)
     }()
     
     private let backButton: UIButton = {
@@ -77,9 +77,8 @@ private extension SingleImageViewController {
     }
     
     func applyLayout() {
-        
         [
-            imageView,
+            fullScreenImageScrollView,
             backButton,
             shareButton
         ].forEach { item in
@@ -90,10 +89,10 @@ private extension SingleImageViewController {
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            fullScreenImageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            fullScreenImageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            fullScreenImageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            fullScreenImageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             backButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: Theme.spacing(usage: .standard2)),
             backButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Theme.spacing(usage: .standard2)),
