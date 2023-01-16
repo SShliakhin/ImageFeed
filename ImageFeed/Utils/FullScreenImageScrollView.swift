@@ -30,21 +30,27 @@ final class FullScreenImageScrollView: UIScrollView {
 
     func configure(
         image: UIImage,
-        minimumZoomScale: CGFloat? = nil,
-        maximumZoomScale: CGFloat? = nil
+        minZoomScale: CGFloat? = nil,
+        maxZoomScale: CGFloat? = nil
     ) {
         detailedImageView.removeFromSuperview()
 
         detailedImageView = UIImageView(image: image)
         addSubview(detailedImageView)
         
-        if let minimumZoomScale = minimumZoomScale,
-           let maximumZoomScale = maximumZoomScale {
-            self.minimumZoomScale = minimumZoomScale
-            self.maximumZoomScale = maximumZoomScale
+        let zoomFactors = getZoomFactors(imageSize: image.size)
+        
+        if let minZoomScale = minZoomScale,
+           let maxZoomScale = maxZoomScale {
+            minimumZoomScale = minZoomScale
+            maximumZoomScale = maxZoomScale
         } else {
-            rescale(imageSize: image.size)
+            minimumZoomScale = zoomFactors.hScale
+            maximumZoomScale = min(zoomFactors.vScale, zoomFactors.hScale * 2)
         }
+        
+        let scale = min(maximumZoomScale, max(minimumZoomScale, max(zoomFactors.hScale, zoomFactors.vScale)))
+        setZoomScale(scale, animated: false)
         
         detailedImageView.addGestureRecognizer(zoomingTap)
         detailedImageView.isUserInteractionEnabled = true
@@ -55,15 +61,11 @@ final class FullScreenImageScrollView: UIScrollView {
         centerImageView()
     }
     
-    private func rescale(imageSize: CGSize) {
+    private func getZoomFactors(imageSize: CGSize) -> (hScale: CGFloat, vScale: CGFloat) {
         let containerSize = bounds.size
-        
         let hScale = containerSize.width / imageSize.width
         let vScale = containerSize.height / imageSize.height
-        
-        minimumZoomScale = hScale
-        maximumZoomScale = min(vScale, hScale * 2)
-        zoomScale = hScale
+        return (hScale, vScale)
     }
 
     private func centerImageView() {
