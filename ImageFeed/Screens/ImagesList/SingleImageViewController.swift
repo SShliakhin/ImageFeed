@@ -11,9 +11,7 @@ final class SingleImageViewController: UIViewController {
     private let picture: Picture
     private var image: UIImage? {
         didSet {
-            guard let image = image else {
-                return
-            }
+            guard let image = image else { return }
             fullScreenImageScrollView.configure(image: image)
         }
     }

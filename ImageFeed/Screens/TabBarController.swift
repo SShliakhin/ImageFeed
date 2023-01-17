@@ -16,7 +16,7 @@ final class TabBarController: UITabBarController {
 }
 
 private extension TabBarController {
-    private func setupAppearance() {
+    func setupAppearance() {
         let appearance = UITabBarAppearance()
         appearance.backgroundColor = Theme.color(usage: .ypBlack)
         

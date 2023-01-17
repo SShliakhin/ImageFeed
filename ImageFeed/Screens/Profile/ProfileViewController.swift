@@ -128,6 +128,6 @@ private extension ProfileViewController {
 // MARK: - Actions
 private extension ProfileViewController {
     @objc func logoutButtonTapped(_ sender: UIButton) {
-        print(sender.bounds.size)
+        print(#function)
     }
 }

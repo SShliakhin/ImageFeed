@@ -49,12 +49,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         imagesList.tabBarItem = .init(
             title: "",
             image: Theme.image(kind: .tabListIcon),
-            tag: 0)
+            tag: 0
+        )
         let profile = makeProfileModule()
         profile.tabBarItem = .init(
             title: "",
             image: Theme.image(kind: .tabProfileIcon),
-            tag: 1)
+            tag: 1
+        )
         viewController.viewControllers = [imagesList, profile]
         return viewController
     }

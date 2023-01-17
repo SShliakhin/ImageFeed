@@ -33,9 +33,7 @@ final class GradientView: UIView {
         guard
             let startPoint = startPoint,
             let endPoint = endPoint
-        else {
-            return
-        }
+        else { return }
         gradientLayer.startPoint = startPoint
         gradientLayer.endPoint = endPoint
     }
