@@ -13,13 +13,3 @@ struct Profile {
     let loginName: String
     let description: String
 }
-
-// MARK: - MockData
-extension Profile {
-    static let mockProfile = Profile(
-        image: "avatar",
-        fullName: "Екатерина Новикова",
-        loginName: "@ekaterina_nov",
-        description: "Hello, world"
-    )
-}

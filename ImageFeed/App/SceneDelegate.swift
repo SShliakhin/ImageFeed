@@ -41,7 +41,7 @@ private extension SceneDelegate {
     }
     
     func makeProfileModule() -> UIViewController {
-        let mockData = Profile.mockProfile
+        let mockData = MockProvider.profile
         let viewController = ProfileViewController(with: mockData)
         return viewController
     }
