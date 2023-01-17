@@ -23,8 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         self.window = window
     }
-    
-    private func makeImagesListModule() -> UIViewController {
+}
+
+// TODO: - choose final pattern
+private extension SceneDelegate {
+    func makeImagesListModule() -> UIViewController {
         let adapter = ImagesListTableViewAdapter(dataSet: ImagesListData())
         let viewController = ImagesListViewController(adapter: adapter)
         adapter.onSelect = { [weak viewController] picture  in
@@ -37,13 +40,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return viewController
     }
     
-    private func makeProfileModule() -> UIViewController {
+    func makeProfileModule() -> UIViewController {
         let mockData = Profile.mockProfile
         let viewController = ProfileViewController(with: mockData)
         return viewController
     }
     
-    private func makeTabBarModule() -> UIViewController {
+    func makeTabBarModule() -> UIViewController {
         let viewController = TabBarController()
         let imagesList = makeImagesListModule()
         imagesList.tabBarItem = .init(
