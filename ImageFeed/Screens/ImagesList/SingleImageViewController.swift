@@ -12,13 +12,14 @@ final class SingleImageViewController: UIViewController {
     private var image: UIImage? {
         didSet {
             guard let image = image else { return }
-            fullScreenImageScrollView.configure(image: image)
+            fullScreenImageScrollView.configure(
+                frame: view.bounds,
+                image: image
+            )
         }
     }
     
-    private lazy var fullScreenImageScrollView: FullScreenImageScrollView = {
-        .init(frame: view.bounds)
-    }()
+    private let fullScreenImageScrollView = FullScreenImageScrollView()
     
     private let backButton: UIButton = {
         let button = UIButton()
@@ -49,6 +50,10 @@ final class SingleImageViewController: UIViewController {
         setup()
         applyStyle()
         applyLayout()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
         let pictureViewModel = PictureViewModel.init(from: picture)
         image = pictureViewModel.image

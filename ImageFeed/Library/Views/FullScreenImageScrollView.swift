@@ -29,10 +29,12 @@ final class FullScreenImageScrollView: UIScrollView {
     }
 
     func configure(
+        frame: CGRect,
         image: UIImage,
         minZoomScale: CGFloat? = nil,
         maxZoomScale: CGFloat? = nil
     ) {
+        self.frame = frame
         detailedImageView.removeFromSuperview()
 
         detailedImageView = UIImageView(image: image)
