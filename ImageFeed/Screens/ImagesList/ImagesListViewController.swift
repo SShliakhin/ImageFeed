@@ -9,10 +9,10 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
         
-    private let tableView = UITableView()
+    private lazy var tableView = UITableView()
     private let adapter: IImagesListTableViewAdapter
     
-    private let refreshControl = UIRefreshControl()
+    private lazy var refreshControl = UIRefreshControl()
     private var hasRefreshed = false {
         didSet {
             reloadView()

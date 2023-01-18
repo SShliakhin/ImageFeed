@@ -8,7 +8,7 @@
 import UIKit
 
 final class ImagesListCell: UITableViewCell {
-    private let pictureImageView: UIImageView = {
+    private lazy var pictureImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = Theme.size(kind: .cornerRadius)
@@ -16,9 +16,9 @@ final class ImagesListCell: UITableViewCell {
         return imageView
     }()
     
-    private let likeButton = UIButton(type: .custom)
+    private lazy var likeButton = UIButton(type: .custom)
     
-    private let gradientView: GradientView = {
+    private lazy var gradientView: GradientView = {
         let view = GradientView()
         
         view.configure(
@@ -41,7 +41,7 @@ final class ImagesListCell: UITableViewCell {
         return view
     }()
     
-    private let dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = Theme.font(style: .regular13)
         label.textColor = Theme.color(usage: .ypWhite)

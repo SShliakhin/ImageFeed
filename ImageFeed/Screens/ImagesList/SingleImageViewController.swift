@@ -19,16 +19,22 @@ final class SingleImageViewController: UIViewController {
         }
     }
     
-    private let fullScreenImageScrollView = FullScreenImageScrollView()
+    private lazy var fullScreenImageScrollView: FullScreenImageScrollView = {
+        let scrollView = FullScreenImageScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.decelerationRate = UIScrollView.DecelerationRate.fast
+        return scrollView
+    }()
     
-    private let backButton: UIButton = {
+    private lazy var backButton: UIButton = {
         let button = UIButton()
         button.setImage(Theme.image(kind: .backwardIcon), for: .normal)
         button.tintColor = Theme.color(usage: .ypWhite)
         return button
     }()
 
-    private let shareButton: UIButton = {
+    private lazy var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(Theme.image(kind: .shareIcon), for: .normal)
         return button

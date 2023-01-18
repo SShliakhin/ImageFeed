@@ -19,9 +19,6 @@ final class FullScreenImageScrollView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.delegate = self
-        self.showsVerticalScrollIndicator = false
-        self.showsHorizontalScrollIndicator = false
-        self.decelerationRate = UIScrollView.DecelerationRate.fast
     }
 
     required init?(coder: NSCoder) {

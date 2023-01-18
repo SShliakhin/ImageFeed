@@ -9,11 +9,10 @@ import UIKit
 
 final class GradientView: UIView {
 
-    private let gradientLayer = CAGradientLayer()
+    private lazy var gradientLayer = CAGradientLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        gradientLayer.frame = bounds
         layer.insertSublayer(gradientLayer, at: 0)
     }
     

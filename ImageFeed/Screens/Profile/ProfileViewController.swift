@@ -19,36 +19,33 @@ final class ProfileViewController: UIViewController {
         }
     }
     
-    private let vStackView = UIStackView()
-    private let hStackView = UIStackView()
+    private lazy var vStackView = UIStackView()
+    private lazy var hStackView = UIStackView()
     
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
+    private lazy var profileImageView = UIImageView()
     
-    private let nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = Theme.font(style: .bold23)
         label.textColor = Theme.color(usage: .ypWhite)
         return label
     }()
     
-    private let loginNameLabel: UILabel = {
+    private lazy var loginNameLabel: UILabel = {
         let label = UILabel()
         label.font = Theme.font(style: .regular13)
         label.textColor = Theme.color(usage: .ypGray)
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Theme.font(style: .regular13)
         label.textColor = Theme.color(usage: .ypWhite)
         return label
     }()
     
-    private let logoutButton: UIButton = {
+    private lazy var logoutButton: UIButton = {
         let button = UIButton(type: .custom)
         let image = Theme.image(kind: .exitIcon)
         button.setBackgroundImage(image, for: .normal)
