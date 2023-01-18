@@ -9,11 +9,10 @@ import UIKit
 
 final class GradientView: UIView {
 
-    private let gradientLayer = CAGradientLayer()
+    private lazy var gradientLayer = CAGradientLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        gradientLayer.frame = bounds
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
@@ -33,9 +32,7 @@ final class GradientView: UIView {
         guard
             let startPoint = startPoint,
             let endPoint = endPoint
-        else {
-            return
-        }
+        else { return }
         gradientLayer.startPoint = startPoint
         gradientLayer.endPoint = endPoint
     }

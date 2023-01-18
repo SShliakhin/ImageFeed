@@ -14,7 +14,7 @@ final class ImagesListData {
     }
     
     init() {
-        items = Picture.pictures
+        items = MockProvider.pictures
     }
     
     func toggleFavorite(at index: Int) {
