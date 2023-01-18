@@ -95,19 +95,17 @@ private extension SingleImageViewController {
             view.addSubview(item)
         }
         
-        let safeArea = view.safeAreaLayoutGuide
-        
         NSLayoutConstraint.activate([
             fullScreenImageScrollView.topAnchor.constraint(equalTo: view.topAnchor),
             fullScreenImageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             fullScreenImageScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             fullScreenImageScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            backButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: Theme.spacing(usage: .standard2)),
-            backButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Theme.spacing(usage: .standard2)),
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Theme.spacing(usage: .standard2)),
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Theme.spacing(usage: .standard2)),
             
-            shareButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            shareButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -Theme.spacing(usage: .standard2))
+            shareButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            shareButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Theme.spacing(usage: .standard2))
         ])
     }
 }
