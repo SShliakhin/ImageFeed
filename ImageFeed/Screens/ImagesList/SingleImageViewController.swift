@@ -40,7 +40,6 @@ final class SingleImageViewController: UIViewController {
         return button
     }()
 
-    
     init(picture: Picture) {
         self.picture = picture
         super.init(nibName: nil, bundle: nil)
