@@ -57,8 +57,8 @@ final class SingleImageViewController: UIViewController {
         applyLayout()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         let pictureViewModel = PictureViewModel.init(from: picture)
         image = pictureViewModel.image

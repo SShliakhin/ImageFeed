@@ -51,9 +51,16 @@ final class FullScreenImageScrollView: UIScrollView {
         let scale = min(maximumZoomScale, max(minimumZoomScale, max(zoomFactors.hScale, zoomFactors.vScale)))
         setZoomScale(scale, animated: false)
         
-        let x = (contentSize.width - visibleSize.width) / 2
-        let y = (contentSize.height - visibleSize.height) / 2
-        setContentOffset(CGPoint(x: x, y: y), animated: false)
+        let containerSize = bounds.size
+        scrollRectToVisible(
+            CGRect(
+                x: abs(contentSize.width - containerSize.width) / 2,
+                y: abs(contentSize.height - containerSize.height) / 2,
+                width: min(contentSize.width, containerSize.width),
+                height: min(contentSize.height, containerSize.height)
+            ),
+            animated: false
+        )
         
         detailedImageView.addGestureRecognizer(zoomingTap)
         detailedImageView.isUserInteractionEnabled = true
