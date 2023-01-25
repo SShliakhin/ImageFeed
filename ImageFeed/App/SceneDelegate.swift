@@ -28,9 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // TODO: - choose final pattern
 private extension SceneDelegate {
     func makeImagesListModule() -> UIViewController {
-        let adapter = ImagesListTableViewAdapter(dataSet: ImagesListData())
-        let viewController = ImagesListViewController(adapter: adapter)
-        adapter.onSelect = { [weak viewController] picture  in
+        let viewController = ImagesListViewController()
+        viewController.onSelect = { [weak viewController] picture  in
             guard let overVC = viewController else { return }
             let vc = SingleImageViewController(picture: picture)
             vc.modalPresentationStyle = .fullScreen

@@ -28,8 +28,6 @@
 		5A886624297187D3006ADA77 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A886623297187D3006ADA77 /* TabBarController.swift */; };
 		5A8866262971ECE6006ADA77 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8866252971ECE6006ADA77 /* SingleImageViewController.swift */; };
 		5A88662829736BB8006ADA77 /* FullScreenImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88662729736BB8006ADA77 /* FullScreenImageScrollView.swift */; };
-		5AAA40892963E23500A6C835 /* ImagesListTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA40882963E23500A6C835 /* ImagesListTableViewAdapter.swift */; };
-		5AAA408D2965C1BE00A6C835 /* ImagesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA408C2965C1BE00A6C835 /* ImagesListData.swift */; };
 		5AAA408F2966E51400A6C835 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA408E2966E51400A6C835 /* CellViewModel.swift */; };
 		5AAA40912966E71200A6C835 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */; };
 		5ABFB28C29593D630037C159 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB28B29593D630037C159 /* Array+Extensions.swift */; };
@@ -61,8 +59,6 @@
 		5A886623297187D3006ADA77 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5A8866252971ECE6006ADA77 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		5A88662729736BB8006ADA77 /* FullScreenImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageScrollView.swift; sourceTree = "<group>"; };
-		5AAA40882963E23500A6C835 /* ImagesListTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListTableViewAdapter.swift; sourceTree = "<group>"; };
-		5AAA408C2965C1BE00A6C835 /* ImagesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListData.swift; sourceTree = "<group>"; };
 		5AAA408E2966E51400A6C835 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
 		5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		5ABFB28B29593D630037C159 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
@@ -167,7 +163,6 @@
 			children = (
 				5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */,
 				5A82A94C2953E441006FDBA0 /* ImagesListCell.swift */,
-				5AAA40882963E23500A6C835 /* ImagesListTableViewAdapter.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -176,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				5A82A94E2954C3EB006FDBA0 /* Picture.swift */,
-				5AAA408C2965C1BE00A6C835 /* ImagesListData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -326,7 +320,6 @@
 				5A82A926295261AF006FDBA0 /* ImagesListViewController.swift in Sources */,
 				5A22A46F295664270083617E /* GradientView.swift in Sources */,
 				5A8866262971ECE6006ADA77 /* SingleImageViewController.swift in Sources */,
-				5AAA408D2965C1BE00A6C835 /* ImagesListData.swift in Sources */,
 				5A82A9512954C66F006FDBA0 /* PictureViewModel.swift in Sources */,
 				5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */,
 				5AFFC99C29762FEA00BDD49E /* MockProvider.swift in Sources */,
@@ -339,7 +332,6 @@
 				5A82A94D2953E441006FDBA0 /* ImagesListCell.swift in Sources */,
 				5A88661929700DE2006ADA77 /* ProfileViewController.swift in Sources */,
 				5A88662829736BB8006ADA77 /* FullScreenImageScrollView.swift in Sources */,
-				5AAA40892963E23500A6C835 /* ImagesListTableViewAdapter.swift in Sources */,
 				5ABFB28E295947050037C159 /* UIView+Animations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
