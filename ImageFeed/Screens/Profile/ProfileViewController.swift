@@ -8,7 +8,9 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    private var profile: Profile
+    private let profileLoader: ProfileLoading
+    
+    private var profile: Profile?
     var profileViewModel: ProfileViewModel? {
         didSet {
             guard let profile = profileViewModel else { return }
@@ -53,8 +55,8 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    init(with profile: Profile) {
-        self.profile = profile
+    init(profileLoader: ProfileLoading) {
+        self.profileLoader = profileLoader
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,12 +71,15 @@ final class ProfileViewController: UIViewController {
         applyStyle()
         applyLayout()
         
-        profileViewModel = ProfileViewModel(from: profile)
+        if let profile = profile {
+            profileViewModel = ProfileViewModel(from: profile)
+        }
     }
 }
 
 private extension ProfileViewController {
     func setup() {
+        profile = profileLoader.loadProfile()
         logoutButton.addTarget(
             self,
             action: #selector(logoutButtonTapped),

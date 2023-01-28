@@ -8,7 +8,8 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
-        
+    private let picturesLoader: PicturesLoading
+    
     private var pictures: [Picture] = []
     private var didAnimateCells: [IndexPath: Bool] = [:]
     
@@ -23,7 +24,8 @@ final class ImagesListViewController: UIViewController {
     
     var onSelect: ((Picture) -> Void)?
     
-    init() {
+    init(picturesLoader: PicturesLoading) {
+        self.picturesLoader = picturesLoader
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,7 +44,7 @@ final class ImagesListViewController: UIViewController {
 
 private extension ImagesListViewController {
     private func setup() {
-        pictures = MockProvider.pictures
+        pictures = picturesLoader.loadPictures()
         setupTableView()
         
         refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)

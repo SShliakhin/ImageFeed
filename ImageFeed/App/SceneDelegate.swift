@@ -28,20 +28,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // TODO: - choose final pattern
 private extension SceneDelegate {
     func makeImagesListModule() -> UIViewController {
-        let viewController = ImagesListViewController()
-        viewController.onSelect = { [weak viewController] picture  in
-            guard let overVC = viewController else { return }
-            let vc = SingleImageViewController(picture: picture)
-            vc.modalPresentationStyle = .fullScreen
-        
+        let viewController = ImagesListViewController(picturesLoader: PicturesLoader())
+        viewController.onSelect = { [weak viewController, weak self] picture  in
+            guard
+                let overVC = viewController,
+                let self = self
+            else { return }
+            let vc = self.makeSingleImageModule(picture)
             overVC.present(vc, animated: true)
         }
         return viewController
     }
     
+    func makeSingleImageModule(_ picture: Picture) -> UIViewController {
+        let viewController = SingleImageViewController(picture: picture)
+        viewController.modalPresentationStyle = .fullScreen
+        return viewController
+    }
+    
     func makeProfileModule() -> UIViewController {
-        let mockData = MockProvider.profile
-        let viewController = ProfileViewController(with: mockData)
+        let viewController = ProfileViewController(profileLoader: ProfileLoader())
         return viewController
     }
     
