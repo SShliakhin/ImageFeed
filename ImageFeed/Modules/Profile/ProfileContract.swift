@@ -28,5 +28,5 @@ protocol IProfileInteractorOutput: AnyObject {
 }
 
 // MARK: Router Input (Presenter -> Router)
-protocol IProfileRouter: MainRoute {
+protocol IProfileRouter: MainRouting {
 }
