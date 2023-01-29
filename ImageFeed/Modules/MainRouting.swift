@@ -8,8 +8,9 @@
 import UIKit
 
 protocol MainRouting: AnyObject {
+    typealias Factory = ModuleFactory
     var view: UIViewController? { get set}
-    var factory: ModuleFactory { get }
+    var factory: Factory { get }
     
     func navigate(_ route: ModuleRoutes)
     func exit()

@@ -47,13 +47,21 @@ extension DependencyContainer: ModuleFactory {
     }
     
     func makeImagesListModule() -> UIViewController {
-        let viewController = ImagesListViewController(picturesLoader: PicturesLoader())
-        viewController.onSelect = { [weak viewController] picture  in
-            guard let overVC = viewController else { return }
+        let router = ImagesListRouter()
+        let interactor = ImagesListInteractor(picturesLoader: makePicturesLoader())
+        let presenter = ImagesListPresenter(interactor: interactor, router: router)
+        let view = ImagesListViewController(presenter: presenter)
+        
+        view.onSelect = { [weak view] picture  in
+            guard let overVC = view else { return }
             let vc = self.makeSingleImageModule(picture)
             overVC.present(vc, animated: true)
         }
-        return viewController
+        
+        interactor.output = presenter
+        presenter.view = view
+        router.view = view
+        return view
     }
     
     func makeSingleImageModule(_ picture: Picture) -> UIViewController {

@@ -8,11 +8,15 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
-    private let picturesLoader: PicturesLoading
+    
+    private let presenter: IImagesListViewOutput
     
     private var pictures: [Picture] = []
     private var didAnimateCells: [IndexPath: Bool] = [:]
     
+    var onSelect: ((Picture) -> Void)?
+    
+    // MARK: - UI
     private lazy var tableView = UITableView()
     
     private lazy var refreshControl = UIRefreshControl()
@@ -22,10 +26,9 @@ final class ImagesListViewController: UIViewController {
         }
     }
     
-    var onSelect: ((Picture) -> Void)?
-    
-    init(picturesLoader: PicturesLoading) {
-        self.picturesLoader = picturesLoader
+    // MARK: - Init
+    init(presenter: ImagesListPresenter) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,12 +42,22 @@ final class ImagesListViewController: UIViewController {
         setup()
         applyStyle()
         applyLayout()
+        
+        presenter.viewDidLoad()
     }
 }
 
+// MARK: - IImagesListViewInput
+extension ImagesListViewController: IImagesListViewInput {
+    func showImages(pictures: [Picture]) {
+        self.pictures = pictures
+        tableView.reloadData()
+    }
+}
+
+// MARK: - UIComponent
 private extension ImagesListViewController {
     private func setup() {
-        pictures = picturesLoader.loadPictures()
         setupTableView()
         
         refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
