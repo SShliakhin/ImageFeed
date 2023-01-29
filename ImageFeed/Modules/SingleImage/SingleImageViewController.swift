@@ -8,7 +8,11 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
+    
+    private let presenter: ISingleImageViewOutput
     private let picture: Picture
+    
+    // MARK: - UI
     private var image: UIImage? {
         didSet {
             guard let image = image else { return }
@@ -40,7 +44,9 @@ final class SingleImageViewController: UIViewController {
         return button
     }()
 
-    init(picture: Picture) {
+    // MARK: - Init
+    init(presenter: ISingleImageViewOutput, picture: Picture) {
+        self.presenter = presenter
         self.picture = picture
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,22 +55,27 @@ final class SingleImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setup()
         applyStyle()
         applyLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
+        presenter.viewDidLoad()
+    }
+}
+
+// MARK: - IImagesListViewInput
+extension SingleImageViewController: ISingleImageViewInput {
+    func showImage() {
         let pictureViewModel = PictureViewModel.init(from: picture)
         image = pictureViewModel.image
     }
 }
 
+// MARK: - UIComponent
 private extension SingleImageViewController {
     func setup() {
         backButton.addTarget(
@@ -112,7 +123,7 @@ private extension SingleImageViewController {
 // MARK: - Actions
 private extension SingleImageViewController {
     @objc func backButtonTapped(_ sender: UIButton) {
-        dismiss(animated: true)
+        presenter.didTapBack()
     }
     
     @objc func shareButtonTapped(_ sender: UIButton) {

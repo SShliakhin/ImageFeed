@@ -20,6 +20,10 @@ final class ImagesListPresenter: IImagesListViewOutput {
     func viewDidLoad() {
         interactor.loadImages()
     }
+    
+    func didSelectPicture(_ picture: Picture) {
+        router.navigate(.toSingleImage(picture))
+    }
 }
 
 extension ImagesListPresenter: IImagesListInteractorOutput {

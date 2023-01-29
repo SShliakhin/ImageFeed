@@ -10,6 +10,7 @@ import UIKit
 // MARK: View Output (Presenter -> View)
 protocol IImagesListViewOutput: AnyObject {
     func viewDidLoad()
+    func didSelectPicture(_ picture: Picture)
 }
 
 // MARK: View Input (View -> Presenter)

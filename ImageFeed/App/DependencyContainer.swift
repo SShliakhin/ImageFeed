@@ -52,12 +52,6 @@ extension DependencyContainer: ModuleFactory {
         let presenter = ImagesListPresenter(interactor: interactor, router: router)
         let view = ImagesListViewController(presenter: presenter)
         
-        view.onSelect = { [weak view] picture  in
-            guard let overVC = view else { return }
-            let vc = self.makeSingleImageModule(picture)
-            overVC.present(vc, animated: true)
-        }
-        
         interactor.output = presenter
         presenter.view = view
         router.view = view
@@ -65,9 +59,17 @@ extension DependencyContainer: ModuleFactory {
     }
     
     func makeSingleImageModule(_ picture: Picture) -> UIViewController {
-        let viewController = SingleImageViewController(picture: picture)
-        viewController.modalPresentationStyle = .fullScreen
-        return viewController
+        let router = SingleImageRouter()
+        let interactor = SingleImageInteractor()
+        let presenter = SingleImagePresenter(interactor: interactor, router: router)
+        let view = SingleImageViewController(presenter: presenter, picture: picture)
+        
+        view.modalPresentationStyle = .fullScreen
+        
+        interactor.output = presenter
+        presenter.view = view
+        router.view = view
+        return view
     }
     
     func makeProfileModule() -> UIViewController {

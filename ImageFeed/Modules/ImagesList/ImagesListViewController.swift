@@ -14,8 +14,6 @@ final class ImagesListViewController: UIViewController {
     private var pictures: [Picture] = []
     private var didAnimateCells: [IndexPath: Bool] = [:]
     
-    var onSelect: ((Picture) -> Void)?
-    
     // MARK: - UI
     private lazy var tableView = UITableView()
     
@@ -36,6 +34,7 @@ final class ImagesListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -135,13 +134,8 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard
-            let picture = pictures[safe: indexPath.row],
-            let onSelect = onSelect
-        else {
-            return
-        }
-        onSelect(picture)
+        guard let picture = pictures[safe: indexPath.row] else { return }
+        presenter.didSelectPicture(picture)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
