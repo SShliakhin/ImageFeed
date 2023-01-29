@@ -8,9 +8,9 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    private let profileLoader: ProfileLoading
     
-    private var profile: Profile?
+    private let presenter: IProfileViewOutput
+    
     var profileViewModel: ProfileViewModel? {
         didSet {
             guard let profile = profileViewModel else { return }
@@ -21,6 +21,7 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    // MARK: - UI
     private lazy var vStackView = UIStackView()
     private lazy var hStackView = UIStackView()
     
@@ -55,8 +56,9 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    init(profileLoader: ProfileLoading) {
-        self.profileLoader = profileLoader
+    // MARK: - Init
+    init(presenter: IProfileViewOutput) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -64,6 +66,7 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,15 +74,20 @@ final class ProfileViewController: UIViewController {
         applyStyle()
         applyLayout()
         
-        if let profile = profile {
-            profileViewModel = ProfileViewModel(from: profile)
-        }
+        presenter.viewDidLoad()
     }
 }
 
+// MARK: - IProfileViewInput
+extension ProfileViewController: IProfileViewInput {
+    func showProfile(profile: ProfileViewModel) {
+        profileViewModel = profile
+    }
+}
+
+// MARK: - UIComponent
 private extension ProfileViewController {
     func setup() {
-        profile = profileLoader.loadProfile()
         logoutButton.addTarget(
             self,
             action: #selector(logoutButtonTapped),
