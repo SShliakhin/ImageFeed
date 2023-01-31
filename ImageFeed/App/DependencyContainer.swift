@@ -8,6 +8,7 @@
 import UIKit
 
 protocol ModuleFactory {
+    func makeAuthModule() -> UIViewController
     func makeTabBarModule() -> UIViewController
     func makeImagesListModule() -> UIViewController
     func makeSingleImageModule(_ picture: Picture) -> UIViewController
@@ -21,12 +22,16 @@ protocol LoaderFactory {
 
 final class DependencyContainer {
     func makeRootViewController() -> UIViewController {
-        makeTabBarModule()
+        makeAuthModule()
     }
 }
 
 // MARK: - ModuleFactory
 extension DependencyContainer: ModuleFactory {
+    
+    func makeAuthModule() -> UIViewController {
+        AuthViewController()
+    }
     
     func makeTabBarModule() -> UIViewController {
         let viewController = TabBarController()

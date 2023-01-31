@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A22A46F295664270083617E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A22A46E295664270083617E /* GradientView.swift */; };
 		5A5FB3552988CDB000F72BE1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FB3542988CDB000F72BE1 /* Constants.swift */; };
+		5A5FB3572988E94700F72BE1 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5FB3562988E94700F72BE1 /* AuthViewController.swift */; };
 		5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A921295261AF006FDBA0 /* AppDelegate.swift */; };
 		5A82A924295261AF006FDBA0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A923295261AF006FDBA0 /* SceneDelegate.swift */; };
 		5A82A926295261AF006FDBA0 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A925295261AF006FDBA0 /* ImagesListViewController.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		5A22A46E295664270083617E /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		5A5FB3542988CDB000F72BE1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5A5FB3562988E94700F72BE1 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		5A82A91E295261AF006FDBA0 /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A82A921295261AF006FDBA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A82A923295261AF006FDBA0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A5FB3582988E96700F72BE1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				5A5FB3562988E94700F72BE1 /* AuthViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		5A82A915295261AF006FDBA0 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +187,7 @@
 		5A82A93C295281DD006FDBA0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5A5FB3582988E96700F72BE1 /* Auth */,
 				5A82A9492953DF65006FDBA0 /* ImagesList */,
 				5A9B20E32986DEA600D0A7E0 /* SingleImage */,
 				5A88661C29702508006ADA77 /* Profile */,
@@ -396,6 +407,7 @@
 				5A9B20D629869BC400D0A7E0 /* ProfileInteractor.swift in Sources */,
 				5AFFC99C29762FEA00BDD49E /* MockProvider.swift in Sources */,
 				5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */,
+				5A5FB3572988E94700F72BE1 /* AuthViewController.swift in Sources */,
 				5A9B20D029863CA600D0A7E0 /* DependencyContainer.swift in Sources */,
 				5A886624297187D3006ADA77 /* TabBarController.swift in Sources */,
 				5A82A94F2954C3EB006FDBA0 /* Picture.swift in Sources */,
