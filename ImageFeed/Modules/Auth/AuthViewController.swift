@@ -39,6 +39,16 @@ final class AuthViewController: UIViewController {
     }
 }
 
+extension AuthViewController: WebViewViewControllerDelegate {
+    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
+        print(#function)
+    }
+    
+    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
+        vc.dismiss(animated: true)
+    }
+}
+
 // MARK: - UIComponent
 private extension AuthViewController {
     private func setup() {
@@ -69,6 +79,9 @@ private extension AuthViewController {
 // MARK: - Actions
 private extension AuthViewController {
     @objc func loginButtonTapped(_ sender: UIButton) {
-        print(#function)
+        let vc = WebViewViewController()
+        vc.delegate = self
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }
