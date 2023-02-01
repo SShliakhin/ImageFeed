@@ -30,6 +30,12 @@ final class WebViewViewController: UIViewController {
         button.tintColor = Theme.color(usage: .ypBlack)
         return button
     }()
+    
+    private lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.tintColor = Theme.color(usage: .ypBlack)
+        return progressView
+    }()
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -100,10 +106,11 @@ private extension WebViewViewController {
     
     func applyStyle() {
         view.backgroundColor = Theme.color(usage: .ypWhite)
+        progressView.progress = 0.5
     }
     
     func applyLayout() {
-        [webView, backButton].forEach { item in
+        [webView, backButton, progressView].forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(item)
         }
@@ -115,7 +122,11 @@ private extension WebViewViewController {
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Theme.spacing(usage: .standard2)),
-            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Theme.spacing(usage: .standard2))
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Theme.spacing(usage: .standard2)),
+            
+            progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
