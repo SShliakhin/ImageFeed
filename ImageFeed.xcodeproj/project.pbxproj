@@ -24,6 +24,9 @@
 		5A82A94D2953E441006FDBA0 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A94C2953E441006FDBA0 /* ImagesListCell.swift */; };
 		5A82A94F2954C3EB006FDBA0 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A94E2954C3EB006FDBA0 /* Picture.swift */; };
 		5A82A9512954C66F006FDBA0 /* PictureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */; };
+		5A8690EE298B278700BD7FC6 /* AuthContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690ED298B278700BD7FC6 /* AuthContract.swift */; };
+		5A8690F0298B2A4B00BD7FC6 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690EF298B2A4B00BD7FC6 /* AuthRouter.swift */; };
+		5A8690F2298B2B6E00BD7FC6 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690F1298B2B6E00BD7FC6 /* AuthPresenter.swift */; };
 		5A88661929700DE2006ADA77 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661829700DE2006ADA77 /* ProfileViewController.swift */; };
 		5A88661B297015AD006ADA77 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661A297015AD006ADA77 /* UIStackView+Extensions.swift */; };
 		5A88661E29702525006ADA77 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661D29702525006ADA77 /* Profile.swift */; };
@@ -74,6 +77,9 @@
 		5A82A94C2953E441006FDBA0 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		5A82A94E2954C3EB006FDBA0 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		5A82A9502954C66F006FDBA0 /* PictureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureViewModel.swift; sourceTree = "<group>"; };
+		5A8690ED298B278700BD7FC6 /* AuthContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContract.swift; sourceTree = "<group>"; };
+		5A8690EF298B2A4B00BD7FC6 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		5A8690F1298B2B6E00BD7FC6 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		5A88661829700DE2006ADA77 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5A88661A297015AD006ADA77 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		5A88661D29702525006ADA77 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -119,6 +125,9 @@
 			isa = PBXGroup;
 			children = (
 				5A5FB3562988E94700F72BE1 /* AuthViewController.swift */,
+				5A8690ED298B278700BD7FC6 /* AuthContract.swift */,
+				5A8690F1298B2B6E00BD7FC6 /* AuthPresenter.swift */,
+				5A8690EF298B2A4B00BD7FC6 /* AuthRouter.swift */,
 				5A5FB3592988FE0300F72BE1 /* WebViewViewController.swift */,
 			);
 			path = Auth;
@@ -400,6 +409,7 @@
 				5AAA40912966E71200A6C835 /* UITableView+Extensions.swift in Sources */,
 				5A82A926295261AF006FDBA0 /* ImagesListViewController.swift in Sources */,
 				5A9B20E92986E29800D0A7E0 /* SingleImageInteractor.swift in Sources */,
+				5A8690F0298B2A4B00BD7FC6 /* AuthRouter.swift in Sources */,
 				5A9B20EB2986E55600D0A7E0 /* SingleImagePresenter.swift in Sources */,
 				5A9B20E52986E17000D0A7E0 /* SingleImageContract.swift in Sources */,
 				5A22A46F295664270083617E /* GradientView.swift in Sources */,
@@ -415,6 +425,7 @@
 				5A886624297187D3006ADA77 /* TabBarController.swift in Sources */,
 				5A82A94F2954C3EB006FDBA0 /* Picture.swift in Sources */,
 				5A9B20D229864AF700D0A7E0 /* ProfileContract.swift in Sources */,
+				5A8690F2298B2B6E00BD7FC6 /* AuthPresenter.swift in Sources */,
 				5A82A924295261AF006FDBA0 /* SceneDelegate.swift in Sources */,
 				5A88662029709CEE006ADA77 /* ProfileViewModel.swift in Sources */,
 				5A9B20DC2986D03800D0A7E0 /* ImagesListContract.swift in Sources */,
@@ -423,6 +434,7 @@
 				5A9B20DE2986D3FC00D0A7E0 /* ImagesListRouter.swift in Sources */,
 				5A82A94D2953E441006FDBA0 /* ImagesListCell.swift in Sources */,
 				5A9B20CD298561B300D0A7E0 /* ProfileLoader.swift in Sources */,
+				5A8690EE298B278700BD7FC6 /* AuthContract.swift in Sources */,
 				5A9B20D829869C2B00D0A7E0 /* ProfilePresenter.swift in Sources */,
 				5A88661929700DE2006ADA77 /* ProfileViewController.swift in Sources */,
 				5A88662829736BB8006ADA77 /* FullScreenImageScrollView.swift in Sources */,

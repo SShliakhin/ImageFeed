@@ -27,6 +27,8 @@ extension MainRouting {
 }
 
 enum ModuleRoutes {
+    case toAuth
+    case toWebView(IWebViewModuleOutput?)
     case toMainModule
     case toImageList
     case toSingleImage(Picture)
@@ -34,6 +36,10 @@ enum ModuleRoutes {
     
     func getModule(factory: ModuleFactory) -> UIViewController {
         switch self {
+        case .toAuth:
+            return factory.makeAuthModule()
+        case .toWebView(let moduleOutput):
+            return factory.makeWebViewModule(moduleOutput)
         case .toMainModule:
             return factory.makeTabBarModule()
         case .toImageList:

@@ -9,6 +9,8 @@ import UIKit
 
 final class AuthViewController: UIViewController {
     
+    private let presenter: IAuthViewOutput
+    
     // MARK: - UI
     private lazy var unsplashLogoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -28,6 +30,16 @@ final class AuthViewController: UIViewController {
         button.clipsToBounds = true
         return button
     }()
+    
+    // MARK: - Init
+    init(presenter: IAuthViewOutput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -39,15 +51,8 @@ final class AuthViewController: UIViewController {
     }
 }
 
-extension AuthViewController: WebViewViewControllerDelegate {
-    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        print(#function)
-    }
-    
-    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
-        vc.dismiss(animated: true)
-    }
-}
+// MARK: - IAuthViewInput
+extension AuthViewController: IAuthViewInput {}
 
 // MARK: - UIComponent
 private extension AuthViewController {
@@ -79,9 +84,6 @@ private extension AuthViewController {
 // MARK: - Actions
 private extension AuthViewController {
     @objc func loginButtonTapped(_ sender: UIButton) {
-        let vc = WebViewViewController()
-        vc.delegate = self
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+        presenter.didTapLogin()
     }
 }

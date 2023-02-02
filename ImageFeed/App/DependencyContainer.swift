@@ -9,6 +9,7 @@ import UIKit
 
 protocol ModuleFactory {
     func makeAuthModule() -> UIViewController
+    func makeWebViewModule(_ moduleOutput: IWebViewModuleOutput?) -> UIViewController
     func makeTabBarModule() -> UIViewController
     func makeImagesListModule() -> UIViewController
     func makeSingleImageModule(_ picture: Picture) -> UIViewController
@@ -28,9 +29,21 @@ final class DependencyContainer {
 
 // MARK: - ModuleFactory
 extension DependencyContainer: ModuleFactory {
-    
+    func makeWebViewModule(_ moduleOutput: IWebViewModuleOutput?) -> UIViewController {
+        let view = WebViewViewController()
+        view.moduleOutput = moduleOutput
+        view.modalPresentationStyle = .fullScreen
+        return view
+    }
+
     func makeAuthModule() -> UIViewController {
-        AuthViewController()
+        let router = AuthRouter()
+        let presenter = AuthPresenter(router: router)
+        let view = AuthViewController(presenter: presenter)
+        
+        presenter.view = view
+        router.view = view
+        return view
     }
     
     func makeTabBarModule() -> UIViewController {
