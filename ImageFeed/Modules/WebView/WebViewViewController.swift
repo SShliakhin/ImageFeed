@@ -8,14 +8,9 @@
 import UIKit
 import WebKit
 
-protocol IWebViewModuleOutput: AnyObject {
-    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String)
-    func webViewViewControllerDidCancel(_ vc: WebViewViewController)
-}
-
 final class WebViewViewController: UIViewController {
     
-    weak var moduleOutput: IWebViewModuleOutput?
+    private let presenter: IWebViewViewOutput
     
     // MARK: - UI
     private lazy var webView: WKWebView = {
@@ -37,6 +32,16 @@ final class WebViewViewController: UIViewController {
         return progressView
     }()
 
+    // MARK: - Init
+    init(presenter: IWebViewViewOutput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +52,9 @@ final class WebViewViewController: UIViewController {
     }
 }
 
+// MARK: - IWebViewViewInput
+extension WebViewViewController: IWebViewViewInput{}
+
 // MARK: - WKNavigationDelegate
 extension WebViewViewController: WKNavigationDelegate {
     func webView(
@@ -55,7 +63,7 @@ extension WebViewViewController: WKNavigationDelegate {
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
         if let code = getAuthCode(from: navigationAction) {
-            moduleOutput?.webViewViewController(self, didAuthenticateWithCode: code)
+            presenter.didGetAuthCode(code)
             decisionHandler(.cancel)
         } else {
             decisionHandler(.allow)
@@ -134,6 +142,6 @@ private extension WebViewViewController {
 // MARK: - Actions
 private extension WebViewViewController {
     @objc func backButtonTapped(_ sender: UIButton) {
-        moduleOutput?.webViewViewControllerDidCancel(self)
+        presenter.didTapBack()
     }
 }

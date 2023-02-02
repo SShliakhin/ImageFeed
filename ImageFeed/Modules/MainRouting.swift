@@ -28,7 +28,7 @@ extension MainRouting {
 
 enum ModuleRoutes {
     case toAuth
-    case toWebView(IWebViewModuleOutput?)
+    case toWebView(IWebViewModuleOutput)
     case toMainModule
     case toImageList
     case toSingleImage(Picture)

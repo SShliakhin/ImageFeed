@@ -27,6 +27,8 @@
 		5A8690EE298B278700BD7FC6 /* AuthContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690ED298B278700BD7FC6 /* AuthContract.swift */; };
 		5A8690F0298B2A4B00BD7FC6 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690EF298B2A4B00BD7FC6 /* AuthRouter.swift */; };
 		5A8690F2298B2B6E00BD7FC6 /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690F1298B2B6E00BD7FC6 /* AuthPresenter.swift */; };
+		5A8690F5298B3E5D00BD7FC6 /* WebViewContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690F4298B3E5D00BD7FC6 /* WebViewContract.swift */; };
+		5A8690F7298B3F2B00BD7FC6 /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8690F6298B3F2B00BD7FC6 /* WebViewPresenter.swift */; };
 		5A88661929700DE2006ADA77 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661829700DE2006ADA77 /* ProfileViewController.swift */; };
 		5A88661B297015AD006ADA77 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661A297015AD006ADA77 /* UIStackView+Extensions.swift */; };
 		5A88661E29702525006ADA77 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88661D29702525006ADA77 /* Profile.swift */; };
@@ -80,6 +82,8 @@
 		5A8690ED298B278700BD7FC6 /* AuthContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContract.swift; sourceTree = "<group>"; };
 		5A8690EF298B2A4B00BD7FC6 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		5A8690F1298B2B6E00BD7FC6 /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
+		5A8690F4298B3E5D00BD7FC6 /* WebViewContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContract.swift; sourceTree = "<group>"; };
+		5A8690F6298B3F2B00BD7FC6 /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		5A88661829700DE2006ADA77 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5A88661A297015AD006ADA77 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		5A88661D29702525006ADA77 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -128,7 +132,6 @@
 				5A8690ED298B278700BD7FC6 /* AuthContract.swift */,
 				5A8690F1298B2B6E00BD7FC6 /* AuthPresenter.swift */,
 				5A8690EF298B2A4B00BD7FC6 /* AuthRouter.swift */,
-				5A5FB3592988FE0300F72BE1 /* WebViewViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				5A5FB3582988E96700F72BE1 /* Auth */,
+				5A8690F3298B399900BD7FC6 /* WebView */,
 				5A82A9492953DF65006FDBA0 /* ImagesList */,
 				5A9B20E32986DEA600D0A7E0 /* SingleImage */,
 				5A88661C29702508006ADA77 /* Profile */,
@@ -238,6 +242,16 @@
 				5A82A94E2954C3EB006FDBA0 /* Picture.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5A8690F3298B399900BD7FC6 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				5A8690F4298B3E5D00BD7FC6 /* WebViewContract.swift */,
+				5A8690F6298B3F2B00BD7FC6 /* WebViewPresenter.swift */,
+				5A5FB3592988FE0300F72BE1 /* WebViewViewController.swift */,
+			);
+			path = WebView;
 			sourceTree = "<group>";
 		};
 		5A88661C29702508006ADA77 /* Profile */ = {
@@ -411,7 +425,9 @@
 				5A9B20E92986E29800D0A7E0 /* SingleImageInteractor.swift in Sources */,
 				5A8690F0298B2A4B00BD7FC6 /* AuthRouter.swift in Sources */,
 				5A9B20EB2986E55600D0A7E0 /* SingleImagePresenter.swift in Sources */,
+				5A8690F5298B3E5D00BD7FC6 /* WebViewContract.swift in Sources */,
 				5A9B20E52986E17000D0A7E0 /* SingleImageContract.swift in Sources */,
+				5A8690F7298B3F2B00BD7FC6 /* WebViewPresenter.swift in Sources */,
 				5A22A46F295664270083617E /* GradientView.swift in Sources */,
 				5A9B20CB29855FBF00D0A7E0 /* PicturesLoader.swift in Sources */,
 				5A8866262971ECE6006ADA77 /* SingleImageViewController.swift in Sources */,

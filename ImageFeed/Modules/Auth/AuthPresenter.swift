@@ -5,7 +5,7 @@
 //  Created by SERGEY SHLYAKHIN on 02.02.2023.
 //
 
-import Foundation
+import UIKit
 
 final class AuthPresenter: IAuthViewOutput {
     weak var view: IAuthViewInput?
@@ -21,12 +21,12 @@ final class AuthPresenter: IAuthViewOutput {
 }
 
 extension AuthPresenter: IWebViewModuleOutput {
-    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
+    func webViewModule(_ vc: UIViewController, didAuthenticateWithCode code: String) {
         print(#function)
         vc.dismiss(animated: true)
     }
     
-    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
+    func WebViewModuleDidCancel(_ vc: UIViewController) {
         vc.dismiss(animated: true)
     }
 }
