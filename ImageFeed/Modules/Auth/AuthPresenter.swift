@@ -26,7 +26,7 @@ extension AuthPresenter: IWebViewModuleOutput {
         vc.dismiss(animated: true)
     }
     
-    func WebViewModuleDidCancel(_ vc: UIViewController) {
+    func webViewModuleDidCancel(_ vc: UIViewController) {
         vc.dismiss(animated: true)
     }
 }

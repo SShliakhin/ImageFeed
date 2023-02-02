@@ -62,25 +62,11 @@ extension WebViewViewController: WKNavigationDelegate {
         decidePolicyFor navigationAction: WKNavigationAction,
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
-        if let code = getAuthCode(from: navigationAction) {
+        if let code = presenter.getAuthCode(from: navigationAction.request.url) {
             presenter.didGetAuthCode(code)
             decisionHandler(.cancel)
         } else {
             decisionHandler(.allow)
-        }
-    }
-
-    private func getAuthCode(from navigationAction: WKNavigationAction) -> String? {
-        if
-            let url = navigationAction.request.url,
-            let urlComponents = URLComponents(string: url.absoluteString),
-            urlComponents.path == "/oauth/authorize/native",
-            let items = urlComponents.queryItems,
-            let codeItem = items.first(where: { $0.name == "code" })
-        {
-            return codeItem.value
-        } else {
-            return nil
         }
     }
 }
@@ -89,26 +75,9 @@ extension WebViewViewController: WKNavigationDelegate {
 private extension WebViewViewController {
     func setup() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .primaryActionTriggered)
-        setupWebView()
-    }
-    
-    func setupWebView() {
+        
         webView.navigationDelegate = self
-        
-        guard var urlComponents = URLComponents(string: .key(.unsplashAuthorizeURLString)) else {
-            fatalError("Can't construct urlComponent")
-        }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: .key(.accessKey)),
-            URLQueryItem(name: "redirect_uri", value: .key(.redirectURI)),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: .key(.accessScope))
-        ]
-        guard let url = urlComponents.url else {
-            fatalError("Can't construct url")
-        }
-        
-        let request = URLRequest(url: url)
+        let request = presenter.getRequest()
         webView.load(request)
     }
     
