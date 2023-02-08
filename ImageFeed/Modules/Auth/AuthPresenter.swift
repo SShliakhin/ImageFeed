@@ -23,6 +23,9 @@ final class AuthPresenter: IAuthViewOutput {
 extension AuthPresenter: IWebViewModuleOutput {
     func webViewModule(_ vc: UIViewController, didAuthenticateWithCode code: String) {
         print(#function)
+        // TODO: - взять код и
+        // сделать POST-запрос на https://unsplash.com/oauth/token.
+        // взять access_token и сохранить его в UserDefaults
         vc.dismiss(animated: true)
     }
     

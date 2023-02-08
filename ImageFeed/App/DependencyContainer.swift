@@ -22,6 +22,12 @@ protocol LoaderFactory {
 }
 
 final class DependencyContainer {
+    private let session: URLSession
+    
+    public init(configuration: URLSessionConfiguration = .default) {
+        self.session = URLSession(configuration: configuration)
+    }
+    
     func makeRootViewController() -> UIViewController {
         makeAuthModule()
     }
@@ -115,5 +121,32 @@ extension DependencyContainer: LoaderFactory {
     
     func makeProfileLoader() -> ProfileLoading {
         ProfileLoader()
+    }
+}
+
+protocol LoginServicesFactory {
+    func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage
+    func makeNetworkService() -> APIClient
+    func makeAuthTokenResoursePostRequest(
+        _ endpoint: UnsplashAPI,
+        body: OAuthTokenResponseBody
+    ) -> IRequest
+}
+
+// MARK: - LoginServicesFactory
+extension DependencyContainer: LoginServicesFactory {
+    func makeNetworkService() -> APIClient {
+        return APIClient(session: session)
+    }
+    
+    func makeAuthTokenResoursePostRequest(
+        _ endpoint: UnsplashAPI,
+        body: OAuthTokenResponseBody
+    ) -> IRequest {
+        PostRequest(endpoint: endpoint.url, body: body)
+    }
+    
+    func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage {
+        TokenStorage.init(userDefaults: storage)
     }
 }

@@ -12,19 +12,9 @@ final class WebViewPresenter: IWebViewViewOutput {
     weak var moduleOutput: IWebViewModuleOutput?
     
     func getRequest() -> URLRequest {
-        guard var urlComponents = URLComponents(string: .key(.unsplashAuthorizeURLString)) else {
-            fatalError("Can't construct urlComponent")
-        }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: .key(.accessKey)),
-            URLQueryItem(name: "redirect_uri", value: .key(.redirectURI)),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: .key(.accessScope))
-        ]
-        guard let url = urlComponents.url else {
+        guard let url = UnsplashAPI.getAuthorizationCodeRequest.url else {
             fatalError("Can't construct url")
         }
-        
         return URLRequest(url: url)
     }
     
