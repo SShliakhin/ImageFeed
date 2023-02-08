@@ -22,10 +22,17 @@ final class AuthPresenter: IAuthViewOutput {
 
 extension AuthPresenter: IWebViewModuleOutput {
     func webViewModule(_ vc: UIViewController, didAuthenticateWithCode code: String) {
-        print(#function)
-        // TODO: - взять код и
-        // сделать POST-запрос на https://unsplash.com/oauth/token.
-        // взять access_token и сохранить его в UserDefaults
+        let network = APIClient(session: .shared)
+        
+        let resourse = UnsplashAPI.getAuthTokenRequest(code)
+        let request = PostRequest(endpoint: resourse.url, body: "")
+        
+        network.send(request){ (result: Result<OAuthTokenResponseBody, APIError>) in
+            switch result {
+            case .success(let body): print("Token: ===========", body.accessToken)
+            case .failure(let error): print(error.localizedDescription)
+            }
+        }
         vc.dismiss(animated: true)
     }
     

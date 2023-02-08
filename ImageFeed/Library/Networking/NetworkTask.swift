@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkTask {
+final class NetworkTask {
     private var task: URLSessionTask?
     private var cancelled = false
 

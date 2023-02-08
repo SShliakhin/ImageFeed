@@ -53,20 +53,16 @@ extension String: IRequiredDataConvert {
     }
 }
 
-struct DecodableConvertible<T: Model>: IRequiredDataConvert {
+struct DecodableConvert<T: Model>: IRequiredDataConvert {
     let model: T
 
     init(_ model: T) {
         self.model = model
     }
 
-    static func convert(from data: Data) throws -> DecodableConvertible<T> {
-        do {
-            let decoder = T.decoder
-            let model = try decoder.decode(T.self, from: data)
-            return DecodableConvertible(model)
-        } catch let e as DecodingError {
-            throw APIError.decodingError(e)
-        }
+    static func convert(from data: Data) throws -> DecodableConvert<T> {
+        let decoder = T.decoder
+        let model = try decoder.decode(T.self, from: data)
+        return DecodableConvert(model)
     }
 }

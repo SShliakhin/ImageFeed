@@ -26,4 +26,4 @@ extension Model {
     }
 }
 
-//struct Empty : Model {}
+extension String : Model {}

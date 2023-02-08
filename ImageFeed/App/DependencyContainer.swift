@@ -129,7 +129,7 @@ protocol LoginServicesFactory {
     func makeNetworkService() -> APIClient
     func makeAuthTokenResoursePostRequest(
         _ endpoint: UnsplashAPI,
-        body: OAuthTokenResponseBody
+        body: String
     ) -> IRequest
 }
 
@@ -141,7 +141,7 @@ extension DependencyContainer: LoginServicesFactory {
     
     func makeAuthTokenResoursePostRequest(
         _ endpoint: UnsplashAPI,
-        body: OAuthTokenResponseBody
+        body: String
     ) -> IRequest {
         PostRequest(endpoint: endpoint.url, body: body)
     }
