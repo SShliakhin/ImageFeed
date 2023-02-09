@@ -21,6 +21,11 @@ protocol LoaderFactory {
     func makeProfileLoader() -> ProfileLoading
 }
 
+protocol LoginServicesFactory {
+    func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage
+    func makeNetworkService() -> APIClient
+}
+
 final class DependencyContainer {
     private let session: URLSession
     
@@ -47,10 +52,15 @@ extension DependencyContainer: ModuleFactory {
     }
 
     func makeAuthModule() -> UIViewController {
+        let storage = makeTokenStorage(UserDefaults.standard)
+        let network = makeNetworkService()
+        
+        let interactor = AuthInteractor(storage: storage, network: network)
         let router = AuthRouter()
-        let presenter = AuthPresenter(router: router)
+        let presenter = AuthPresenter(interactor: interactor, router: router)
         let view = AuthViewController(presenter: presenter)
         
+        interactor.output = presenter
         presenter.view = view
         router.view = view
         return view
@@ -124,26 +134,10 @@ extension DependencyContainer: LoaderFactory {
     }
 }
 
-protocol LoginServicesFactory {
-    func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage
-    func makeNetworkService() -> APIClient
-    func makeAuthTokenResoursePostRequest(
-        _ endpoint: UnsplashAPI,
-        body: String
-    ) -> IRequest
-}
-
 // MARK: - LoginServicesFactory
 extension DependencyContainer: LoginServicesFactory {
     func makeNetworkService() -> APIClient {
         return APIClient(session: session)
-    }
-    
-    func makeAuthTokenResoursePostRequest(
-        _ endpoint: UnsplashAPI,
-        body: String
-    ) -> IRequest {
-        PostRequest(endpoint: endpoint.url, body: body)
     }
     
     func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage {

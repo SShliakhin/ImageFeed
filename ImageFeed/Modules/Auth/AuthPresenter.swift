@@ -9,9 +9,13 @@ import UIKit
 
 final class AuthPresenter: IAuthViewOutput {
     weak var view: IAuthViewInput?
+    private let interactor: IAuthInteractorInput
     private let router: IAuthRouter
     
-    init(router: IAuthRouter) {
+    private weak var externalVC: UIViewController?
+    
+    init(interactor: IAuthInteractorInput, router: IAuthRouter) {
+        self.interactor = interactor
         self.router = router
     }
 
@@ -22,21 +26,22 @@ final class AuthPresenter: IAuthViewOutput {
 
 extension AuthPresenter: IWebViewModuleOutput {
     func webViewModule(_ vc: UIViewController, didAuthenticateWithCode code: String) {
-        let network = APIClient(session: .shared)
-        
-        let resourse = UnsplashAPI.getAuthTokenRequest(code)
-        let request = PostRequest(endpoint: resourse.url, body: "")
-        
-        network.send(request){ (result: Result<OAuthTokenResponseBody, APIError>) in
-            switch result {
-            case .success(let body): print("Token: ===========", body.accessToken)
-            case .failure(let error): print(error.localizedDescription)
-            }
-        }
-        vc.dismiss(animated: true)
+        externalVC = vc
+        interactor.fetchBearerTokenByCode(code)
     }
     
     func webViewModuleDidCancel(_ vc: UIViewController) {
-        vc.dismiss(animated: true)
+        router.dismissExternalVC(vc)
+    }
+}
+
+extension AuthPresenter: IAuthInteractorOutput {
+    func didFetchBearerTokenSuccess(_ message: String) {
+        print(message)
+        router.dismissExternalVC(externalVC)
+    }
+    func didFetchBearerTokenFailure(error: APIError) {
+        print(error.description)
+        router.dismissExternalVC(externalVC)
     }
 }

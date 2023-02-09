@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum APIError : Error {
+enum APIError : Error {
     case unknownResponse
     case networkError(Error)
     case requestError(Int)
@@ -31,7 +31,7 @@ extension APIError : CustomStringConvertible {
         }
     }
     
-    public var localizedDescription: String {
+    private var localizedDescription: String {
         switch self {
         case .unknownResponse: return "Unknown Response"
         case .networkError(let error): return "Network Error: \(error.localizedDescription)"
@@ -43,7 +43,7 @@ extension APIError : CustomStringConvertible {
         }
     }
     
-    public var description: String {
+    var description: String {
         localizedDescription
     }
 }

@@ -66,6 +66,7 @@
 		5AD89881298F77BE00C789BD /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD89880298F77BE00C789BD /* UnsplashAPI.swift */; };
 		5AD898832992D64900C789BD /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD898822992D64900C789BD /* TokenStorage.swift */; };
 		5AD898852992F13600C789BD /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD898842992F13600C789BD /* Request.swift */; };
+		5AF295602995318900768D75 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2955F2995318900768D75 /* AuthInteractor.swift */; };
 		5AFFC99C29762FEA00BDD49E /* MockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFC99B29762FEA00BDD49E /* MockProvider.swift */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,7 @@
 		5AD89880298F77BE00C789BD /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
 		5AD898822992D64900C789BD /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		5AD898842992F13600C789BD /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		5AF2955F2995318900768D75 /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
 		5AFFC99B29762FEA00BDD49E /* MockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +176,7 @@
 				5A8690ED298B278700BD7FC6 /* AuthContract.swift */,
 				5A8690F1298B2B6E00BD7FC6 /* AuthPresenter.swift */,
 				5A8690EF298B2A4B00BD7FC6 /* AuthRouter.swift */,
+				5AF2955F2995318900768D75 /* AuthInteractor.swift */,
 				5A5FB3562988E94700F72BE1 /* AuthViewController.swift */,
 			);
 			path = Auth;
@@ -499,6 +502,7 @@
 				5A88662029709CEE006ADA77 /* ProfileViewModel.swift in Sources */,
 				5A9B20DC2986D03800D0A7E0 /* ImagesListContract.swift in Sources */,
 				5AAA408F2966E51400A6C835 /* CellViewModel.swift in Sources */,
+				5AF295602995318900768D75 /* AuthInteractor.swift in Sources */,
 				5A9B20D429869B5F00D0A7E0 /* ProfileRouter.swift in Sources */,
 				5A9B20DE2986D3FC00D0A7E0 /* ImagesListRouter.swift in Sources */,
 				5AD8987D298F766F00C789BD /* Model.swift in Sources */,

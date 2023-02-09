@@ -14,6 +14,7 @@ protocol MainRouting: AnyObject {
     
     func navigate(_ route: ModuleRoutes)
     func exit()
+    func dismissExternalVC(_ vc: UIViewController?)
 }
 
 extension MainRouting {
@@ -23,6 +24,9 @@ extension MainRouting {
     }
     func exit() {
         view?.dismiss(animated: true)
+    }
+    func dismissExternalVC(_ vc: UIViewController?) {
+        vc?.dismiss(animated: true)
     }
 }
 

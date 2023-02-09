@@ -16,6 +16,17 @@ protocol IAuthViewOutput: AnyObject {
 protocol IAuthViewInput: AnyObject {
 }
 
+// MARK: Interactor Input (Presenter -> Interactor)
+protocol IAuthInteractorInput: AnyObject {
+    func fetchBearerTokenByCode(_ code: String)
+}
+
+// MARK: Interactor Output (Interactor -> Presenter)
+protocol IAuthInteractorOutput: AnyObject {
+    func didFetchBearerTokenSuccess(_ message: String)
+    func didFetchBearerTokenFailure(error: APIError)
+}
+
 // MARK: Router Input (Presenter -> Router)
 protocol IAuthRouter: MainRouting {
 }
