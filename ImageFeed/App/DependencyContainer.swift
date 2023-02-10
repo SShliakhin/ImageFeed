@@ -34,7 +34,12 @@ final class DependencyContainer {
     }
     
     func makeRootViewController() -> UIViewController {
-        makeAuthModule()
+        let storage = makeTokenStorage(UserDefaults.standard)
+        if let _ = storage.token {
+            return makeTabBarModule()
+        } else {
+            return makeAuthModule()
+        }
     }
 }
 
