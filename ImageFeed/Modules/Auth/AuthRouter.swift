@@ -8,6 +8,5 @@
 import UIKit
 
 final class AuthRouter: IAuthRouter {
-    private(set) var factory: Factory = DependencyContainer()
-    weak var view: UIViewController?
+    weak var view: IRootViewController?
 }

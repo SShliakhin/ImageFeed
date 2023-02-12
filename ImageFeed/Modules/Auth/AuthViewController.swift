@@ -48,11 +48,21 @@ final class AuthViewController: UIViewController {
         setup()
         applyStyle()
         applyLayout()
+        
+        presenter.viewDidLoad()
     }
 }
 
 // MARK: - IAuthViewInput
-extension AuthViewController: IAuthViewInput {}
+extension AuthViewController: IAuthViewInput {
+    func hideLoginButton() {
+        loginButton.isHidden = true
+    }
+    
+    func showLoginButton() {
+        loginButton.isHidden = false
+    }
+}
 
 // MARK: - UIComponent
 private extension AuthViewController {

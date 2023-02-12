@@ -20,9 +20,17 @@ final class ProfilePresenter: IProfileViewOutput {
     func viewDidLoad() {
         interactor.obtainProfile()
     }
+    func didTapLogout() {
+        interactor.cleanUpStorage()
+    }
 }
 
 extension ProfilePresenter: IProfileInteractorOutput {
+    func didCleanUpStorage() {
+        let emptyCode = ""
+        router.navigate(.toAuth(emptyCode))
+    }
+    
     func didObtainProfile(profile: Profile) {
         let profileViewModel = ProfileViewModel(from: profile)
         view?.showProfile(profile: profileViewModel)

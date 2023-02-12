@@ -22,7 +22,7 @@ final class ImagesListPresenter: IImagesListViewOutput {
     }
     
     func didSelectPicture(_ picture: Picture) {
-        router.navigate(.toSingleImage(picture))
+        router.present(.toSingleImage(picture))
     }
 }
 

@@ -7,13 +7,16 @@
 
 import UIKit
 
-// MARK: View Output (Presenter -> View)
+// MARK: View Output (View -> Presenter)
 protocol IAuthViewOutput: AnyObject {
+    func viewDidLoad()
     func didTapLogin()
 }
 
-// MARK: View Input (View -> Presenter)
+// MARK: View Input (Presenter -> View)
 protocol IAuthViewInput: AnyObject {
+    func hideLoginButton()
+    func showLoginButton()
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)

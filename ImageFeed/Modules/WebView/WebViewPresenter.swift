@@ -9,7 +9,11 @@ import UIKit
 
 final class WebViewPresenter: IWebViewViewOutput {
     weak var view: IWebViewViewInput?
-    weak var moduleOutput: IWebViewModuleOutput?
+    private let router: IWebViewRouter
+    
+    init(router: IWebViewRouter) {
+        self.router = router
+    }
     
     func getRequest() -> URLRequest {
         guard let url = UnsplashAPI.getAuthorizationCodeRequest.url else {
@@ -33,12 +37,20 @@ final class WebViewPresenter: IWebViewViewOutput {
     }
 
     func didGetAuthCode(_ code: String) {
-        guard let view = view as? UIViewController else { return }
-        moduleOutput?.webViewModule(view, didAuthenticateWithCode: code)
+        router.navigate(.toAuth(code))
     }
     
     func didTapBack() {
-        guard let view = view as? UIViewController else { return }
-        moduleOutput?.webViewModuleDidCancel(view)
+        guard let vc = view as? UIViewController else { return }
+        if vc.modalPresentationStyle == .fullScreen {
+            vc.dismiss(animated: true)
+            return
+        }
+        if let navigationVC = vc.navigationController {
+            navigationVC.popViewController(animated: true)
+        } else {
+            let emptyCode = ""
+            router.navigate(.toAuth(emptyCode))
+        }
     }
 }

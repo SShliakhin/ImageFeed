@@ -5,7 +5,7 @@
 //  Created by SERGEY SHLYAKHIN on 29.01.2023.
 //
 
-import Foundation
+import UIKit
 
 final class SingleImagePresenter: ISingleImageViewOutput {
     weak var view: ISingleImageViewInput?
@@ -22,7 +22,16 @@ final class SingleImagePresenter: ISingleImageViewOutput {
     }
     
     func didTapBack() {
-        router.exit()
+        guard let vc = view as? UIViewController else { return }
+        if vc.modalPresentationStyle == .fullScreen {
+            vc.dismiss(animated: true)
+            return
+        }
+        if let navigationVC = vc.navigationController {
+            navigationVC.popViewController(animated: true)
+        } else {
+            router.navigate(.toMainModule)
+        }
     }
 }
 

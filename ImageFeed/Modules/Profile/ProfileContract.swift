@@ -7,12 +7,13 @@
 
 import UIKit
 
-// MARK: View Output (Presenter -> View)
+// MARK: View Output (View -> Presenter)
 protocol IProfileViewOutput: AnyObject {
     func viewDidLoad()
+    func didTapLogout()
 }
 
-// MARK: View Input (View -> Presenter)
+// MARK: View Input (Presenter -> View)
 protocol IProfileViewInput: AnyObject {
     func showProfile(profile: ProfileViewModel)
 }
@@ -20,11 +21,13 @@ protocol IProfileViewInput: AnyObject {
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IProfileInteractorInput: AnyObject {
     func obtainProfile()
+    func cleanUpStorage()
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IProfileInteractorOutput: AnyObject {
     func didObtainProfile(profile: Profile)
+    func didCleanUpStorage()
 }
 
 // MARK: Router Input (Presenter -> Router)

@@ -9,6 +9,7 @@ import Foundation
 
 protocol ITokenStorage {
     var token: String? { get set }
+    func removeToken()
 }
 
 extension ITokenStorage {
@@ -28,5 +29,9 @@ struct TokenStorage: ITokenStorage {
         set {
             userDefaults.set(newValue, forKey: bearerTokenKey)
         }
+    }
+    
+    func removeToken() {
+        userDefaults.removeObject(forKey: bearerTokenKey)
     }
 }

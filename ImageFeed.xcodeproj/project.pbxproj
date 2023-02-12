@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A1EA0C4299935E1003CF309 /* WebViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */; };
 		5A22A46F295664270083617E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A22A46E295664270083617E /* GradientView.swift */; };
 		5A581ACF2993CF5000F7DE04 /* DataConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A581ACE2993CF5000F7DE04 /* DataConvert.swift */; };
 		5A581AD12993D02A00F7DE04 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A581AD02993D02A00F7DE04 /* NetworkTask.swift */; };
@@ -67,10 +68,17 @@
 		5AD898832992D64900C789BD /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD898822992D64900C789BD /* TokenStorage.swift */; };
 		5AD898852992F13600C789BD /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD898842992F13600C789BD /* Request.swift */; };
 		5AF295602995318900768D75 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2955F2995318900768D75 /* AuthInteractor.swift */; };
+		5AF295622997633100768D75 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF295612997633100768D75 /* RootViewController.swift */; };
+		5AF295642997932100768D75 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF295632997932100768D75 /* SplashViewController.swift */; };
+		5AF2956B2998550400768D75 /* SplashContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2956A2998550400768D75 /* SplashContract.swift */; };
+		5AF2956D29985CD100768D75 /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2956C29985CD100768D75 /* SplashPresenter.swift */; };
+		5AF2956F2998638D00768D75 /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2956E2998638D00768D75 /* SplashInteractor.swift */; };
+		5AF295712998664300768D75 /* SplashRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF295702998664300768D75 /* SplashRouter.swift */; };
 		5AFFC99C29762FEA00BDD49E /* MockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFC99B29762FEA00BDD49E /* MockProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewRouter.swift; sourceTree = "<group>"; };
 		5A22A46E295664270083617E /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		5A581ACE2993CF5000F7DE04 /* DataConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConvert.swift; sourceTree = "<group>"; };
 		5A581AD02993D02A00F7DE04 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
@@ -133,6 +141,12 @@
 		5AD898822992D64900C789BD /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		5AD898842992F13600C789BD /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		5AF2955F2995318900768D75 /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
+		5AF295612997633100768D75 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		5AF295632997932100768D75 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		5AF2956A2998550400768D75 /* SplashContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashContract.swift; sourceTree = "<group>"; };
+		5AF2956C29985CD100768D75 /* SplashPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPresenter.swift; sourceTree = "<group>"; };
+		5AF2956E2998638D00768D75 /* SplashInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractor.swift; sourceTree = "<group>"; };
+		5AF295702998664300768D75 /* SplashRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRouter.swift; sourceTree = "<group>"; };
 		5AFFC99B29762FEA00BDD49E /* MockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,6 +231,8 @@
 				5A82A921295261AF006FDBA0 /* AppDelegate.swift */,
 				5A82A923295261AF006FDBA0 /* SceneDelegate.swift */,
 				5A9B20CF29863CA600D0A7E0 /* DependencyContainer.swift */,
+				5AF295612997633100768D75 /* RootViewController.swift */,
+				5A9B20D929869E9E00D0A7E0 /* MainRouting.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -248,13 +264,13 @@
 		5A82A93C295281DD006FDBA0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5AF29569299854DC00768D75 /* Splash */,
 				5A5FB3582988E96700F72BE1 /* Auth */,
 				5A8690F3298B399900BD7FC6 /* WebView */,
 				5A82A9492953DF65006FDBA0 /* ImagesList */,
 				5A9B20E32986DEA600D0A7E0 /* SingleImage */,
 				5A88661C29702508006ADA77 /* Profile */,
 				5A886623297187D3006ADA77 /* TabBarController.swift */,
-				5A9B20D929869E9E00D0A7E0 /* MainRouting.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -262,10 +278,10 @@
 		5A82A9492953DF65006FDBA0 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
-				5A82A94B2953E373006FDBA0 /* Model */,
 				5A82A94A2953E354006FDBA0 /* View */,
 				5A9B20DB2986D03800D0A7E0 /* ImagesListContract.swift */,
 				5A9B20E12986D69F00D0A7E0 /* ImagesListPresenter.swift */,
+				5A82A94B2953E373006FDBA0 /* Model */,
 				5A9B20DD2986D3FC00D0A7E0 /* ImagesListRouter.swift */,
 				5A9B20DF2986D4A300D0A7E0 /* ImagesListInteractor.swift */,
 				5A82A925295261AF006FDBA0 /* ImagesListViewController.swift */,
@@ -295,6 +311,7 @@
 			children = (
 				5A8690F4298B3E5D00BD7FC6 /* WebViewContract.swift */,
 				5A8690F6298B3F2B00BD7FC6 /* WebViewPresenter.swift */,
+				5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */,
 				5A5FB3592988FE0300F72BE1 /* WebViewViewController.swift */,
 			);
 			path = WebView;
@@ -362,6 +379,18 @@
 				5A581AD22993DF4200F7DE04 /* Networking */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		5AF29569299854DC00768D75 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				5AF2956A2998550400768D75 /* SplashContract.swift */,
+				5AF2956C29985CD100768D75 /* SplashPresenter.swift */,
+				5AF295702998664300768D75 /* SplashRouter.swift */,
+				5AF2956E2998638D00768D75 /* SplashInteractor.swift */,
+				5AF295632997932100768D75 /* SplashViewController.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		5AFFC9982975799B00BDD49E /* Views */ = {
@@ -466,6 +495,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A1EA0C4299935E1003CF309 /* WebViewRouter.swift in Sources */,
 				5A88661E29702525006ADA77 /* Profile.swift in Sources */,
 				5AD898832992D64900C789BD /* TokenStorage.swift in Sources */,
 				5AD898852992F13600C789BD /* Request.swift in Sources */,
@@ -481,6 +511,7 @@
 				5A8690F5298B3E5D00BD7FC6 /* WebViewContract.swift in Sources */,
 				5A9B20E52986E17000D0A7E0 /* SingleImageContract.swift in Sources */,
 				5A8690F7298B3F2B00BD7FC6 /* WebViewPresenter.swift in Sources */,
+				5AF295712998664300768D75 /* SplashRouter.swift in Sources */,
 				5A581ACF2993CF5000F7DE04 /* DataConvert.swift in Sources */,
 				5A22A46F295664270083617E /* GradientView.swift in Sources */,
 				5A9B20CB29855FBF00D0A7E0 /* PicturesLoader.swift in Sources */,
@@ -491,6 +522,7 @@
 				5A9B20D629869BC400D0A7E0 /* ProfileInteractor.swift in Sources */,
 				5AFFC99C29762FEA00BDD49E /* MockProvider.swift in Sources */,
 				5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */,
+				5AF2956D29985CD100768D75 /* SplashPresenter.swift in Sources */,
 				5A5FB3572988E94700F72BE1 /* AuthViewController.swift in Sources */,
 				5A9B20D029863CA600D0A7E0 /* DependencyContainer.swift in Sources */,
 				5A886624297187D3006ADA77 /* TabBarController.swift in Sources */,
@@ -499,11 +531,14 @@
 				5A9B20D229864AF700D0A7E0 /* ProfileContract.swift in Sources */,
 				5A8690F2298B2B6E00BD7FC6 /* AuthPresenter.swift in Sources */,
 				5A82A924295261AF006FDBA0 /* SceneDelegate.swift in Sources */,
+				5AF295642997932100768D75 /* SplashViewController.swift in Sources */,
+				5AF2956F2998638D00768D75 /* SplashInteractor.swift in Sources */,
 				5A88662029709CEE006ADA77 /* ProfileViewModel.swift in Sources */,
 				5A9B20DC2986D03800D0A7E0 /* ImagesListContract.swift in Sources */,
 				5AAA408F2966E51400A6C835 /* CellViewModel.swift in Sources */,
 				5AF295602995318900768D75 /* AuthInteractor.swift in Sources */,
 				5A9B20D429869B5F00D0A7E0 /* ProfileRouter.swift in Sources */,
+				5AF295622997633100768D75 /* RootViewController.swift in Sources */,
 				5A9B20DE2986D3FC00D0A7E0 /* ImagesListRouter.swift in Sources */,
 				5AD8987D298F766F00C789BD /* Model.swift in Sources */,
 				5A82A94D2953E441006FDBA0 /* ImagesListCell.swift in Sources */,
@@ -514,6 +549,7 @@
 				5A88662829736BB8006ADA77 /* FullScreenImageScrollView.swift in Sources */,
 				5A9B20E02986D4A300D0A7E0 /* ImagesListInteractor.swift in Sources */,
 				5A9B20DA29869E9E00D0A7E0 /* MainRouting.swift in Sources */,
+				5AF2956B2998550400768D75 /* SplashContract.swift in Sources */,
 				5A5FB35A2988FE0300F72BE1 /* WebViewViewController.swift in Sources */,
 				5A9B20E22986D69F00D0A7E0 /* ImagesListPresenter.swift in Sources */,
 				5A9B20E72986E20300D0A7E0 /* SingleImageRouter.swift in Sources */,

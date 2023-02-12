@@ -138,6 +138,6 @@ private extension ProfileViewController {
 // MARK: - Actions
 private extension ProfileViewController {
     @objc func logoutButtonTapped(_ sender: UIButton) {
-        print(#function)
+        presenter.didTapLogout()
     }
 }

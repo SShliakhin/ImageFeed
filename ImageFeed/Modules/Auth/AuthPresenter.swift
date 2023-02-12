@@ -11,37 +11,34 @@ final class AuthPresenter: IAuthViewOutput {
     weak var view: IAuthViewInput?
     private let interactor: IAuthInteractorInput
     private let router: IAuthRouter
-    
-    private weak var externalVC: UIViewController?
-    
-    init(interactor: IAuthInteractorInput, router: IAuthRouter) {
+    private var code: String
+        
+    init(interactor: IAuthInteractorInput, router: IAuthRouter, code: String) {
         self.interactor = interactor
         self.router = router
+        self.code = code
+    }
+    
+    func viewDidLoad() {
+        guard code.isEmpty == false else {
+            return
+        }
+        view?.hideLoginButton()
+        interactor.fetchBearerTokenByCode(code)
     }
 
     func didTapLogin() {
-        router.navigate(.toWebView(self))
-    }
-}
-
-extension AuthPresenter: IWebViewModuleOutput {
-    func webViewModule(_ vc: UIViewController, didAuthenticateWithCode code: String) {
-        externalVC = vc
-        interactor.fetchBearerTokenByCode(code)
-    }
-    
-    func webViewModuleDidCancel(_ vc: UIViewController) {
-        router.dismissExternalVC(vc)
+        router.navigate(.toWebView)
     }
 }
 
 extension AuthPresenter: IAuthInteractorOutput {
     func didFetchBearerTokenSuccess(_ message: String) {
         print(message)
-        router.dismissExternalVC(externalVC)
+        router.navigate(.toMainModule)
     }
     func didFetchBearerTokenFailure(error: APIError) {
         print(error.description)
-        router.dismissExternalVC(externalVC)
+        view?.showLoginButton()
     }
 }

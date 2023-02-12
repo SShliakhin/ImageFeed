@@ -7,13 +7,26 @@
 
 import UIKit
 
-protocol ModuleFactory {
-    func makeAuthModule() -> UIViewController
-    func makeWebViewModule(_ moduleOutput: IWebViewModuleOutput) -> UIViewController
-    func makeTabBarModule() -> UIViewController
-    func makeImagesListModule() -> UIViewController
-    func makeSingleImageModule(_ picture: Picture) -> UIViewController
-    func makeProfileModule() -> UIViewController
+enum AnimatedTransitionType {
+    case none
+    case fade
+    case dismiss
+}
+
+struct Module {
+    let vc: UIViewController
+    var animatedType: AnimatedTransitionType = .none
+    var completion: (() -> Void)? = nil
+}
+
+protocol ModuleFactory: AnyObject {
+    func makeStartModule() -> Module
+    func makeAuthModule(_ code: String) -> Module
+    func makeWebViewModule() -> Module
+    func makeTabBarModule() -> Module
+    func makeImagesListModule() -> Module
+    func makeSingleImageModule(_ picture: Picture) -> Module
+    func makeProfileModule() -> Module
 }
 
 protocol LoaderFactory {
@@ -28,68 +41,85 @@ protocol LoginServicesFactory {
 
 final class DependencyContainer {
     private let session: URLSession
+    private let storage: UserDefaults
+    private let rootVC: IRootViewController
     
-    public init(configuration: URLSessionConfiguration = .default) {
+    public init(
+        rootVC: IRootViewController,
+        configuration: URLSessionConfiguration = .default,
+        storage: UserDefaults = UserDefaults.standard
+    ) {
+        self.rootVC = rootVC
         self.session = URLSession(configuration: configuration)
-    }
-    
-    func makeRootViewController() -> UIViewController {
-        let storage = makeTokenStorage(UserDefaults.standard)
-        if let _ = storage.token {
-            return makeTabBarModule()
-        } else {
-            return makeAuthModule()
-        }
+        self.storage = storage
     }
 }
 
 // MARK: - ModuleFactory
 extension DependencyContainer: ModuleFactory {
-    func makeWebViewModule(_ moduleOutput: IWebViewModuleOutput) -> UIViewController {
-        let presenter = WebViewPresenter()
+    func makeStartModule() -> Module {
+        let storage = makeTokenStorage(storage)
+        
+        let interactor = SplashInteractor(storage: storage)
+        let router = SplashRouter()
+        let presenter = SplashPresenter(interactor: interactor, router: router)
+        let view = SplashViewController(presenter: presenter)
+        
+        interactor.output = presenter
+        presenter.view = view
+        router.view = rootVC
+        return .init(vc: view)
+    }
+    
+    func makeWebViewModule() -> Module {
+        let router = WebViewRouter()
+        let presenter = WebViewPresenter(router: router)
         let view = WebViewViewController(presenter: presenter)
         
-        presenter.moduleOutput = moduleOutput
         view.modalPresentationStyle = .fullScreen
         
         presenter.view = view
-        return view
+        router.view = rootVC
+        return .init(vc: view)
     }
 
-    func makeAuthModule() -> UIViewController {
-        let storage = makeTokenStorage(UserDefaults.standard)
+    func makeAuthModule(_ code: String) -> Module {
+        let storage = makeTokenStorage(storage)
         let network = makeNetworkService()
         
         let interactor = AuthInteractor(storage: storage, network: network)
         let router = AuthRouter()
-        let presenter = AuthPresenter(interactor: interactor, router: router)
+        let presenter = AuthPresenter(interactor: interactor, router: router, code: code)
         let view = AuthViewController(presenter: presenter)
         
         interactor.output = presenter
         presenter.view = view
-        router.view = view
-        return view
+        router.view = rootVC
+        
+        let navigationVC = UINavigationController(rootViewController: view)
+        navigationVC.navigationBar.isHidden = true
+        return .init(vc: navigationVC)
     }
     
-    func makeTabBarModule() -> UIViewController {
-        let viewController = TabBarController()
+    func makeTabBarModule() -> Module {
+        let view = TabBarController()
         let imagesList = makeImagesListModule()
-        imagesList.tabBarItem = .init(
+        imagesList.vc.tabBarItem = .init(
             title: "",
             image: Theme.image(kind: .tabListIcon),
             tag: 0
         )
         let profile = makeProfileModule()
-        profile.tabBarItem = .init(
+        profile.vc.tabBarItem = .init(
             title: "",
             image: Theme.image(kind: .tabProfileIcon),
             tag: 1
         )
-        viewController.viewControllers = [imagesList, profile]
-        return viewController
+        view.viewControllers = [imagesList.vc, profile.vc]
+        return .init(vc: view)
     }
     
-    func makeImagesListModule() -> UIViewController {
+    func makeImagesListModule() -> Module {
         let router = ImagesListRouter()
         let interactor = ImagesListInteractor(picturesLoader: makePicturesLoader())
         let presenter = ImagesListPresenter(interactor: interactor, router: router)
@@ -97,11 +127,14 @@ extension DependencyContainer: ModuleFactory {
         
         interactor.output = presenter
         presenter.view = view
-        router.view = view
-        return view
+        router.view = rootVC
+        
+        let navigationVC = UINavigationController(rootViewController: view)
+        navigationVC.navigationBar.isHidden = true
+        return .init(vc: navigationVC)
     }
     
-    func makeSingleImageModule(_ picture: Picture) -> UIViewController {
+    func makeSingleImageModule(_ picture: Picture) -> Module {
         let router = SingleImageRouter()
         let interactor = SingleImageInteractor()
         let presenter = SingleImagePresenter(interactor: interactor, router: router)
@@ -111,20 +144,22 @@ extension DependencyContainer: ModuleFactory {
         
         interactor.output = presenter
         presenter.view = view
-        router.view = view
-        return view
+        router.view = rootVC
+        return .init(vc: view)
     }
     
-    func makeProfileModule() -> UIViewController {
+    func makeProfileModule() -> Module {
+        let storage = makeTokenStorage(storage)
+        
         let router = ProfileRouter()
-        let interactor = ProfileInteractor(profileLoader: makeProfileLoader())
+        let interactor = ProfileInteractor(profileLoader: makeProfileLoader(), storage: storage)
         let presenter = ProfilePresenter(interactor: interactor, router: router)
         let view = ProfileViewController(presenter: presenter)
         
         interactor.output = presenter
         presenter.view = view
-        router.view = view
-        return view
+        router.view = rootVC
+        return .init(vc: view)
     }
 }
 

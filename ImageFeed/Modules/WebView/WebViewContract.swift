@@ -20,7 +20,6 @@ protocol IWebViewViewOutput: AnyObject {
 protocol IWebViewViewInput: AnyObject {
 }
 
-protocol IWebViewModuleOutput: AnyObject {
-    func webViewModule(_ vc: UIViewController, didAuthenticateWithCode code: String)
-    func webViewModuleDidCancel(_ vc: UIViewController)
+// MARK: Router Input (Presenter -> Router)
+protocol IWebViewRouter: MainRouting {
 }
