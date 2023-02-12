@@ -22,6 +22,13 @@ class SplashViewController: UIViewController {
     
     // MARK: - UI
     private lazy var activityIndicator = UIActivityIndicatorView(style: .large)
+    
+    private lazy var practicumLogoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Theme.image(kind: .practicumLogo)
+        imageView.tintColor = Theme.color(usage: .ypWhite)
+        return imageView
+    }()
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -49,11 +56,17 @@ extension SplashViewController: ISplashViewInput {
 
 private extension SplashViewController {
     func applyStyle() {
-        view.backgroundColor = UIColor.white
-        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.4)
+        view.backgroundColor = Theme.color(usage: .ypBlack)
     }
     func applyLayout() {
         view.addSubview(activityIndicator)
         activityIndicator.frame = view.bounds
+        view.addSubview(practicumLogoImageView)
+        practicumLogoImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            practicumLogoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            practicumLogoImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
 }
