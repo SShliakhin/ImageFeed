@@ -13,7 +13,7 @@ struct APIClient {
     
     init(session: URLSession) {
         self.session = session
-        queue = DispatchQueue(label: "SimpleNetworking", qos: .userInitiated, attributes: .concurrent)
+        self.queue = DispatchQueue(label: "SimpleNetworking", qos: .userInitiated, attributes: .concurrent)
     }
         
     @discardableResult
