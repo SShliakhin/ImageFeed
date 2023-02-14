@@ -8,7 +8,7 @@
 import Foundation
 
 final class SplashPresenter: ISplashViewOutput {
-	weak var view: (ISplashViewInput & ILoadWithIndicator)?
+	weak var view: (ISplashViewInput & ILoadWithProgressHUD)?
     private let interactor: ISplashInteractorInput
     private let router: MainRouting
     

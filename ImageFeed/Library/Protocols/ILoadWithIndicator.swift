@@ -23,3 +23,21 @@ extension ILoadWithIndicator {
 		self.activityIndicator.startAnimating()
 	}
 }
+
+// ProgressHUD на GitHub: https://github.com/relatedcode/ProgressHUD
+import ProgressHUD
+
+protocol ILoadWithProgressHUD: AnyObject {
+	func startIndicator()
+	func stopIndicator()
+}
+
+extension ILoadWithProgressHUD {
+	func startIndicator() {
+		ProgressHUD.show()
+	}
+	
+	func stopIndicator() {
+		ProgressHUD.dismiss()
+	}
+}
