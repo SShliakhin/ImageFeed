@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SplashViewController: UIViewController {
+final class SplashViewController: UIViewController {
     private let presenter: ISplashViewOutput
     
     // MARK: - Init
@@ -21,7 +21,7 @@ class SplashViewController: UIViewController {
     }
     
     // MARK: - UI
-    private lazy var activityIndicator = UIActivityIndicatorView(style: .large)
+    lazy var activityIndicator = UIActivityIndicatorView(style: .large)
     
     private lazy var practicumLogoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -41,19 +41,15 @@ class SplashViewController: UIViewController {
     }
 }
 
-// MARK: - ISplashtViewInput
+// MARK: - ISplashViewInput
 
-extension SplashViewController: ISplashViewInput {
-    func activityIndicatorStart() {
-        activityIndicator.startAnimating()
-    }
-    func activityIndicatorStop() {
-        activityIndicator.stopAnimating()
-    }
-}
+extension SplashViewController: ISplashViewInput {}
+
+// MARK: - ILoadWithIndicator
+
+extension SplashViewController: ILoadWithIndicator {}
 
 // MARK: - UIComponent
-
 private extension SplashViewController {
     func applyStyle() {
         view.backgroundColor = Theme.color(usage: .ypBlack)

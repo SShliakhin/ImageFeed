@@ -14,13 +14,11 @@ protocol ISplashViewOutput: AnyObject {
 
 // MARK: View Input (Presenter -> View)
 protocol ISplashViewInput: AnyObject {
-    func activityIndicatorStart()
-    func activityIndicatorStop()
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol ISplashInteractorInput: AnyObject {
-    func hasToken()-> Bool
+	var hasToken: Bool { get }
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)

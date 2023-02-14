@@ -8,7 +8,7 @@
 import Foundation
 
 final class SplashPresenter: ISplashViewOutput {
-    weak var view: ISplashViewInput?
+	weak var view: (ISplashViewInput & ILoadWithIndicator)?
     private let interactor: ISplashInteractorInput
     private let router: MainRouting
     
@@ -18,12 +18,12 @@ final class SplashPresenter: ISplashViewOutput {
     }
     
     func viewDidLoad() {
-        view?.activityIndicatorStart()
+		view?.startIndicator()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) { [weak self] in
             guard let self = self else { return }
-            self.view?.activityIndicatorStop()
+			self.view?.stopIndicator()
 
-            if self.interactor.hasToken() {
+			if self.interactor.hasToken {
                 self.router.navigate(.toMainModule)
             } else {
                 let emptyCode = ""
