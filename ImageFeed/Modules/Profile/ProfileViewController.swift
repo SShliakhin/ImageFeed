@@ -8,7 +8,9 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-    private var profile: Profile
+    
+    private let presenter: IProfileViewOutput
+    
     var profileViewModel: ProfileViewModel? {
         didSet {
             guard let profile = profileViewModel else { return }
@@ -19,6 +21,7 @@ final class ProfileViewController: UIViewController {
         }
     }
     
+    // MARK: - UI
     private lazy var vStackView = UIStackView()
     private lazy var hStackView = UIStackView()
     
@@ -53,8 +56,9 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    init(with profile: Profile) {
-        self.profile = profile
+    // MARK: - Init
+    init(presenter: IProfileViewOutput) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -62,6 +66,7 @@ final class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,10 +74,18 @@ final class ProfileViewController: UIViewController {
         applyStyle()
         applyLayout()
         
-        profileViewModel = ProfileViewModel(from: profile)
+        presenter.viewDidLoad()
     }
 }
 
+// MARK: - IProfileViewInput
+extension ProfileViewController: IProfileViewInput {
+    func showProfile(profile: ProfileViewModel) {
+        profileViewModel = profile
+    }
+}
+
+// MARK: - UIComponent
 private extension ProfileViewController {
     func setup() {
         logoutButton.addTarget(
@@ -125,6 +138,6 @@ private extension ProfileViewController {
 // MARK: - Actions
 private extension ProfileViewController {
     @objc func logoutButtonTapped(_ sender: UIButton) {
-        print(#function)
+        presenter.didTapLogout()
     }
 }

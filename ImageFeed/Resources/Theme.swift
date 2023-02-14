@@ -120,6 +120,7 @@ enum Theme {
         case standard2
         case standardHalf
         case standard4
+        case loginButtonToBottom
     }
     
     static func spacing(usage: Spacing) -> CGFloat {
@@ -134,6 +135,8 @@ enum Theme {
             customSpacing = 4
         case .standard4:
             customSpacing = 32
+        case .loginButtonToBottom:
+            customSpacing = 90
         }
         
         return customSpacing
@@ -146,6 +149,7 @@ enum Theme {
         case gradientHeight
         case cellHeight(image: UIImage?)
         case profileImage
+        case loginButtonHeight
     }
     
     static func size(kind: Size) -> CGFloat {
@@ -169,6 +173,8 @@ enum Theme {
             customSize = cellWidth * aspectRatio + imageInsets.top + imageInsets.bottom
         case .profileImage:
             customSize = 70
+        case .loginButtonHeight:
+            customSize = 48
         }
         
         return customSize
