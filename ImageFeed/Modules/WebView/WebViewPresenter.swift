@@ -41,16 +41,7 @@ final class WebViewPresenter: IWebViewViewOutput {
     }
     
     func didTapBack() {
-        guard let vc = view as? UIViewController else { return }
-        if vc.modalPresentationStyle == .fullScreen {
-            vc.dismiss(animated: true)
-            return
-        }
-        if let navigationVC = vc.navigationController {
-            navigationVC.popViewController(animated: true)
-        } else {
-            let emptyCode = ""
-            router.navigate(.toAuth(emptyCode))
-        }
+		let emptyCode = ""
+		router.navigate(.toAuth(emptyCode))
     }
 }
