@@ -8,7 +8,7 @@
 import UIKit
 
 final class AuthPresenter: IAuthViewOutput {
-    weak var view: IAuthViewInput?
+	weak var view: (IAuthViewInput & ILoadWithProgressHUD)?
     private let interactor: IAuthInteractorInput
     private let router: IAuthRouter
     private var code: String
@@ -23,7 +23,7 @@ final class AuthPresenter: IAuthViewOutput {
         guard code.isEmpty == false else {
             return
         }
-        view?.hideLoginButton()
+        view?.startIndicator()
         interactor.fetchBearerTokenByCode(code)
     }
 
@@ -35,10 +35,11 @@ final class AuthPresenter: IAuthViewOutput {
 extension AuthPresenter: IAuthInteractorOutput {
     func didFetchBearerTokenSuccess(_ message: String) {
         print(message)
+		view?.stopIndicator()
         router.navigate(.toMainModule)
     }
     func didFetchBearerTokenFailure(error: APIError) {
         print(error.description)
-        view?.showLoginButton()
+        view?.stopIndicator()
     }
 }

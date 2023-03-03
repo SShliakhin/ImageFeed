@@ -21,7 +21,7 @@ final class AuthViewController: UIViewController {
     
     private lazy var loginButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Войти", for: .normal)
+		button.setTitle(Appearance.loginButtonTitle, for: .normal)
         button.titleLabel?.font = Theme.font(style: .bold17)
         button.setTitleColor(Theme.color(usage: .ypBlack), for: .normal)
         button.backgroundColor = Theme.color(usage: .ypWhite)
@@ -54,14 +54,18 @@ final class AuthViewController: UIViewController {
 }
 
 // MARK: - IAuthViewInput
-extension AuthViewController: IAuthViewInput {
-    func hideLoginButton() {
-        loginButton.isHidden = true
-    }
-    
-    func showLoginButton() {
-        loginButton.isHidden = false
-    }
+
+extension AuthViewController: IAuthViewInput {}
+
+// MARK: - ILoadWithProgressHUD
+
+extension AuthViewController: ILoadWithProgressHUD {}
+
+// MARK: - Actions
+private extension AuthViewController {
+	@objc func loginButtonTapped(_ sender: UIButton) {
+		presenter.didTapLogin()
+	}
 }
 
 // MARK: - UIComponent
@@ -75,7 +79,10 @@ private extension AuthViewController {
     }
     
     func applyLayout() {
-        [unsplashLogoImageView, loginButton].forEach { item in
+        [
+			unsplashLogoImageView,
+			loginButton
+		].forEach { item in
             item.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(item)
         }
@@ -91,9 +98,8 @@ private extension AuthViewController {
     }
 }
 
-// MARK: - Actions
 private extension AuthViewController {
-    @objc func loginButtonTapped(_ sender: UIButton) {
-        presenter.didTapLogin()
-    }
+	enum Appearance {
+		static let loginButtonTitle = "Log In"
+	}
 }

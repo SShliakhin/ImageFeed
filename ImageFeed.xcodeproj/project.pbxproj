@@ -41,6 +41,8 @@
 		5A88662829736BB8006ADA77 /* FullScreenImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88662729736BB8006ADA77 /* FullScreenImageScrollView.swift */; };
 		5A983899299AFD05001230D9 /* ILoadWithIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A983898299AFD05001230D9 /* ILoadWithIndicator.swift */; };
 		5A98389C299B399D001230D9 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5A98389B299B399D001230D9 /* ProgressHUD */; };
+		5A98389E299BE1E8001230D9 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A98389D299BE1E8001230D9 /* UIBlockingProgressHUD.swift */; };
+		5A9838A0299C12A5001230D9 /* ILoadWithProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A98389F299C12A4001230D9 /* ILoadWithProgressHUD.swift */; };
 		5A9B20CB29855FBF00D0A7E0 /* PicturesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B20CA29855FBF00D0A7E0 /* PicturesLoader.swift */; };
 		5A9B20CD298561B300D0A7E0 /* ProfileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B20CC298561B300D0A7E0 /* ProfileLoader.swift */; };
 		5A9B20D029863CA600D0A7E0 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B20CF29863CA600D0A7E0 /* DependencyContainer.swift */; };
@@ -115,6 +117,8 @@
 		5A8866252971ECE6006ADA77 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		5A88662729736BB8006ADA77 /* FullScreenImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageScrollView.swift; sourceTree = "<group>"; };
 		5A983898299AFD05001230D9 /* ILoadWithIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ILoadWithIndicator.swift; sourceTree = "<group>"; };
+		5A98389D299BE1E8001230D9 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
+		5A98389F299C12A4001230D9 /* ILoadWithProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ILoadWithProgressHUD.swift; sourceTree = "<group>"; };
 		5A9B20CA29855FBF00D0A7E0 /* PicturesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesLoader.swift; sourceTree = "<group>"; };
 		5A9B20CC298561B300D0A7E0 /* ProfileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLoader.swift; sourceTree = "<group>"; };
 		5A9B20CF29863CA600D0A7E0 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
@@ -282,10 +286,10 @@
 		5A82A9492953DF65006FDBA0 /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
+				5A82A94B2953E373006FDBA0 /* Model */,
 				5A82A94A2953E354006FDBA0 /* View */,
 				5A9B20DB2986D03800D0A7E0 /* ImagesListContract.swift */,
 				5A9B20E12986D69F00D0A7E0 /* ImagesListPresenter.swift */,
-				5A82A94B2953E373006FDBA0 /* Model */,
 				5A9B20DD2986D3FC00D0A7E0 /* ImagesListRouter.swift */,
 				5A9B20DF2986D4A300D0A7E0 /* ImagesListInteractor.swift */,
 				5A82A925295261AF006FDBA0 /* ImagesListViewController.swift */,
@@ -411,6 +415,7 @@
 			children = (
 				5AAA408E2966E51400A6C835 /* CellViewModel.swift */,
 				5A983898299AFD05001230D9 /* ILoadWithIndicator.swift */,
+				5A98389F299C12A4001230D9 /* ILoadWithProgressHUD.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 		5AFFC99A297579F800BDD49E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5A98389D299BE1E8001230D9 /* UIBlockingProgressHUD.swift */,
 				5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */,
 				5ABFB28B29593D630037C159 /* Array+Extensions.swift */,
 				5ABFB28D295947050037C159 /* UIView+Animations.swift */,
@@ -557,6 +563,7 @@
 				5A9B20CD298561B300D0A7E0 /* ProfileLoader.swift in Sources */,
 				5A8690EE298B278700BD7FC6 /* AuthContract.swift in Sources */,
 				5A9B20D829869C2B00D0A7E0 /* ProfilePresenter.swift in Sources */,
+				5A98389E299BE1E8001230D9 /* UIBlockingProgressHUD.swift in Sources */,
 				5A88661929700DE2006ADA77 /* ProfileViewController.swift in Sources */,
 				5A88662829736BB8006ADA77 /* FullScreenImageScrollView.swift in Sources */,
 				5A9B20E02986D4A300D0A7E0 /* ImagesListInteractor.swift in Sources */,
@@ -567,6 +574,7 @@
 				5A9B20E72986E20300D0A7E0 /* SingleImageRouter.swift in Sources */,
 				5A5FB3552988CDB000F72BE1 /* Constants.swift in Sources */,
 				5ABFB28E295947050037C159 /* UIView+Animations.swift in Sources */,
+				5A9838A0299C12A5001230D9 /* ILoadWithProgressHUD.swift in Sources */,
 				5AD8987F298F76C300C789BD /* API.swift in Sources */,
 				5AD8987B298F760B00C789BD /* APIError.swift in Sources */,
 			);
