@@ -31,7 +31,6 @@ protocol ModuleFactory: AnyObject {
 
 protocol LoaderFactory {
     func makePicturesLoader() -> PicturesLoading
-    func makeProfileLoader() -> ProfileLoading
 }
 
 protocol LoginServicesFactory {
@@ -169,10 +168,6 @@ extension DependencyContainer: ModuleFactory {
 extension DependencyContainer: LoaderFactory {
     func makePicturesLoader() -> PicturesLoading {
         PicturesLoader()
-    }
-    
-    func makeProfileLoader() -> ProfileLoading {
-        ProfileLoader()
     }
 }
 
