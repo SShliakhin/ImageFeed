@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A0C7A8829B2C75400AA353D /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C7A8729B2C75400AA353D /* ProfileService.swift */; };
+		5A0C7A8A29B3DD4600AA353D /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C7A8929B3DD4600AA353D /* ProfileImageService.swift */; };
 		5A1EA0C4299935E1003CF309 /* WebViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */; };
 		5A22A46F295664270083617E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A22A46E295664270083617E /* GradientView.swift */; };
 		5A581ACF2993CF5000F7DE04 /* DataConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A581ACE2993CF5000F7DE04 /* DataConvert.swift */; };
@@ -80,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		5A0C7A8729B2C75400AA353D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		5A0C7A8929B3DD4600AA353D /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewRouter.swift; sourceTree = "<group>"; };
 		5A22A46E295664270083617E /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		5A581ACE2993CF5000F7DE04 /* DataConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConvert.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				5A9B20CA29855FBF00D0A7E0 /* PicturesLoader.swift */,
 				5AD898822992D64900C789BD /* TokenStorage.swift */,
 				5A0C7A8729B2C75400AA353D /* ProfileService.swift */,
+				5A0C7A8929B3DD4600AA353D /* ProfileImageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				5A8690F5298B3E5D00BD7FC6 /* WebViewContract.swift in Sources */,
 				5A9B20E52986E17000D0A7E0 /* SingleImageContract.swift in Sources */,
 				5A8690F7298B3F2B00BD7FC6 /* WebViewPresenter.swift in Sources */,
+				5A0C7A8A29B3DD4600AA353D /* ProfileImageService.swift in Sources */,
 				5A983899299AFD05001230D9 /* ILoadWithIndicator.swift in Sources */,
 				5AF295712998664300768D75 /* SplashRouter.swift in Sources */,
 				5A581ACF2993CF5000F7DE04 /* DataConvert.swift in Sources */,

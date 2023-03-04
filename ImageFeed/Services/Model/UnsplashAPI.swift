@@ -25,6 +25,7 @@ enum UnsplashAPI: API {
 	case getAuthorizationCodeRequest
 	case getAuthTokenRequest(String)
 	case getMe
+	case getPublicUser(String)
 	
 	var scheme: HTTPScheme {
 		switch self {
@@ -40,6 +41,8 @@ enum UnsplashAPI: API {
 			return "unsplash.com"
 		case .getMe:
 			return "api.unsplash.com"
+		case .getPublicUser:
+			return "api.unsplash.com"
 		}
 	}
 	var path: String {
@@ -50,6 +53,8 @@ enum UnsplashAPI: API {
 			return "/oauth/token"
 		case .getMe:
 			return "/me"
+		case .getPublicUser(let username):
+			return "/users/\(username)"
 		}
 	}
 	var parameters: [URLQueryItem]? {
@@ -70,6 +75,8 @@ enum UnsplashAPI: API {
 				URLQueryItem(name: "grant_type", value: .key(.grantType))
 			]
 		case .getMe:
+			return nil
+		case .getPublicUser:
 			return nil
 		}
 	}

@@ -14,6 +14,7 @@ enum APIError : Error {
     case serverError(Int)
     case decodingError(DecodingError)
     case dataConversionError(String)
+	case noImageURL
     case unhandledResponse
 }
 
@@ -39,6 +40,7 @@ extension APIError : CustomStringConvertible {
         case .serverError(let statusCode): return "Server error (HTTP \(statusCode))"
         case .decodingError(let decodingError): return "Decoding error: \(decodingError)"
         case .dataConversionError(let message): return "\(message)"
+		case .noImageURL: return "No image URL"
         case .unhandledResponse: return "Unhandled response"
         }
     }
