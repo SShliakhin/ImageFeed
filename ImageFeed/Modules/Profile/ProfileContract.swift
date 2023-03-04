@@ -15,18 +15,16 @@ protocol IProfileViewOutput: AnyObject {
 
 // MARK: View Input (Presenter -> View)
 protocol IProfileViewInput: AnyObject {
-    func showProfile(profile: ProfileViewModel)
+    func showProfile(profile: ProfileResult)
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IProfileInteractorInput: AnyObject {
-    func obtainProfile()
     func cleanUpStorage()
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IProfileInteractorOutput: AnyObject {
-    func didObtainProfile(profile: Profile)
     func didCleanUpStorage()
 }
 

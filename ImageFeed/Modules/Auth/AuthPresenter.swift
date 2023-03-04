@@ -36,7 +36,7 @@ extension AuthPresenter: IAuthInteractorOutput {
     func didFetchBearerTokenSuccess(_ message: String) {
         print(message)
 		view?.stopIndicator()
-        router.navigate(.toMainModule)
+		router.navigate(.toStart)
     }
     func didFetchBearerTokenFailure(error: APIError) {
         print(error.description)

@@ -19,10 +19,12 @@ protocol ISplashViewInput: AnyObject {
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol ISplashInteractorInput: AnyObject {
 	var hasToken: Bool { get }
+	func fetchProfile()
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol ISplashInteractorOutput: AnyObject {
+	func didFetchProfile(profile: ProfileResult)
 }
 
 // MARK: Router Input (Presenter -> Router)

@@ -11,13 +11,13 @@ final class ProfileViewController: UIViewController {
     
     private let presenter: IProfileViewOutput
     
-    var profileViewModel: ProfileViewModel? {
+    var profileViewModel: ProfileResult? {
         didSet {
             guard let profile = profileViewModel else { return }
-            profileImageView.image = profile.image
-            nameLabel.text = profile.fullName
+            //profileImageView.image = profile.image
+			nameLabel.text = profile.name
             loginNameLabel.text = profile.loginName
-            descriptionLabel.text = profile.description
+			descriptionLabel.text = profile.bio
         }
     }
     
@@ -80,7 +80,7 @@ final class ProfileViewController: UIViewController {
 
 // MARK: - IProfileViewInput
 extension ProfileViewController: IProfileViewInput {
-    func showProfile(profile: ProfileViewModel) {
+    func showProfile(profile: ProfileResult) {
         profileViewModel = profile
     }
 }
