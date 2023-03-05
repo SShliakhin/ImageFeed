@@ -29,8 +29,13 @@ final class SplashPresenter: ISplashViewOutput {
 }
 
 extension SplashPresenter: ISplashInteractorOutput {
-	func didFetchProfile(profile: ProfileResult) {
+	func didFetchProfileSuccess(profile: ProfileResult) {
 		view?.stopIndicator()
 		self.router.navigate(.toMainModule(profile))
+	}
+	
+	func didFetchProfileFailure(error: APIError) {
+		view?.stopIndicator()
+		print(error.description)
 	}
 }

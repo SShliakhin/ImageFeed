@@ -24,7 +24,8 @@ protocol ISplashInteractorInput: AnyObject {
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol ISplashInteractorOutput: AnyObject {
-	func didFetchProfile(profile: ProfileResult)
+	func didFetchProfileSuccess(profile: ProfileResult)
+	func didFetchProfileFailure(error: APIError)
 }
 
 // MARK: Router Input (Presenter -> Router)

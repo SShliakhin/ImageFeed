@@ -29,10 +29,10 @@ final class SplashInteractor: ISplashInteractorInput {
 			guard let self = self else { return }
 			switch result {
 			case .success(let profile):
-				self.output?.didFetchProfile(profile: profile)
+				self.output?.didFetchProfileSuccess(profile: profile)
 				self.profileImageURLLoader.fetchProfileImageURL(username: profile.someUsername, bearerToken: token) { _ in }
 			case .failure(let error):
-				print(error)
+				self.output?.didFetchProfileFailure(error: error)
 			}
 		}
 	}

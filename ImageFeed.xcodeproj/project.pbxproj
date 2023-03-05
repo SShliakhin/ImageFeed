@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A0C7A8829B2C75400AA353D /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C7A8729B2C75400AA353D /* ProfileService.swift */; };
 		5A0C7A8A29B3DD4600AA353D /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C7A8929B3DD4600AA353D /* ProfileImageService.swift */; };
+		5A0C7A8C29B4500C00AA353D /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0C7A8B29B4500C00AA353D /* OAuth2Service.swift */; };
 		5A1EA0C4299935E1003CF309 /* WebViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */; };
 		5A22A46F295664270083617E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A22A46E295664270083617E /* GradientView.swift */; };
 		5A581ACF2993CF5000F7DE04 /* DataConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A581ACE2993CF5000F7DE04 /* DataConvert.swift */; };
@@ -61,7 +62,6 @@
 		5AAA40912966E71200A6C835 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */; };
 		5ABFB28C29593D630037C159 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB28B29593D630037C159 /* Array+Extensions.swift */; };
 		5ABFB28E295947050037C159 /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB28D295947050037C159 /* UIView+Animations.swift */; };
-		5AD89873298BD02600C789BD /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD89872298BD02600C789BD /* OAuthTokenResponseBody.swift */; };
 		5AD89877298F445600C789BD /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD89876298F445600C789BD /* APIClient.swift */; };
 		5AD8987B298F760B00C789BD /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8987A298F760A00C789BD /* APIError.swift */; };
 		5AD8987D298F766F00C789BD /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8987C298F766F00C789BD /* Model.swift */; };
@@ -82,6 +82,7 @@
 /* Begin PBXFileReference section */
 		5A0C7A8729B2C75400AA353D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		5A0C7A8929B3DD4600AA353D /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
+		5A0C7A8B29B4500C00AA353D /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
 		5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewRouter.swift; sourceTree = "<group>"; };
 		5A22A46E295664270083617E /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		5A581ACE2993CF5000F7DE04 /* DataConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConvert.swift; sourceTree = "<group>"; };
@@ -135,7 +136,6 @@
 		5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		5ABFB28B29593D630037C159 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		5ABFB28D295947050037C159 /* UIView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animations.swift"; sourceTree = "<group>"; };
-		5AD89872298BD02600C789BD /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
 		5AD89876298F445600C789BD /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		5AD8987A298F760A00C789BD /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		5AD8987C298F766F00C789BD /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -177,15 +177,6 @@
 				5AD8987C298F766F00C789BD /* Model.swift */,
 			);
 			path = Networking;
-			sourceTree = "<group>";
-		};
-		5A581AD32993DFB000F7DE04 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				5AD89880298F77BE00C789BD /* UnsplashAPI.swift */,
-				5AD89872298BD02600C789BD /* OAuthTokenResponseBody.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		5A5FB3582988E96700F72BE1 /* Auth */ = {
@@ -335,8 +326,9 @@
 		5A9B20CE2985624300D0A7E0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5A581AD32993DFB000F7DE04 /* Model */,
+				5AD89880298F77BE00C789BD /* UnsplashAPI.swift */,
 				5A9B20CA29855FBF00D0A7E0 /* PicturesLoader.swift */,
+				5A0C7A8B29B4500C00AA353D /* OAuth2Service.swift */,
 				5AD898822992D64900C789BD /* TokenStorage.swift */,
 				5A0C7A8729B2C75400AA353D /* ProfileService.swift */,
 				5A0C7A8929B3DD4600AA353D /* ProfileImageService.swift */,
@@ -508,11 +500,11 @@
 				5A0C7A8A29B3DD4600AA353D /* ProfileImageService.swift in Sources */,
 				5A983899299AFD05001230D9 /* ILoadWithIndicator.swift in Sources */,
 				5AF295712998664300768D75 /* SplashRouter.swift in Sources */,
+				5A0C7A8C29B4500C00AA353D /* OAuth2Service.swift in Sources */,
 				5A581ACF2993CF5000F7DE04 /* DataConvert.swift in Sources */,
 				5A22A46F295664270083617E /* GradientView.swift in Sources */,
 				5A9B20CB29855FBF00D0A7E0 /* PicturesLoader.swift in Sources */,
 				5A8866262971ECE6006ADA77 /* SingleImageViewController.swift in Sources */,
-				5AD89873298BD02600C789BD /* OAuthTokenResponseBody.swift in Sources */,
 				5A82A9512954C66F006FDBA0 /* PictureViewModel.swift in Sources */,
 				5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */,
 				5A9B20D629869BC400D0A7E0 /* ProfileInteractor.swift in Sources */,

@@ -37,6 +37,7 @@ protocol LoginServicesFactory {
     func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage
     func makeNetworkService() -> APIClient
 	func makeProfileService(apiClient: APIClient) -> IProfileService
+	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service
 }
 
 final class DependencyContainer {
@@ -86,9 +87,9 @@ extension DependencyContainer: ModuleFactory {
 
     func makeAuthModule(_ code: String) -> Module {
         let storage = makeTokenStorage(storage)
-        let network = makeNetworkService()
+        let oauth2TokenLoader = makeOAuth2Service(apiClient: makeNetworkService())
         
-        let interactor = AuthInteractor(storage: storage, network: network)
+        let interactor = AuthInteractor(storage: storage, oauth2TokenLoader: oauth2TokenLoader)
         let router = AuthRouter()
         let presenter = AuthPresenter(interactor: interactor, router: router, code: code)
         let view = AuthViewController(presenter: presenter)
@@ -173,6 +174,10 @@ extension DependencyContainer: LoaderFactory {
 
 // MARK: - LoginServicesFactory
 extension DependencyContainer: LoginServicesFactory {
+	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service {
+		OAuth2Service(network: apiClient)
+	}
+	
 	func makeProfileService(apiClient: APIClient) -> IProfileService {
 		ProfileService(network: apiClient)
 	}
