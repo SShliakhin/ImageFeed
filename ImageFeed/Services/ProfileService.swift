@@ -7,7 +7,7 @@ protocol IProfileService {
 	)
 }
 
-struct ProfileResult: Codable, Model {
+struct ProfileResult: Model {
 	let firstName: String?
 	let lastName: String?
 	let username: String?

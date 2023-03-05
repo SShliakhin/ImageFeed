@@ -16,10 +16,10 @@ protocol IProfileImageService {
 	)
 }
 
-struct UserResult: Codable, Model {
+struct UserResult: Model {
 	let profileImage: ProfileImage?
 	
-	struct ProfileImage: Codable, Model {
+	struct ProfileImage: Model {
 		let small: String?
 	}
 }
