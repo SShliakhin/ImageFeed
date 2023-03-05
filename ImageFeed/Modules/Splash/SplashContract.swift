@@ -13,8 +13,7 @@ protocol ISplashViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol ISplashViewInput: AnyObject {
-}
+protocol ISplashViewInput: IBaseViewController {}
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol ISplashInteractorInput: AnyObject {

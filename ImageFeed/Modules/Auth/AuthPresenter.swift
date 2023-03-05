@@ -39,7 +39,7 @@ extension AuthPresenter: IAuthInteractorOutput {
 		router.navigate(.toStart)
     }
     func didFetchBearerTokenFailure(error: APIError) {
-        print(error.description)
         view?.stopIndicator()
+		view?.showErrorDialog(with: error.description)
     }
 }
