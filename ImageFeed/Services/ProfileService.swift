@@ -19,9 +19,13 @@ struct ProfileResult: Codable, Model {
 			.joined(separator: " ")
 	}
 	
-	var loginName: String {
+	var someUsername: String {
 		guard let username = username else { return "" }
-		return "@\(username)"
+		return username
+	}
+	
+	var loginName: String {
+		"@\(someUsername)"
 	}
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol IProfileImageService {
-	var avatarURL: String? { get }
+	var profileImageURL: String? { get }
 	func fetchProfileImageURL(
 		username: String,
 		bearerToken: String,
@@ -18,19 +18,20 @@ protocol IProfileImageService {
 
 struct UserResult: Codable, Model {
 	let profileImage: ProfileImage?
-}
-
-struct ProfileImage: Codable, Model {
-	let small: String?
+	
+	struct ProfileImage: Codable, Model {
+		let small: String?
+	}
 }
 
 final class ProfileImageService {
 	static let shared = ProfileImageService()
+	static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
 	
 	private var network: APIClient?
 	private var task: NetworkTask?
 	
-	private (set) var avatarURL: String?
+	private (set) var profileImageURL: String?
 }
 
 extension ProfileImageService: IProfileImageService {
@@ -50,15 +51,21 @@ extension ProfileImageService: IProfileImageService {
 		request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
 		
 		task = network.send(request) { [weak self] ( result: Result<UserResult, APIError>) in
+			guard let self = self else { return }
 			switch result {
 			case .success(let userResult):
 				if let smallPictureURL = userResult.profileImage?.small {
 					completion(.success(smallPictureURL))
-					self?.avatarURL = smallPictureURL
+					self.profileImageURL = smallPictureURL
+					NotificationCenter.default.post(
+						name: ProfileImageService.didChangeNotification,
+						object: self,
+						userInfo: ["URL": self.profileImageURL as Any]
+					)
 				} else {
 					completion(.failure(.noImageURL))
 				}
-				self?.task = nil
+				self.task = nil
 			case .failure(let error):
 				completion(.failure(error))
 			}
