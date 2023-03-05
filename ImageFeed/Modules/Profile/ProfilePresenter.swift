@@ -46,8 +46,7 @@ private extension ProfilePresenter {
 			let profileImageURL = ProfileImageService.shared.profileImageURL,
 			let url = URL(string: profileImageURL)
 		else { return }
-		print(#function, url)
-		// TODO [Sprint 11] Обновить аватар, используя Kingfisher
+		view?.updateAvatarURL(url)
 	}
 }
 

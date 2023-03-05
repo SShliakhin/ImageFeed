@@ -16,6 +16,7 @@ protocol IProfileViewOutput: AnyObject {
 // MARK: View Input (Presenter -> View)
 protocol IProfileViewInput: AnyObject {
     func showProfile(profile: ProfileResult)
+	func updateAvatarURL(_ profileImageURL: URL)
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
