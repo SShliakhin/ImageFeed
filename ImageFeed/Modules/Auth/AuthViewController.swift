@@ -100,6 +100,6 @@ private extension AuthViewController {
 
 private extension AuthViewController {
 	enum Appearance {
-		static let loginButtonTitle = "Log In"
+		static let loginButtonTitle = "Войти"
 	}
 }

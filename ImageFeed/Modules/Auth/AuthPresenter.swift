@@ -40,6 +40,6 @@ extension AuthPresenter: IAuthInteractorOutput {
     }
     func didFetchBearerTokenFailure(error: APIError) {
         view?.stopIndicator()
-		view?.showErrorDialog(with: error.description)
+		view?.showErrorDialog()
     }
 }

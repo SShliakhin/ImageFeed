@@ -36,6 +36,6 @@ extension SplashPresenter: ISplashInteractorOutput {
 	
 	func didFetchProfileFailure(error: APIError) {
 		view?.stopIndicator()
-		view?.showErrorDialog(with: error.description)
+		view?.showErrorDialog()
 	}
 }
