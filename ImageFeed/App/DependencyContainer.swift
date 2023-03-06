@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 enum AnimatedTransitionType {
     case none
@@ -35,6 +36,7 @@ protocol LoaderFactory {
 
 protocol LoginServicesFactory {
     func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage
+	func makeTokenStorage(_ storage: KeychainWrapper) -> ITokenStorage
     func makeNetworkService() -> APIClient
 	func makeProfileService(apiClient: APIClient) -> IProfileService
 	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service
@@ -42,13 +44,13 @@ protocol LoginServicesFactory {
 
 final class DependencyContainer {
     private let session: URLSession
-    private let storage: UserDefaults
+    private let storage: KeychainWrapper
     private let rootVC: IRootViewController
     
     public init(
         rootVC: IRootViewController,
         configuration: URLSessionConfiguration = .default,
-        storage: UserDefaults = UserDefaults.standard
+        storage: KeychainWrapper = KeychainWrapper.standard
     ) {
         self.rootVC = rootVC
         self.session = URLSession(configuration: configuration)
@@ -174,6 +176,10 @@ extension DependencyContainer: LoaderFactory {
 
 // MARK: - LoginServicesFactory
 extension DependencyContainer: LoginServicesFactory {
+	func makeTokenStorage(_ storage: KeychainWrapper) -> ITokenStorage {
+		OAuth2TokenStorage.init(keychainWrapper: storage)
+	}
+	
 	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service {
 		OAuth2Service(network: apiClient)
 	}
