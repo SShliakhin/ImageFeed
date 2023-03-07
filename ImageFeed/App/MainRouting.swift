@@ -48,27 +48,30 @@ extension MainRouting {
 }
 
 enum ModuleRoute {
+	case toStart
     case toAuth(String)
     case toWebView
-    case toMainModule
+    case toMainModule(ProfileResult)
     case toImageList
     case toSingleImage(Picture)
-    case toProfile
+    case toProfile(ProfileResult)
     
     func getModule(factory: ModuleFactory) -> Module {
         switch self {
+		case .toStart:
+			return factory.makeStartModule()
         case .toAuth(let code):
             return factory.makeAuthModule(code)
         case .toWebView:
             return factory.makeWebViewModule()
-        case .toMainModule:
-            return factory.makeTabBarModule()
+        case .toMainModule(let profile):
+            return factory.makeTabBarModule(profile)
         case .toImageList:
             return factory.makeImagesListModule()
         case .toSingleImage(let picture):
             return factory.makeSingleImageModule(picture)
-        case .toProfile:
-            return factory.makeProfileModule()
+        case .toProfile(let profile):
+            return factory.makeProfileModule(profile)
         }
     }
 }

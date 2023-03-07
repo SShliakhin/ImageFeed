@@ -18,10 +18,11 @@ enum MockProvider {
         }
     }()
     
-    static let profile = Profile(
-        image: "avatar",
-        fullName: "Екатерина Новикова",
-        loginName: "@ekaterina_nov",
-        description: "Hello, world"
-    )
+	static let profile = ProfileResult (
+		//image: "avatar",
+		firstName: "Екатерина",
+		lastName: "Новикова",
+		username: "ekaterina_nov",
+		bio: "Hello, world"
+	)
 }

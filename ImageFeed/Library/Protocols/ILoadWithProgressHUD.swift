@@ -1,31 +1,30 @@
 //
-//  ILoadWithIndicator.swift
+//  ILoadWithProgressHUD.swift
 //  ImageFeed
 //
 //  Created by SERGEY SHLYAKHIN on 14.02.2023.
 //
 
 import UIKit
+import ProgressHUD
 
-protocol ILoadWithIndicator: AnyObject {
-	var activityIndicator: UIActivityIndicatorView { get }
-	
+protocol ILoadWithProgressHUD: AnyObject {
 	func startIndicator()
 	func stopIndicator()
 }
 
-extension ILoadWithIndicator {
+extension ILoadWithProgressHUD {
 	var window: UIWindow? {
 		return UIApplication.shared.windows.first
 	}
-
+	
 	func startIndicator() {
 		window?.isUserInteractionEnabled = false
-		self.activityIndicator.startAnimating()
+		ProgressHUD.show()
 	}
 	
 	func stopIndicator() {
 		window?.isUserInteractionEnabled = true
-		self.activityIndicator.startAnimating()
+		ProgressHUD.dismiss()
 	}
 }

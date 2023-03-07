@@ -15,12 +15,12 @@ final class WebViewPresenter: IWebViewViewOutput {
         self.router = router
     }
     
-    func getRequest() -> URLRequest {
-        guard let url = UnsplashAPI.getAuthorizationCodeRequest.url else {
-            fatalError("Can't construct url")
-        }
-        return URLRequest(url: url)
-    }
+	func viewDidload() {
+		guard let url = UnsplashAPI.getAuthorizationCodeRequest.url else {
+			fatalError("Can't construct url")
+		}
+		view?.loadRequest(URLRequest(url: url))
+	}
     
     func getAuthCode(from url: URL?) -> String? {
         if
@@ -41,16 +41,7 @@ final class WebViewPresenter: IWebViewViewOutput {
     }
     
     func didTapBack() {
-        guard let vc = view as? UIViewController else { return }
-        if vc.modalPresentationStyle == .fullScreen {
-            vc.dismiss(animated: true)
-            return
-        }
-        if let navigationVC = vc.navigationController {
-            navigationVC.popViewController(animated: true)
-        } else {
-            let emptyCode = ""
-            router.navigate(.toAuth(emptyCode))
-        }
+		let emptyCode = ""
+		router.navigate(.toAuth(emptyCode))
     }
 }

@@ -149,6 +149,7 @@ enum Theme {
         case gradientHeight
         case cellHeight(image: UIImage?)
         case profileImage
+		case profileImageCornerRadius
         case loginButtonHeight
     }
     
@@ -173,6 +174,8 @@ enum Theme {
             customSize = cellWidth * aspectRatio + imageInsets.top + imageInsets.bottom
         case .profileImage:
             customSize = 70
+		case .profileImageCornerRadius:
+			customSize = 35
         case .loginButtonHeight:
             customSize = 48
         }

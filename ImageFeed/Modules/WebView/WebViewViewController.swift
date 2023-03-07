@@ -9,9 +9,7 @@ import UIKit
 import WebKit
 
 final class WebViewViewController: UIViewController {
-    
-    private let presenter: IWebViewViewOutput
-    
+   
     // MARK: - UI
     private lazy var webView: WKWebView = {
         let view = WKWebView()
@@ -32,6 +30,10 @@ final class WebViewViewController: UIViewController {
         return progressView
     }()
 
+	// MARK: - Properties
+	private let presenter: IWebViewViewOutput
+	private var estimatedProgressObservation: NSKeyValueObservation?
+	
     // MARK: - Init
     init(presenter: IWebViewViewOutput) {
         self.presenter = presenter
@@ -49,54 +51,21 @@ final class WebViewViewController: UIViewController {
         setup()
         applyStyle()
         applyLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        webView.addObserver(
-            self,
-            forKeyPath: #keyPath(WKWebView.estimatedProgress),
-            options: .new,
-            context: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        webView.removeObserver(
-            self,
-            forKeyPath: #keyPath(WKWebView.estimatedProgress),
-            context: nil
-        )
-    }
-}
-
-// MARK: - KVO
-extension WebViewViewController {
-    override func observeValue(
-        forKeyPath keyPath: String?,
-        of object: Any?,
-        change: [NSKeyValueChangeKey : Any]?,
-        context: UnsafeMutableRawPointer?
-    ) {
-        if keyPath ==  #keyPath(WKWebView.estimatedProgress) {
-            updateProgress()
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
-    
-    private func updateProgress() {
-        progressView.progress = Float(webView.estimatedProgress)
-        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
+		
+		presenter.viewDidload()
     }
 }
 
 // MARK: - IWebViewViewInput
-extension WebViewViewController: IWebViewViewInput{}
+
+extension WebViewViewController: IWebViewViewInput {
+	func loadRequest(_ request: URLRequest) {
+		webView.load(request)
+	}
+}
 
 // MARK: - WKNavigationDelegate
+
 extension WebViewViewController: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
@@ -112,14 +81,36 @@ extension WebViewViewController: WKNavigationDelegate {
     }
 }
 
+// MARK: - KVO
+private extension WebViewViewController {
+	func setupEstimatedProgressObservation() {
+		estimatedProgressObservation = webView.observe(
+			\.estimatedProgress,
+			 options: []
+		) { [weak self] _, _ in
+			self?.updateProgress()
+		}
+	}
+	
+	func updateProgress() {
+		progressView.progress = Float(webView.estimatedProgress)
+		progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
+	}
+}
+
+// MARK: - Actions
+private extension WebViewViewController {
+	@objc func backButtonTapped(_ sender: UIButton) {
+		presenter.didTapBack()
+	}
+}
+
 // MARK: - UIComponent
 private extension WebViewViewController {
     func setup() {
+		setupEstimatedProgressObservation()
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .primaryActionTriggered)
-        
         webView.navigationDelegate = self
-        let request = presenter.getRequest()
-        webView.load(request)
     }
     
     func applyStyle() {
@@ -145,12 +136,5 @@ private extension WebViewViewController {
             progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             progressView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-    }
-}
-
-// MARK: - Actions
-private extension WebViewViewController {
-    @objc func backButtonTapped(_ sender: UIButton) {
-        presenter.didTapBack()
     }
 }

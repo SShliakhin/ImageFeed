@@ -22,16 +22,8 @@ final class SingleImagePresenter: ISingleImageViewOutput {
     }
     
     func didTapBack() {
-        guard let vc = view as? UIViewController else { return }
-        if vc.modalPresentationStyle == .fullScreen {
-            vc.dismiss(animated: true)
-            return
-        }
-        if let navigationVC = vc.navigationController {
-            navigationVC.popViewController(animated: true)
-        } else {
-            router.navigate(.toMainModule)
-        }
+		guard let vc = view as? UIViewController else { return }
+		vc.dismiss(animated: true)
     }
 }
 

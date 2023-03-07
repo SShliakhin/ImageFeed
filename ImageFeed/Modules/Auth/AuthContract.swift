@@ -14,10 +14,7 @@ protocol IAuthViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol IAuthViewInput: AnyObject {
-    func hideLoginButton()
-    func showLoginButton()
-}
+protocol IAuthViewInput: IBaseViewController {}
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IAuthInteractorInput: AnyObject {

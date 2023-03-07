@@ -6,26 +6,20 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
-    
-    private let presenter: IProfileViewOutput
-    
-    var profileViewModel: ProfileViewModel? {
-        didSet {
-            guard let profile = profileViewModel else { return }
-            profileImageView.image = profile.image
-            nameLabel.text = profile.fullName
-            loginNameLabel.text = profile.loginName
-            descriptionLabel.text = profile.description
-        }
-    }
-    
+
     // MARK: - UI
-    private lazy var vStackView = UIStackView()
-    private lazy var hStackView = UIStackView()
-    
-    private lazy var profileImageView = UIImageView()
+	private lazy var profileImageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.contentMode = .scaleAspectFill
+		imageView.layer.cornerRadius = Theme.size(kind: .profileImageCornerRadius)
+		imageView.clipsToBounds = true
+		
+		imageView.image = Theme.image(kind: .personPlaceholder)
+		return imageView
+	}()
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
@@ -55,6 +49,18 @@ final class ProfileViewController: UIViewController {
         button.tintColor = Theme.color(usage: .ypRed)
         return button
     }()
+	
+	// MARK: - Properties
+	private let presenter: IProfileViewOutput
+	
+	var profileViewModel: ProfileResult? {
+		didSet {
+			guard let profile = profileViewModel else { return }
+			nameLabel.text = profile.name
+			loginNameLabel.text = profile.loginName
+			descriptionLabel.text = profile.bio
+		}
+	}
     
     // MARK: - Init
     init(presenter: IProfileViewOutput) {
@@ -79,10 +85,25 @@ final class ProfileViewController: UIViewController {
 }
 
 // MARK: - IProfileViewInput
+
 extension ProfileViewController: IProfileViewInput {
-    func showProfile(profile: ProfileViewModel) {
+    func showProfile(profile: ProfileResult) {
         profileViewModel = profile
     }
+	func updateAvatarURL(_ profileImageURL: URL) {
+		profileImageView.kf.indicatorType = .activity
+		profileImageView.kf.setImage(
+			with: profileImageURL,
+			placeholder: Theme.image(kind: .personPlaceholder)
+		)
+	}
+}
+
+// MARK: - Actions
+private extension ProfileViewController {
+	@objc func logoutButtonTapped(_ sender: UIButton) {
+		presenter.didTapLogout()
+	}
 }
 
 // MARK: - UIComponent
@@ -98,6 +119,9 @@ private extension ProfileViewController {
         view.backgroundColor = Theme.color(usage: .ypBlack)
     }
     func applyLayout() {
+		let vStackView = UIStackView()
+		let hStackView = UIStackView()
+		
         hStackView.arrangeStackView(
             subviews: [
                 profileImageView,
@@ -114,7 +138,7 @@ private extension ProfileViewController {
                 loginNameLabel,
                 descriptionLabel
             ],
-            spacing: 8,
+			spacing: Theme.spacing(usage: .standard),
             axis: .vertical,
             aligment: .leading
         )
@@ -132,12 +156,5 @@ private extension ProfileViewController {
             profileImageView.widthAnchor.constraint(equalToConstant: Theme.size(kind: .profileImage)),
             hStackView.widthAnchor.constraint(equalTo: vStackView.widthAnchor, constant: -Theme.spacing(usage: .standard))
         ])
-    }
-}
-
-// MARK: - Actions
-private extension ProfileViewController {
-    @objc func logoutButtonTapped(_ sender: UIButton) {
-        presenter.didTapLogout()
     }
 }
