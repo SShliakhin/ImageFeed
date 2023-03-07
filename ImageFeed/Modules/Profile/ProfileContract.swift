@@ -27,6 +27,7 @@ protocol IProfileInteractorInput: AnyObject {
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IProfileInteractorOutput: AnyObject {
     func didCleanUpStorage()
+	func didFetchProfileImageURL(_ url: URL)
 }
 
 // MARK: Router Input (Presenter -> Router)

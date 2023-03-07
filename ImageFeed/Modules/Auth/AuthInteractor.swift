@@ -12,9 +12,9 @@ final class AuthInteractor: IAuthInteractorInput {
 	private var storage: ITokenStorage
 	private let oauth2TokenLoader: IOAuth2Service
 	
-	init(storage: ITokenStorage, oauth2TokenLoader: IOAuth2Service) {
-		self.storage = storage
-		self.oauth2TokenLoader = oauth2TokenLoader
+	init(dep: IAuthModuleDependency) {
+		self.storage = dep.storage
+		self.oauth2TokenLoader = dep.oauth2TokenLoader
 	}
 	
 	func fetchBearerTokenByCode(_ code: String) {

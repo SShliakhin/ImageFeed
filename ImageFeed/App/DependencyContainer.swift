@@ -39,6 +39,7 @@ protocol LoginServicesFactory {
 	func makeTokenStorage(_ storage: KeychainWrapper) -> ITokenStorage
     func makeNetworkService() -> APIClient
 	func makeProfileService(apiClient: APIClient) -> IProfileService
+	func makeProfileImageURLService(apiClient: APIClient) -> IProfileImageURLService
 	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service
 }
 
@@ -46,6 +47,7 @@ final class DependencyContainer {
     private let session: URLSession
     private let storage: KeychainWrapper
     private let rootVC: IRootViewController
+	private var dependencies: AllDependencies!
     
     public init(
         rootVC: IRootViewController,
@@ -55,16 +57,50 @@ final class DependencyContainer {
         self.rootVC = rootVC
         self.session = URLSession(configuration: configuration)
         self.storage = storage
+		
+		let apiClient = makeNetworkService()
+		
+		dependencies = Dependency(
+			storage: makeTokenStorage(storage),
+			profileLoader: makeProfileService(apiClient: apiClient),
+			oauth2TokenLoader: makeOAuth2Service(apiClient: apiClient),
+			profilePictureURLLoader: makeProfileImageURLService(apiClient: apiClient)
+		)
     }
+	
+	struct Dependency: AllDependencies {
+		let storage: ITokenStorage
+		let profileLoader: IProfileService
+		let oauth2TokenLoader: IOAuth2Service
+		let profilePictureURLLoader: IProfileImageURLService
+	}
 }
+
+protocol IStartModuleDependency {
+	var storage: ITokenStorage { get }
+	var profileLoader: IProfileService { get }
+	var profilePictureURLLoader: IProfileImageURLService { get }
+}
+
+protocol IAuthModuleDependency {
+	var storage: ITokenStorage { get }
+	var oauth2TokenLoader: IOAuth2Service { get }
+}
+
+protocol IImagesListModuleDependency {
+}
+
+protocol IProfileModuleDependency {
+	var storage: ITokenStorage { get }
+	var profilePictureURLLoader: IProfileImageURLService { get }
+}
+
+typealias AllDependencies = (IStartModuleDependency & IAuthModuleDependency & IImagesListModuleDependency & IProfileModuleDependency)
 
 // MARK: - ModuleFactory
 extension DependencyContainer: ModuleFactory {
     func makeStartModule() -> Module {
-        let storage = makeTokenStorage(storage)
-		let profileLoader = makeProfileService(apiClient: makeNetworkService())
-        
-        let interactor = SplashInteractor(storage: storage, profileLoader: profileLoader)
+        let interactor = SplashInteractor(dep: dependencies)
         let router = SplashRouter()
         let presenter = SplashPresenter(interactor: interactor, router: router)
         let view = SplashViewController(presenter: presenter)
@@ -88,10 +124,7 @@ extension DependencyContainer: ModuleFactory {
     }
 
     func makeAuthModule(_ code: String) -> Module {
-        let storage = makeTokenStorage(storage)
-        let oauth2TokenLoader = makeOAuth2Service(apiClient: makeNetworkService())
-        
-        let interactor = AuthInteractor(storage: storage, oauth2TokenLoader: oauth2TokenLoader)
+		let interactor = AuthInteractor(dep: dependencies)
         let router = AuthRouter()
         let presenter = AuthPresenter(interactor: interactor, router: router, code: code)
         let view = AuthViewController(presenter: presenter)
@@ -153,10 +186,8 @@ extension DependencyContainer: ModuleFactory {
     }
     
 	func makeProfileModule(_ profile: ProfileResult) -> Module {
-        let storage = makeTokenStorage(storage)
-        
-        let router = ProfileRouter()
-        let interactor = ProfileInteractor(storage: storage)
+		let interactor = ProfileInteractor(dep: dependencies)
+		let router = ProfileRouter()
 		let presenter = ProfilePresenter(interactor: interactor, router: router, profile: profile)
         let view = ProfileViewController(presenter: presenter)
         
@@ -180,6 +211,14 @@ extension DependencyContainer: LoginServicesFactory {
 		OAuth2TokenStorage.init(keychainWrapper: storage)
 	}
 	
+	func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage {
+		TokenStorage.init(userDefaults: storage)
+	}
+	
+	func makeNetworkService() -> APIClient {
+		APIClient(session: session)
+	}
+	
 	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service {
 		OAuth2Service(network: apiClient)
 	}
@@ -188,11 +227,7 @@ extension DependencyContainer: LoginServicesFactory {
 		ProfileService(network: apiClient)
 	}
 	
-    func makeNetworkService() -> APIClient {
-        return APIClient(session: session)
-    }
-    
-    func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage {
-        TokenStorage.init(userDefaults: storage)
-    }
+	func makeProfileImageURLService(apiClient: APIClient) -> IProfileImageURLService {
+		ProfileImageURLService(network: apiClient)
+	}
 }

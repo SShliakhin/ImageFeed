@@ -12,10 +12,6 @@ final class ProfilePresenter: IProfileViewOutput {
     private let interactor: IProfileInteractorInput
     private let router: IProfileRouter
 	private let profile: ProfileResult
-	
-	// одиночка
-	private let profileImageURLLoader = ProfileImageService.shared
-	private var profileImageServiceObserver: NSObjectProtocol?
     
 	init(interactor: IProfileInteractorInput, router: IProfileRouter, profile: ProfileResult) {
         self.interactor = interactor
@@ -25,29 +21,10 @@ final class ProfilePresenter: IProfileViewOutput {
     
 	func viewDidLoad() {
 		view?.showProfile(profile: profile)
-		profileImageServiceObserver = NotificationCenter.default.addObserver(
-			forName: ProfileImageService.didChangeNotification,
-			object: nil,
-			queue: .main
-		) { [weak self] _ in
-			guard let self = self else { return }
-			self.updateAvatar()
-		}
-		updateAvatar()
 	}
     func didTapLogout() {
         interactor.cleanUpStorage()
     }
-}
-
-private extension ProfilePresenter {
-	private func updateAvatar() {
-		guard
-			let profileImageURL = ProfileImageService.shared.profileImageURL,
-			let url = URL(string: profileImageURL)
-		else { return }
-		view?.updateAvatarURL(url)
-	}
 }
 
 // MARK: - IProfileInteractorOutput
@@ -57,4 +34,8 @@ extension ProfilePresenter: IProfileInteractorOutput {
         let emptyCode = ""
         router.navigate(.toAuth(emptyCode))
     }
+	
+	func didFetchProfileImageURL(_ url: URL) {
+		view?.updateAvatarURL(url)
+	}
 }

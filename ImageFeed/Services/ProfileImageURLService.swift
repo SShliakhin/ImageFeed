@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol IProfileImageService {
+protocol IProfileImageURLService {
 	var profileImageURL: String? { get }
 	func fetchProfileImageURL(
 		username: String,
@@ -24,17 +24,20 @@ struct UserResult: Model {
 	}
 }
 
-final class ProfileImageService {
-	static let shared = ProfileImageService()
+final class ProfileImageURLService {
 	static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
 	
-	private var network: APIClient?
+	private let network: APIClient
 	private var task: NetworkTask?
 	
 	private (set) var profileImageURL: String?
+	
+	init(network: APIClient) {
+		self.network = network
+	}
 }
 
-extension ProfileImageService: IProfileImageService {
+extension ProfileImageURLService: IProfileImageURLService {
 	func fetchProfileImageURL(
 		username: String,
 		bearerToken: String,
@@ -42,9 +45,6 @@ extension ProfileImageService: IProfileImageService {
 	) {
 		assert(Thread.isMainThread)
 		guard task == nil else { return }
-		
-		network = .init(session: URLSession.shared)
-		guard let network = network else { return }
 		
 		let resource = UnsplashAPI.getPublicUser(username)
 		var request = Request(endpoint: resource.url).urlRequest()
@@ -58,7 +58,7 @@ extension ProfileImageService: IProfileImageService {
 					completion(.success(smallPictureURL))
 					self.profileImageURL = smallPictureURL
 					NotificationCenter.default.post(
-						name: ProfileImageService.didChangeNotification,
+						name: ProfileImageURLService.didChangeNotification,
 						object: self,
 						userInfo: ["URL": self.profileImageURL as Any]
 					)
