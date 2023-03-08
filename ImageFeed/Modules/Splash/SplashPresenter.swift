@@ -7,16 +7,20 @@
 
 import Foundation
 
-final class SplashPresenter: ISplashViewOutput {
+final class SplashPresenter {
 	weak var view: (ISplashViewInput & ILoadWithProgressHUD)?
-    private let interactor: ISplashInteractorInput
-    private let router: MainRouting
-    
-    init(interactor: ISplashInteractorInput, router: MainRouting) {
-        self.interactor = interactor
-        self.router = router
-    }
-    
+	private let interactor: ISplashInteractorInput
+	private let router: MainRouting
+	
+	init(interactor: ISplashInteractorInput, router: MainRouting) {
+		self.interactor = interactor
+		self.router = router
+	}
+}
+
+// MARK: - ISplashViewOutput
+
+extension SplashPresenter: ISplashViewOutput {
 	func viewDidLoad() {
 		if interactor.hasToken {
 			view?.startIndicator()
@@ -27,6 +31,8 @@ final class SplashPresenter: ISplashViewOutput {
 		}
 	}
 }
+
+// MARK: - ISplashInteractorOutput
 
 extension SplashPresenter: ISplashInteractorOutput {
 	func didFetchProfileSuccess(profile: ProfileResult) {

@@ -8,5 +8,5 @@
 import UIKit
 
 final class SplashRouter: ISplashRouter {
-    weak var view: IRootViewController?
+	weak var view: IRootViewController?
 }
