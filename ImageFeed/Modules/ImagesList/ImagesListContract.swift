@@ -7,27 +7,26 @@
 
 import UIKit
 
-// MARK: View Output (Presenter -> View)
+// MARK: View Output (View -> Presenter)
 protocol IImagesListViewOutput: AnyObject {
-    func viewDidLoad()
-    func didSelectPicture(_ picture: Picture)
+	func viewDidLoad()
+	func didSelectPicture(_ picture: Picture)
 }
 
-// MARK: View Input (View -> Presenter)
+// MARK: View Input (Presenter -> View)
 protocol IImagesListViewInput: AnyObject {
-    func showImages(pictures: [Picture])
+	func showImages(pictures: [Picture])
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IImagesListInteractorInput: AnyObject {
-    func loadImages()
+	func loadImages()
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IImagesListInteractorOutput: AnyObject {
-    func didloadImages(pictures: [Picture])
+	func didloadImages(pictures: [Picture])
 }
 
 // MARK: Router Input (Presenter -> Router)
-protocol IImagesListRouter: MainRouting {
-}
+protocol IImagesListRouter: MainRouting {}

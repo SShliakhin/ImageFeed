@@ -7,16 +7,20 @@
 
 import Foundation
 
-final class ImagesListInteractor: IImagesListInteractorInput {
-    weak var output: IImagesListInteractorOutput?
-    private let picturesLoader: PicturesLoading
-    
-    init(picturesLoader: PicturesLoading) {
-        self.picturesLoader = picturesLoader
-    }
-    
-    func loadImages() {
-        let pictures = picturesLoader.loadPictures()
-        output?.didloadImages(pictures: pictures)
-    }
+final class ImagesListInteractor {
+	weak var output: IImagesListInteractorOutput?
+	private let picturesLoader: PicturesLoading
+	
+	init(picturesLoader: PicturesLoading) {
+		self.picturesLoader = picturesLoader
+	}
+}
+
+// MARK: - IImagesListInteractorInput
+
+extension ImagesListInteractor: IImagesListInteractorInput {
+	func loadImages() {
+		let pictures = picturesLoader.loadPictures()
+		output?.didloadImages(pictures: pictures)
+	}
 }
