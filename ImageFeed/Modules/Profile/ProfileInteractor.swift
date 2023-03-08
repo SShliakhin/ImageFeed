@@ -7,17 +7,17 @@
 
 import Foundation
 
-final class ProfileInteractor: IProfileInteractorInput {
-    weak var output: IProfileInteractorOutput?
-    private let storage: ITokenStorage
+final class ProfileInteractor {
+	weak var output: IProfileInteractorOutput?
+	private let storage: ITokenStorage
 	private let profilePictureURLLoader: IProfileImageURLService
 	private var profileImageServiceObserver: NSObjectProtocol?
-    
+	
 	init(dep: IProfileModuleDependency) {
 		self.storage = dep.storage
 		self.profilePictureURLLoader = dep.profilePictureURLLoader
 		
-		profileImageServiceObserver = NotificationCenter.default.addObserver(
+		profileImageServiceObserver = dep.notificationCenter.addObserver(
 			forName: ProfileImageURLService.didChangeNotification,
 			object: nil,
 			queue: .main
@@ -26,12 +26,7 @@ final class ProfileInteractor: IProfileInteractorInput {
 			self.fetchProfileImageURL()
 		}
 		fetchProfileImageURL()
-    }
-    
-    func cleanUpStorage() {
-        storage.removeToken()
-        output?.didCleanUpStorage()
-    }
+	}
 }
 
 private extension ProfileInteractor {
@@ -41,5 +36,14 @@ private extension ProfileInteractor {
 			let url = URL(string: profileImageURL)
 		else { return }
 		output?.didFetchProfileImageURL(url)
+	}
+}
+
+// MARK: - IProfileInteractorInput
+
+extension ProfileInteractor: IProfileInteractorInput {
+	func cleanUpStorage() {
+		storage.removeToken()
+		output?.didCleanUpStorage()
 	}
 }

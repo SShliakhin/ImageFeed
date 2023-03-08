@@ -27,13 +27,15 @@ struct UserResult: Model {
 final class ProfileImageURLService {
 	static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
 	
+	private let notificationCenter: NotificationCenter
 	private let network: APIClient
 	private var task: NetworkTask?
 	
 	private (set) var profileImageURL: String?
 	
-	init(network: APIClient) {
+	init(network: APIClient, notificationCenter: NotificationCenter) {
 		self.network = network
+		self.notificationCenter = notificationCenter
 	}
 }
 
@@ -57,7 +59,7 @@ extension ProfileImageURLService: IProfileImageURLService {
 				if let smallPictureURL = userResult.profileImage?.small {
 					completion(.success(smallPictureURL))
 					self.profileImageURL = smallPictureURL
-					NotificationCenter.default.post(
+					self.notificationCenter.post(
 						name: ProfileImageURLService.didChangeNotification,
 						object: self,
 						userInfo: ["URL": self.profileImageURL as Any]
