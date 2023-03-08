@@ -9,10 +9,10 @@ import UIKit
 
 // MARK: View Output (View -> Presenter)
 protocol IWebViewViewOutput: AnyObject {
-    func getAuthCode(from url: URL?) -> String?
-    
-    func didTapBack()
-    func didGetAuthCode(_ code: String)
+	func getAuthCode(from url: URL?) -> String?
+	
+	func didTapBack()
+	func didGetAuthCode(_ code: String)
 	func viewDidload()
 }
 
