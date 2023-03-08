@@ -8,7 +8,7 @@
 import Foundation
 
 struct Picture {
-    let image: String
-    let date: Date
-    var isFavorite: Bool
+	let image: String
+	let date: Date
+	var isFavorite: Bool
 }

@@ -8,5 +8,5 @@
 import UIKit
 
 final class ProfileRouter: IProfileRouter {
-    weak var view: IRootViewController?
+	weak var view: IRootViewController?
 }

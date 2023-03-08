@@ -9,8 +9,8 @@ import UIKit
 
 // MARK: View Output (View -> Presenter)
 protocol IAuthViewOutput: AnyObject {
-    func viewDidLoad()
-    func didTapLogin()
+	func viewDidLoad()
+	func didTapLogin()
 }
 
 // MARK: View Input (Presenter -> View)
@@ -18,15 +18,14 @@ protocol IAuthViewInput: IBaseViewController {}
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IAuthInteractorInput: AnyObject {
-    func fetchBearerTokenByCode(_ code: String)
+	func fetchBearerTokenByCode(_ code: String)
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IAuthInteractorOutput: AnyObject {
-    func didFetchBearerTokenSuccess(_ message: String)
-    func didFetchBearerTokenFailure(error: APIError)
+	func didFetchBearerTokenSuccess()
+	func didFetchBearerTokenFailure(error: APIError)
 }
 
 // MARK: Router Input (Presenter -> Router)
-protocol IAuthRouter: MainRouting {
-}
+protocol IAuthRouter: MainRouting {}

@@ -1,10 +1,3 @@
-//
-//  UIBlockingProgressHUD.swift
-//  ImageFeed
-//
-//  Created by SERGEY SHLYAKHIN on 14.02.2023.
-//
-
 import UIKit
 import ProgressHUD
 

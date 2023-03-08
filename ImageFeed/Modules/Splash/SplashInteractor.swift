@@ -7,20 +7,24 @@
 
 import Foundation
 
-final class SplashInteractor: ISplashInteractorInput {
+final class SplashInteractor {
 	weak var output: ISplashInteractorOutput?
 	private let storage: ITokenStorage
 	private let profileLoader: IProfileService
-	// одиночка
-	private let profileImageURLLoader = ProfileImageService.shared
-	
+	private let profileImageURLLoader: IProfileImageURLService
+
+	init(dep: IStartModuleDependency) {
+		self.storage = dep.storage
+		self.profileLoader = dep.profileLoader
+		self.profileImageURLLoader = dep.profilePictureURLLoader
+	}
+}
+
+// MARK: - ISplashInteractorInput
+
+extension SplashInteractor: ISplashInteractorInput {
 	var hasToken: Bool {
 		storage.token != nil
-	}
-	
-	init(storage: ITokenStorage, profileLoader: IProfileService) {
-		self.storage = storage
-		self.profileLoader = profileLoader
 	}
 	
 	func fetchProfile() {
@@ -30,7 +34,10 @@ final class SplashInteractor: ISplashInteractorInput {
 			switch result {
 			case .success(let profile):
 				self.output?.didFetchProfileSuccess(profile: profile)
-				self.profileImageURLLoader.fetchProfileImageURL(username: profile.someUsername, bearerToken: token) { _ in }
+				self.profileImageURLLoader.fetchProfileImageURL(
+					username: profile.someUsername,
+					bearerToken: token
+				) { _ in }
 			case .failure(let error):
 				self.output?.didFetchProfileFailure(error: error)
 			}

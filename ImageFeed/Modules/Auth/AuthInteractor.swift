@@ -7,24 +7,27 @@
 
 import Foundation
 
-final class AuthInteractor: IAuthInteractorInput {
+final class AuthInteractor {
 	weak var output: IAuthInteractorOutput?
 	private var storage: ITokenStorage
 	private let oauth2TokenLoader: IOAuth2Service
 	
-	init(storage: ITokenStorage, oauth2TokenLoader: IOAuth2Service) {
-		self.storage = storage
-		self.oauth2TokenLoader = oauth2TokenLoader
+	init(dep: IAuthModuleDependency) {
+		self.storage = dep.storage
+		self.oauth2TokenLoader = dep.oauth2TokenLoader
 	}
-	
+}
+
+// MARK: - IAuthInteractorInput
+
+extension AuthInteractor: IAuthInteractorInput {
 	func fetchBearerTokenByCode(_ code: String) {
 		oauth2TokenLoader.fetchAuthToken(authCode: code) { [weak self] result in
 			guard let self = self else { return }
 			switch result {
 			case .success(let body):
-				let token = body.accessToken
-				self.storage.token = token
-				self.output?.didFetchBearerTokenSuccess("Token: === \(token)")
+				self.storage.token = body.accessToken
+				self.output?.didFetchBearerTokenSuccess()
 			case .failure(let error):
 				self.output?.didFetchBearerTokenFailure(error: error)
 			}

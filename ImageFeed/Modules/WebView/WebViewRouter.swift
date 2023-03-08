@@ -8,5 +8,5 @@
 import Foundation
 
 final class WebViewRouter: IWebViewRouter {
-    weak var view: IRootViewController?
+	weak var view: IRootViewController?
 }

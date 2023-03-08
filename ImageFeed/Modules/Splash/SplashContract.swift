@@ -28,5 +28,4 @@ protocol ISplashInteractorOutput: AnyObject {
 }
 
 // MARK: Router Input (Presenter -> Router)
-protocol ISplashRouter: MainRouting {
-}
+protocol ISplashRouter: MainRouting {}

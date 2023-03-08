@@ -8,5 +8,5 @@
 import UIKit
 
 final class ImagesListRouter: IImagesListRouter {
-    weak var view: IRootViewController?
+	weak var view: IRootViewController?
 }
