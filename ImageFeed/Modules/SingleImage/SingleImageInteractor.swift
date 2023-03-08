@@ -8,5 +8,5 @@
 import Foundation
 
 final class SingleImageInteractor: ISingleImageInteractorInput {
-    weak var output: ISingleImageInteractorOutput?
+	weak var output: ISingleImageInteractorOutput?
 }
