@@ -8,11 +8,11 @@
 import Foundation
 
 protocol PicturesLoading {
-    func loadPictures() -> [Picture]
+	func loadPictures() -> [Picture]
 }
 
 struct PicturesLoader: PicturesLoading {
-    func loadPictures() -> [Picture] {
-        MockProvider.pictures
-    }
+	func loadPictures() -> [Picture] {
+		MockProvider.pictures
+	}
 }

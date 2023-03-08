@@ -8,30 +8,30 @@
 import Foundation
 
 protocol ITokenStorage {
-    var token: String? { get set }
-    func removeToken()
+	var token: String? { get set }
+	func removeToken()
 }
 
 extension ITokenStorage {
-    var bearerTokenKey: String {
-        "bearerToken"
-    }
+	var bearerTokenKey: String {
+		"bearerToken"
+	}
 }
 
 struct TokenStorage: ITokenStorage {
-    let userDefaults: UserDefaults
-
-    var token: String? {
-        get {
-            userDefaults.string(forKey: bearerTokenKey)
-        }
-
-        set {
-            userDefaults.set(newValue, forKey: bearerTokenKey)
-        }
-    }
-    
-    func removeToken() {
-        userDefaults.removeObject(forKey: bearerTokenKey)
-    }
+	let userDefaults: UserDefaults
+	
+	var token: String? {
+		get {
+			userDefaults.string(forKey: bearerTokenKey)
+		}
+		
+		set {
+			userDefaults.set(newValue, forKey: bearerTokenKey)
+		}
+	}
+	
+	func removeToken() {
+		userDefaults.removeObject(forKey: bearerTokenKey)
+	}
 }
