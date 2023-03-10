@@ -21,6 +21,17 @@ struct APIClient {
 	}
 	
 	@discardableResult
+	func send<T: Model>(
+		_ request: IRequest,
+		completion: @escaping (Result<[T], APIError>)->Void
+	) -> NetworkTask {
+		
+		return send(request) { (result: Result<DecodableArrayConvert<T>, APIError>) in
+			completion(result.map { $0.models })
+		}
+	}
+	
+	@discardableResult
 	func send<T: IDataConvert>(
 		_ request: IRequest,
 		completion: @escaping (Result<T, APIError>)->Void
