@@ -8,6 +8,8 @@
 import UIKit
 import SwiftKeychainWrapper
 
+// MARK: - Module
+
 enum AnimatedTransitionType {
 	case none
 	case fade
@@ -30,10 +32,13 @@ protocol ModuleFactory: AnyObject {
 	func makeProfileModule(_ profile: ProfileResult) -> Module
 }
 
+// MARK: - Module Dependencies
+
 protocol IStartModuleDependency {
 	var storage: ITokenStorage { get }
 	var profileLoader: IProfileService { get }
 	var profilePictureURLLoader: IProfileImageURLService { get }
+	var imagesListPageLoader: IImagesListService { get }
 }
 
 protocol IAuthModuleDependency {
@@ -42,6 +47,8 @@ protocol IAuthModuleDependency {
 }
 
 protocol IImagesListModuleDependency {
+	var imagesListPageLoader: IImagesListService { get }
+	var notificationCenter: NotificationCenter { get }
 }
 
 protocol IProfileModuleDependency {
@@ -51,6 +58,8 @@ protocol IProfileModuleDependency {
 }
 
 typealias AllDependencies = (IStartModuleDependency & IAuthModuleDependency & IImagesListModuleDependency & IProfileModuleDependency)
+
+// MARK: - Services
 
 protocol LoaderFactory {
 	func makePicturesLoader() -> PicturesLoading
@@ -66,7 +75,13 @@ protocol ServicesFactory {
 		notificationCenter: NotificationCenter
 	) -> IProfileImageURLService
 	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service
+	func makeImagesListService(
+		apiClient: APIClient,
+		notificationCenter: NotificationCenter
+	) -> IImagesListService
 }
+
+// MARK: - Dependency container
 
 final class DependencyContainer {
 	private let notificationCenter: NotificationCenter
@@ -96,6 +111,9 @@ final class DependencyContainer {
 				apiClient: apiClient,
 				notificationCenter: notificationCenter
 			),
+			imagesListPageLoader: makeImagesListService(
+				apiClient: apiClient,
+				notificationCenter: notificationCenter),
 			notificationCenter: notificationCenter
 		)
 	}
@@ -105,6 +123,7 @@ final class DependencyContainer {
 		let profileLoader: IProfileService
 		let oauth2TokenLoader: IOAuth2Service
 		let profilePictureURLLoader: IProfileImageURLService
+		let imagesListPageLoader: IImagesListService
 		let notificationCenter: NotificationCenter
 	}
 }
@@ -170,7 +189,10 @@ extension DependencyContainer: ModuleFactory {
 	}
 	
 	func makeImagesListModule() -> Module {
-		let interactor = ImagesListInteractor(picturesLoader: makePicturesLoader())
+		let interactor = ImagesListInteractor(
+			picturesLoader: makePicturesLoader(),
+			dep: dependencies
+		)
 		let router = ImagesListRouter()
 		let presenter = ImagesListPresenter(interactor: interactor, router: router)
 		let view = ImagesListViewController(presenter: presenter)
@@ -247,6 +269,16 @@ extension DependencyContainer: ServicesFactory {
 		notificationCenter: NotificationCenter
 	) -> IProfileImageURLService {
 		ProfileImageURLService(
+			network: apiClient,
+			notificationCenter: notificationCenter
+		)
+	}
+	
+	func makeImagesListService(
+		apiClient: APIClient,
+		notificationCenter: NotificationCenter
+	) -> IImagesListService {
+		ImagesListService(
 			network: apiClient,
 			notificationCenter: notificationCenter
 		)

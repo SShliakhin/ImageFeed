@@ -8,7 +8,6 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
-	
 	private let presenter: IImagesListViewOutput
 	
 	private var pictures: [Picture] = []
@@ -87,6 +86,10 @@ extension ImagesListViewController: UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		// TODO: - проверка на вызов fetchPhotosNextPage()
+		// при indexPath.row + 1 == photos.count
+		// presenter.lastCellDidReach
+		
 		guard didAnimateCells[indexPath] == nil else { return }
 		didAnimateCells[indexPath] = true
 		

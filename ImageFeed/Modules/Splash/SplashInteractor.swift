@@ -12,11 +12,13 @@ final class SplashInteractor {
 	private let storage: ITokenStorage
 	private let profileLoader: IProfileService
 	private let profileImageURLLoader: IProfileImageURLService
+	private let imagesListPageLoader: IImagesListService
 
 	init(dep: IStartModuleDependency) {
 		self.storage = dep.storage
 		self.profileLoader = dep.profileLoader
 		self.profileImageURLLoader = dep.profilePictureURLLoader
+		self.imagesListPageLoader = dep.imagesListPageLoader
 	}
 }
 
@@ -38,6 +40,8 @@ extension SplashInteractor: ISplashInteractorInput {
 					username: profile.someUsername,
 					bearerToken: token
 				) { _ in }
+				self.imagesListPageLoader.setToken(token)
+				self.imagesListPageLoader.fetchPhotosNextPage()
 			case .failure(let error):
 				self.output?.didFetchProfileFailure(error: error)
 			}
