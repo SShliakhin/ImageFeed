@@ -9,7 +9,7 @@ import UIKit
 
 final class SingleImageViewController: UIViewController {
 	private let presenter: ISingleImageViewOutput
-	private let picture: Picture
+	private let photo: Photo
 	
 	// MARK: - UI
 	private var image: UIImage? {
@@ -44,9 +44,9 @@ final class SingleImageViewController: UIViewController {
 	}()
 	
 	// MARK: - Init
-	init(presenter: ISingleImageViewOutput, picture: Picture) {
+	init(presenter: ISingleImageViewOutput, photo: Photo) {
 		self.presenter = presenter
-		self.picture = picture
+		self.photo = photo
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -70,8 +70,8 @@ final class SingleImageViewController: UIViewController {
 
 extension SingleImageViewController: ISingleImageViewInput {
 	func showImage() {
-		let pictureViewModel = PictureViewModel.init(from: picture)
-		image = pictureViewModel.image
+		let photoViewModel = PhotoViewModel.init(from: photo)
+		image = photoViewModel.image
 	}
 }
 

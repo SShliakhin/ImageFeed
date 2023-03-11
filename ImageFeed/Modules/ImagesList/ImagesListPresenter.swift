@@ -24,15 +24,15 @@ extension ImagesListPresenter: IImagesListViewOutput {
 	func viewDidLoad() {
 		interactor.loadImages()
 	}
-	func didSelectPicture(_ picture: Picture) {
-		router.present(.toSingleImage(picture))
+	func didSelectPicture(_ photo: Photo) {
+		router.present(.toSingleImage(photo))
 	}
 }
 
 // MARK: - IImagesListInteractorOutput
 
 extension ImagesListPresenter: IImagesListInteractorOutput {
-	func didloadImages(pictures: [Picture]) {
-		view?.showImages(pictures: pictures)
+	func didloadImages(photos: [Photo]) {
+		view?.showImages(photos: photos)
 	}
 }

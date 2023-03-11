@@ -10,7 +10,7 @@ import UIKit
 final class ImagesListViewController: UIViewController {
 	private let presenter: IImagesListViewOutput
 	
-	private var pictures: [Picture] = []
+	private var photos: [Photo] = []
 	private var didAnimateCells: [IndexPath: Bool] = [:]
 	
 	// MARK: - UI
@@ -48,8 +48,8 @@ final class ImagesListViewController: UIViewController {
 // MARK: - IImagesListViewInput
 
 extension ImagesListViewController: IImagesListViewInput {
-	func showImages(pictures: [Picture]) {
-		self.pictures = pictures
+	func showImages(photos: [Photo]) {
+		self.photos = photos
 		tableView.reloadData()
 	}
 }
@@ -58,13 +58,13 @@ extension ImagesListViewController: IImagesListViewInput {
 
 extension ImagesListViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		pictures.count
+		photos.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let picture = pictures[safe: indexPath.row] else { return UITableViewCell() }
-		let model = PictureViewModel(from: picture) { [weak self] in
-			self?.pictures[indexPath.row].isFavorite.toggle()
+		guard let photo = photos[safe: indexPath.row] else { return UITableViewCell() }
+		let model = PhotoViewModel(from: photo) { [weak self] in
+			self?.photos[indexPath.row].isLiked.toggle()
 		}
 		
 		return tableView.dequeueReusableCell(withModel: model, for: indexPath)
@@ -76,13 +76,13 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		guard let picture = pictures[safe: indexPath.row] else { return }
-		presenter.didSelectPicture(picture)
+		guard let photo = photos[safe: indexPath.row] else { return }
+		presenter.didSelectPicture(photo)
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		guard let picture = pictures[safe: indexPath.row] else { return 0 }
-		return Theme.size(kind: .cellHeight(image: UIImage(named: picture.image)))
+		guard let photo = photos[safe: indexPath.row] else { return 0 }
+		return Theme.size(kind: .cellHeight(size: photo.size))
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -105,7 +105,7 @@ extension ImagesListViewController: UITableViewDelegate {
 // MARK: - Actions
 private extension ImagesListViewController {
 	@objc func refreshContent() {
-		pictures.shuffle()
+		photos.shuffle()
 		didAnimateCells = [:]
 		hasRefreshed.toggle()
 	}
@@ -130,7 +130,7 @@ private extension ImagesListViewController {
 	}
 	
 	func setupTableView() {
-		tableView.register(models: [PictureViewModel.self])
+		tableView.register(models: [PhotoViewModel.self])
 		
 		tableView.dataSource = self
 		tableView.delegate = self

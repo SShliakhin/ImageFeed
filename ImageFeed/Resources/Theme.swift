@@ -147,7 +147,7 @@ enum Theme {
 		case cornerRadius
 		case likeButton
 		case gradientHeight
-		case cellHeight(image: UIImage?)
+		case cellHeight(size: CGSize)
 		case profileImage
 		case profileImageCornerRadius
 		case loginButtonHeight
@@ -163,12 +163,9 @@ enum Theme {
 			customSize = 42
 		case .gradientHeight:
 			customSize = 30
-		case let .cellHeight(image):
-			guard let image = image else { return 0 }
+		case let .cellHeight(size):
 			let imageInsets = contentInset(kind: .image)
-			
-			let imageSize = image.size
-			let aspectRatio = imageSize.height / imageSize.width
+			let aspectRatio = size.height / size.width
 			let cellWidth = UIScreen.main.bounds.width - imageInsets.left - imageInsets.right
 			
 			customSize = cellWidth * aspectRatio + imageInsets.top + imageInsets.bottom

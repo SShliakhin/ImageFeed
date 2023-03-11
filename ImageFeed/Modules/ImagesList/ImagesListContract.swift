@@ -10,12 +10,12 @@ import UIKit
 // MARK: View Output (View -> Presenter)
 protocol IImagesListViewOutput: AnyObject {
 	func viewDidLoad()
-	func didSelectPicture(_ picture: Picture)
+	func didSelectPicture(_ photo: Photo)
 }
 
 // MARK: View Input (Presenter -> View)
 protocol IImagesListViewInput: AnyObject {
-	func showImages(pictures: [Picture])
+	func showImages(photos: [Photo])
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
@@ -25,7 +25,7 @@ protocol IImagesListInteractorInput: AnyObject {
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IImagesListInteractorOutput: AnyObject {
-	func didloadImages(pictures: [Picture])
+	func didloadImages(photos: [Photo])
 }
 
 // MARK: Router Input (Presenter -> Router)

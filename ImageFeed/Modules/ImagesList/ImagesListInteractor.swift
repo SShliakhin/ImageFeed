@@ -39,7 +39,7 @@ private extension ImagesListInteractor {
 
 extension ImagesListInteractor: IImagesListInteractorInput {
 	func loadImages() {
-		let pictures = picturesLoader.loadPictures()
-		output?.didloadImages(pictures: pictures)
+		let photos = picturesLoader.loadPictures()
+		output?.didloadImages(photos: photos)
 	}
 }

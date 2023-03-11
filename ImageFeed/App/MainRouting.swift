@@ -53,7 +53,7 @@ enum ModuleRoute {
 	case toWebView
 	case toMainModule(ProfileResult)
 	case toImageList
-	case toSingleImage(Picture)
+	case toSingleImage(Photo)
 	case toProfile(ProfileResult)
 	
 	func getModule(factory: ModuleFactory) -> Module {

@@ -6,14 +6,21 @@
 //
 
 import Foundation
+import UIKit
 
 enum MockProvider {
-	static let pictures: [Picture] = {
+	static let photos: [Photo] = {
 		(0...20).map { number in
-			Picture(
-				image: String(describing: number),
-				date: Date(),
-				isFavorite: number % 2 == 0
+			let localImageString = String(describing: number)
+			let image = UIImage(named: localImageString)!
+			return Photo(
+				id: localImageString,
+				size: image.size,
+				createdAt: Date(),
+				welcomeDescription: "",
+				thumbImageURL: URL(string: "sas.com")!,
+				largeImageURL: URL(string: "sas.com")!,
+				isLiked: number % 2 == 0
 			)
 		}
 	}()

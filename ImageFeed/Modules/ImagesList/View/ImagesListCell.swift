@@ -50,7 +50,7 @@ final class ImagesListCell: UITableViewCell {
 	}()
 	
 	// MARK: - Properties
-	var picture: PictureViewModel? {
+	var picture: PhotoViewModel? { //PictureViewModel? {
 		didSet {
 			guard let picture = picture else { return }
 			pictureImageView.image = picture.image
@@ -143,7 +143,7 @@ extension ImagesListCell {
 	@objc private func likeButtonTapped(_ sender: UIButton) {
 		let currentLike = sender.backgroundImage(for: .normal) == Theme.image(kind: .favoriteActiveIcon)
 		setIsFavorite(!currentLike)
-		guard let didLikeTap = picture?.callback else { return }
+		guard let didLikeTap = picture?.setStatusFavorite else { return }
 		didLikeTap()
 	}
 }

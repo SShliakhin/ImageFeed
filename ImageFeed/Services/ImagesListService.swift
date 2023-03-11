@@ -44,16 +44,6 @@ extension PhotoResult {
 	}
 }
 
-struct Photo {
-	let id: String
-	let size: CGSize
-	let createdAt: Date
-	let welcomeDescription: String
-	let thumbImageURL: URL
-	let largeImageURL: URL
-	let isLiked: Bool
-}
-
 private extension PhotoResult {
 	func convert() -> Photo {
 		Photo(
@@ -86,6 +76,7 @@ final class ImagesListService {
 	private var lastLoadedPage: Int {
 		photos.count / photosPerPage
 	}
+	// TODO: - прокинуть извне
 	private let photosPerPage = 10
 	private let orderBy = OrderBy.latest
 	

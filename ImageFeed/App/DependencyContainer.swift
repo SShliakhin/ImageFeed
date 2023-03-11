@@ -28,7 +28,7 @@ protocol ModuleFactory: AnyObject {
 	func makeWebViewModule() -> Module
 	func makeTabBarModule(_ profile: ProfileResult) -> Module
 	func makeImagesListModule() -> Module
-	func makeSingleImageModule(_ picture: Picture) -> Module
+	func makeSingleImageModule(_ photo: Photo) -> Module
 	func makeProfileModule(_ profile: ProfileResult) -> Module
 }
 
@@ -206,11 +206,11 @@ extension DependencyContainer: ModuleFactory {
 		return .init(vc: navigationVC)
 	}
 	
-	func makeSingleImageModule(_ picture: Picture) -> Module {
+	func makeSingleImageModule(_ photo: Photo) -> Module {
 		let interactor = SingleImageInteractor()
 		let router = SingleImageRouter()
 		let presenter = SingleImagePresenter(interactor: interactor, router: router)
-		let view = SingleImageViewController(presenter: presenter, picture: picture)
+		let view = SingleImageViewController(presenter: presenter, photo: photo)
 		
 		view.modalPresentationStyle = .fullScreen
 		
