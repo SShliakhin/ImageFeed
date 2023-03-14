@@ -50,7 +50,7 @@ final class ImagesListCell: UITableViewCell {
 	}()
 	
 	// MARK: - Properties
-	var picture: PhotoViewModel? { //PictureViewModel? {
+	var picture: PhotoViewModel? {
 		didSet {
 			guard let picture = picture else { return }
 			pictureImageView.image = picture.image

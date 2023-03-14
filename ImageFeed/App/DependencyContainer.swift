@@ -195,7 +195,8 @@ extension DependencyContainer: ModuleFactory {
 		)
 		let router = ImagesListRouter()
 		let presenter = ImagesListPresenter(interactor: interactor, router: router)
-		let view = ImagesListViewController(presenter: presenter)
+		let adapter = ImagesListTableViewAdapter(presenter: presenter)
+		let view = ImagesListViewController(presenter: presenter, adapter: adapter)
 		
 		interactor.output = presenter
 		presenter.view = view
@@ -280,7 +281,9 @@ extension DependencyContainer: ServicesFactory {
 	) -> IImagesListService {
 		ImagesListService(
 			network: apiClient,
-			notificationCenter: notificationCenter
+			notificationCenter: notificationCenter,
+			photosPerPage: 10,
+			orderBy: OrderBy.latest
 		)
 	}
 }

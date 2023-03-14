@@ -10,12 +10,16 @@ import UIKit
 // MARK: View Output (View -> Presenter)
 protocol IImagesListViewOutput: AnyObject {
 	func viewDidLoad()
+	func didRefreshContent()
+	func hasNoAnimatedBy(_ indexPath: IndexPath) -> Bool
+	func getPhotos() -> [Photo]
 	func didSelectPicture(_ photo: Photo)
+	func didChangeLikeStatusOf(photo: Photo)
 }
 
 // MARK: View Input (Presenter -> View)
 protocol IImagesListViewInput: AnyObject {
-	func showImages(photos: [Photo])
+	func reloadTableView()
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)

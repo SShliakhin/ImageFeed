@@ -31,7 +31,8 @@ final class ImagesListInteractor {
 
 private extension ImagesListInteractor {
 	func fetchNextPageImagesList() {
-		//print(imagesListPageLoader.photos)
+		print("сигнал: Загрузил")
+		print(imagesListPageLoader.photos)
 	}
 }
 

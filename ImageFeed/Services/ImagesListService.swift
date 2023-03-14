@@ -20,47 +20,11 @@ extension IImagesListService {
 	}
 }
 
-struct PhotoResult: Model {
-	let id: String
-	let createdAt: Date?
-	let width: Int
-	let height: Int
-	let likedByUser: Bool
-	let description: String?
-	let urls: PhotoUrlsResult
-
-	struct PhotoUrlsResult: Model {
-		let full: URL
-		let small: URL
-	}
-}
-
-extension PhotoResult {
-	static var decoder: JSONDecoder {
-		let decoder = JSONDecoder()
-		decoder.keyDecodingStrategy = .convertFromSnakeCase
-		decoder.dateDecodingStrategy = .iso8601
-		return decoder
-	}
-}
-
-private extension PhotoResult {
-	func convert() -> Photo {
-		Photo(
-			id: self.id,
-			size: .init(width: self.width, height: self.height),
-			createdAt: self.createdAt ?? Date(),
-			welcomeDescription: self.description ?? "",
-			thumbImageURL: self.urls.small,
-			largeImageURL: self.urls.full,
-			isLiked: self.likedByUser
-		)
-	}
-}
-
 final class ImagesListService {	
 	private let notificationCenter: NotificationCenter
 	private let network: APIClient
+	private let photosPerPage: Int
+	private let orderBy: OrderBy
 	
 	private var bearerToken: String?
 	private var task: NetworkTask?
@@ -68,21 +32,23 @@ final class ImagesListService {
 	private (set) var photos: [Photo] = [] {
 		didSet {
 			notificationCenter.post(name: didChangeNotification, object: self)
-			print("сигнал: Загрузил")
-			print(photos)
 		}
 	}
 	
 	private var lastLoadedPage: Int {
 		photos.count / photosPerPage
 	}
-	// TODO: - прокинуть извне
-	private let photosPerPage = 10
-	private let orderBy = OrderBy.latest
 	
-	init(network: APIClient, notificationCenter: NotificationCenter) {
+	init(
+		network: APIClient,
+		notificationCenter: NotificationCenter,
+		photosPerPage: Int,
+		orderBy: OrderBy
+	) {
 		self.network = network
 		self.notificationCenter = notificationCenter
+		self.photosPerPage = photosPerPage
+		self.orderBy = orderBy
 	}
 }
 

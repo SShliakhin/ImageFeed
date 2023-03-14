@@ -9,9 +9,7 @@ import UIKit
 
 final class ImagesListViewController: UIViewController {
 	private let presenter: IImagesListViewOutput
-	
-	private var photos: [Photo] = []
-	private var didAnimateCells: [IndexPath: Bool] = [:]
+	private let adapter: ImagesListTableViewAdapter
 	
 	// MARK: - UI
 	private lazy var tableView = UITableView()
@@ -24,8 +22,9 @@ final class ImagesListViewController: UIViewController {
 	}
 	
 	// MARK: - Init
-	init(presenter: ImagesListPresenter) {
+	init(presenter: ImagesListPresenter, adapter: ImagesListTableViewAdapter) {
 		self.presenter = presenter
+		self.adapter = adapter
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -48,65 +47,19 @@ final class ImagesListViewController: UIViewController {
 // MARK: - IImagesListViewInput
 
 extension ImagesListViewController: IImagesListViewInput {
-	func showImages(photos: [Photo]) {
-		self.photos = photos
+	func reloadTableView() {
 		tableView.reloadData()
 	}
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - ILoadWithProgressHUD
 
-extension ImagesListViewController: UITableViewDataSource {
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		photos.count
-	}
-	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let photo = photos[safe: indexPath.row] else { return UITableViewCell() }
-		let model = PhotoViewModel(from: photo) { [weak self] in
-			self?.photos[indexPath.row].isLiked.toggle()
-		}
-		
-		return tableView.dequeueReusableCell(withModel: model, for: indexPath)
-	}
-}
-
-// MARK: - UITableViewDelegate
-
-extension ImagesListViewController: UITableViewDelegate {
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
-		guard let photo = photos[safe: indexPath.row] else { return }
-		presenter.didSelectPicture(photo)
-	}
-	
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		guard let photo = photos[safe: indexPath.row] else { return 0 }
-		return Theme.size(kind: .cellHeight(size: photo.size))
-	}
-	
-	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		// TODO: - проверка на вызов fetchPhotosNextPage()
-		// при indexPath.row + 1 == photos.count
-		// presenter.lastCellDidReach
-		
-		guard didAnimateCells[indexPath] == nil else { return }
-		didAnimateCells[indexPath] = true
-		
-		cell.transform3DMakeRotation(
-			degree: 90,
-			x: 0, y: 1, z: 0,
-			duration: 0.85,
-			delay: 0.1
-		)
-	}
-}
+extension ImagesListViewController: ILoadWithProgressHUD {}
 
 // MARK: - Actions
 private extension ImagesListViewController {
 	@objc func refreshContent() {
-		photos.shuffle()
-		didAnimateCells = [:]
+		presenter.didRefreshContent()
 		hasRefreshed.toggle()
 	}
 	
@@ -132,8 +85,8 @@ private extension ImagesListViewController {
 	func setupTableView() {
 		tableView.register(models: [PhotoViewModel.self])
 		
-		tableView.dataSource = self
-		tableView.delegate = self
+		tableView.dataSource = adapter
+		tableView.delegate = adapter
 		
 		tableView.refreshControl = refreshControl
 	}
