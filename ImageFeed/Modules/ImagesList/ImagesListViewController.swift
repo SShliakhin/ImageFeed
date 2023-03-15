@@ -50,6 +50,12 @@ extension ImagesListViewController: IImagesListViewInput {
 	func reloadTableView() {
 		tableView.reloadData()
 	}
+	
+	func addRowsToTableView(indexPaths: [IndexPath]) {
+		tableView.performBatchUpdates {
+			tableView.insertRows(at: indexPaths, with: .automatic)
+		} completion: { _ in }
+	}
 }
 
 // MARK: - ILoadWithProgressHUD
@@ -65,11 +71,8 @@ private extension ImagesListViewController {
 	
 	func reloadView() {
 		tableView.refreshControl?.endRefreshing()
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-			guard let self = self else { return }
-			self.tableView.performBatchUpdates {
-				self.tableView.reloadSections([0], with: .automatic)
-			}
+		tableView.performBatchUpdates {
+			self.tableView.reloadSections([0], with: .automatic)
 		}
 	}
 }

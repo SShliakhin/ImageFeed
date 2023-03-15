@@ -15,21 +15,23 @@ protocol IImagesListViewOutput: AnyObject {
 	func getPhotos() -> [Photo]
 	func didSelectPicture(_ photo: Photo)
 	func didChangeLikeStatusOf(photo: Photo)
+	func didDisplayLastPhoto()
 }
 
 // MARK: View Input (Presenter -> View)
 protocol IImagesListViewInput: AnyObject {
 	func reloadTableView()
+	func addRowsToTableView(indexPaths: [IndexPath])
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IImagesListInteractorInput: AnyObject {
-	func loadImages()
+	func fetchPhotos()
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IImagesListInteractorOutput: AnyObject {
-	func didloadImages(photos: [Photo])
+	func didLoadPhotos(_ photos: [Photo])
 }
 
 // MARK: Router Input (Presenter -> Router)

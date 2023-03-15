@@ -48,7 +48,6 @@
 		5A98389C299B399D001230D9 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5A98389B299B399D001230D9 /* ProgressHUD */; };
 		5A98389E299BE1E8001230D9 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A98389D299BE1E8001230D9 /* UIBlockingProgressHUD.swift */; };
 		5A9838A0299C12A5001230D9 /* ILoadWithProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A98389F299C12A4001230D9 /* ILoadWithProgressHUD.swift */; };
-		5A9B20CB29855FBF00D0A7E0 /* PicturesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B20CA29855FBF00D0A7E0 /* PicturesLoader.swift */; };
 		5A9B20D029863CA600D0A7E0 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B20CF29863CA600D0A7E0 /* DependencyContainer.swift */; };
 		5A9B20D229864AF700D0A7E0 /* ProfileContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B20D129864AF700D0A7E0 /* ProfileContract.swift */; };
 		5A9B20D429869B5F00D0A7E0 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9B20D329869B5F00D0A7E0 /* ProfileRouter.swift */; };
@@ -83,7 +82,6 @@
 		5AF2956D29985CD100768D75 /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2956C29985CD100768D75 /* SplashPresenter.swift */; };
 		5AF2956F2998638D00768D75 /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF2956E2998638D00768D75 /* SplashInteractor.swift */; };
 		5AF295712998664300768D75 /* SplashRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF295702998664300768D75 /* SplashRouter.swift */; };
-		5AFFC99C29762FEA00BDD49E /* MockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFFC99B29762FEA00BDD49E /* MockProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,7 +125,6 @@
 		5A983898299AFD05001230D9 /* ILoadWithIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ILoadWithIndicator.swift; sourceTree = "<group>"; };
 		5A98389D299BE1E8001230D9 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		5A98389F299C12A4001230D9 /* ILoadWithProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ILoadWithProgressHUD.swift; sourceTree = "<group>"; };
-		5A9B20CA29855FBF00D0A7E0 /* PicturesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicturesLoader.swift; sourceTree = "<group>"; };
 		5A9B20CF29863CA600D0A7E0 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		5A9B20D129864AF700D0A7E0 /* ProfileContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileContract.swift; sourceTree = "<group>"; };
 		5A9B20D329869B5F00D0A7E0 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
@@ -162,7 +159,6 @@
 		5AF2956C29985CD100768D75 /* SplashPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPresenter.swift; sourceTree = "<group>"; };
 		5AF2956E2998638D00768D75 /* SplashInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractor.swift; sourceTree = "<group>"; };
 		5AF295702998664300768D75 /* SplashRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRouter.swift; sourceTree = "<group>"; };
-		5AFFC99B29762FEA00BDD49E /* MockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,7 +250,6 @@
 				5A82A92C295261B1006FDBA0 /* LaunchScreen.storyboard */,
 				5A82A92F295261B1006FDBA0 /* Info.plist */,
 				5A82A94729533CE3006FDBA0 /* Theme.swift */,
-				5AFFC99B29762FEA00BDD49E /* MockProvider.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -342,7 +337,6 @@
 			isa = PBXGroup;
 			children = (
 				5AD89880298F77BE00C789BD /* UnsplashAPI.swift */,
-				5A9B20CA29855FBF00D0A7E0 /* PicturesLoader.swift */,
 				5A0C7A8B29B4500C00AA353D /* OAuth2Service.swift */,
 				5A068F5E29B56F9F005E51C1 /* OAuth2TokenStorage.swift */,
 				5AD898822992D64900C789BD /* TokenStorage.swift */,
@@ -535,12 +529,10 @@
 				5A0C7A8C29B4500C00AA353D /* OAuth2Service.swift in Sources */,
 				5A581ACF2993CF5000F7DE04 /* DataConvert.swift in Sources */,
 				5A22A46F295664270083617E /* GradientView.swift in Sources */,
-				5A9B20CB29855FBF00D0A7E0 /* PicturesLoader.swift in Sources */,
 				5A8866262971ECE6006ADA77 /* SingleImageViewController.swift in Sources */,
 				5A82A9512954C66F006FDBA0 /* PhotoViewModel.swift in Sources */,
 				5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */,
 				5A9B20D629869BC400D0A7E0 /* ProfileInteractor.swift in Sources */,
-				5AFFC99C29762FEA00BDD49E /* MockProvider.swift in Sources */,
 				5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */,
 				5A068F5729B50EBA005E51C1 /* UIViewController+Extensions.swift in Sources */,
 				5AF2956D29985CD100768D75 /* SplashPresenter.swift in Sources */,

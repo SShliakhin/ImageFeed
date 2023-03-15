@@ -61,10 +61,6 @@ typealias AllDependencies = (IStartModuleDependency & IAuthModuleDependency & II
 
 // MARK: - Services
 
-protocol LoaderFactory {
-	func makePicturesLoader() -> PicturesLoading
-}
-
 protocol ServicesFactory {
 	func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage
 	func makeTokenStorage(_ storage: KeychainWrapper) -> ITokenStorage
@@ -189,10 +185,7 @@ extension DependencyContainer: ModuleFactory {
 	}
 	
 	func makeImagesListModule() -> Module {
-		let interactor = ImagesListInteractor(
-			picturesLoader: makePicturesLoader(),
-			dep: dependencies
-		)
+		let interactor = ImagesListInteractor(dep: dependencies)
 		let router = ImagesListRouter()
 		let presenter = ImagesListPresenter(interactor: interactor, router: router)
 		let adapter = ImagesListTableViewAdapter(presenter: presenter)
@@ -231,14 +224,6 @@ extension DependencyContainer: ModuleFactory {
 		presenter.view = view
 		router.view = rootVC
 		return .init(vc: view)
-	}
-}
-
-// MARK: - LoaderFactory
-
-extension DependencyContainer: LoaderFactory {
-	func makePicturesLoader() -> PicturesLoading {
-		PicturesLoader()
 	}
 }
 

@@ -24,6 +24,11 @@ final class ImagesListPresenter {
 // MARK: - IImagesListViewOutput
 
 extension ImagesListPresenter: IImagesListViewOutput {
+	func didDisplayLastPhoto() {
+		view?.startIndicator()
+		interactor.fetchPhotos()
+	}
+
 	func hasNoAnimatedBy(_ indexPath: IndexPath) -> Bool {
 		guard didAnimatePhoto[indexPath] == nil else { return false }
 		didAnimatePhoto[indexPath] = true
@@ -34,18 +39,16 @@ extension ImagesListPresenter: IImagesListViewOutput {
 		photos = photos.shuffled()
 		didAnimatePhoto = [:]
 	}
+	func viewDidLoad() {
+		view?.startIndicator()
+	}
+	func getPhotos() -> [Photo] {
+		return photos
+	}
 	
 	func didChangeLikeStatusOf(photo: Photo) {
 		// TODO: - изменить статус лайка
 		print(#function, "изменить статус лайка")
-	}
-	
-	func viewDidLoad() {
-		view?.startIndicator()
-		interactor.loadImages()
-	}
-	func getPhotos() -> [Photo] {
-		return photos
 	}
 	func didSelectPicture(_ photo: Photo) {
 		router.present(.toSingleImage(photo))
@@ -55,8 +58,24 @@ extension ImagesListPresenter: IImagesListViewOutput {
 // MARK: - IImagesListInteractorOutput
 
 extension ImagesListPresenter: IImagesListInteractorOutput {
-	func didloadImages(photos: [Photo]) {
-		self.photos = photos
-		view?.stopIndicator()
+	func didLoadPhotos(_ photos: [Photo]) {
+		guard let view = view else { return }
+
+		view.stopIndicator()
+		
+		let oldCount = self.photos.count
+		let newCount = photos.count
+		
+		let newPhotos = photos[oldCount..<newCount]
+		self.photos += newPhotos
+		
+		guard oldCount > 0 else { return view.reloadTableView() }
+		
+		if oldCount != newCount {
+			let indexPaths = (oldCount..<newCount).map { i in
+				IndexPath(row: i, section: 0)
+			}
+			view.addRowsToTableView(indexPaths: indexPaths)
+		}
 	}
 }

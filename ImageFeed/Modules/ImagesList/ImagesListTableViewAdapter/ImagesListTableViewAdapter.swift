@@ -64,5 +64,9 @@ extension ImagesListTableViewAdapter: UITableViewDelegate {
 			duration: 0.85,
 			delay: 0.1
 		)
+		
+		if indexPath.row == itemCount() - 1 {
+			presenter.didDisplayLastPhoto()
+		}
 	}
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
 	// MARK: - UI
@@ -53,7 +54,11 @@ final class ImagesListCell: UITableViewCell {
 	var picture: PhotoViewModel? {
 		didSet {
 			guard let picture = picture else { return }
-			pictureImageView.image = picture.image
+			pictureImageView.kf.indicatorType = .activity
+			pictureImageView.kf.setImage(
+				with: picture.imageURL,
+				placeholder: Theme.image(kind: .imagePlaceholder)
+			)
 			setIsFavorite(picture.isFavorite)
 			dateLabel.text = picture.dateString
 		}
@@ -75,6 +80,7 @@ final class ImagesListCell: UITableViewCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		setIsFavorite(false)
+		pictureImageView.kf.cancelDownloadTask()
 	}
 }
 

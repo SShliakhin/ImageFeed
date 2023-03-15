@@ -9,12 +9,10 @@ import Foundation
 
 final class ImagesListInteractor {
 	weak var output: IImagesListInteractorOutput?
-	private let picturesLoader: PicturesLoading
 	private let imagesListPageLoader: IImagesListService
 	private var imagesListServiceObserver: NSObjectProtocol?
-	
-	init(picturesLoader: PicturesLoading, dep: IImagesListModuleDependency) {
-		self.picturesLoader = picturesLoader
+		
+	init(dep: IImagesListModuleDependency) {
 		self.imagesListPageLoader = dep.imagesListPageLoader
 		self.imagesListServiceObserver = dep.notificationCenter.addObserver(
 			forName: self.imagesListPageLoader.didChangeNotification,
@@ -22,7 +20,7 @@ final class ImagesListInteractor {
 			queue: .main
 		) { [weak self] _ in
 			guard let self = self else { return }
-			self.fetchNextPageImagesList()
+			self.didFetchNextPageImagesList()
 		}
 		
 		imagesListPageLoader.fetchPhotosNextPage()
@@ -30,17 +28,15 @@ final class ImagesListInteractor {
 }
 
 private extension ImagesListInteractor {
-	func fetchNextPageImagesList() {
-		print("сигнал: Загрузил")
-		print(imagesListPageLoader.photos)
+	func didFetchNextPageImagesList() {
+		output?.didLoadPhotos(imagesListPageLoader.photos)
 	}
 }
 
 // MARK: - IImagesListInteractorInput
 
 extension ImagesListInteractor: IImagesListInteractorInput {
-	func loadImages() {
-		let photos = picturesLoader.loadPictures()
-		output?.didloadImages(photos: photos)
+	func fetchPhotos() {
+		imagesListPageLoader.fetchPhotosNextPage()
 	}
 }
