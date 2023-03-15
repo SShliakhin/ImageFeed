@@ -101,7 +101,7 @@ extension ProfileViewController: IProfileViewInput {
 // MARK: - Actions
 private extension ProfileViewController {
 	@objc func logoutButtonTapped(_ sender: UIButton) {
-		presenter.didTapLogout()
+		presenter.logout()
 	}
 }
 

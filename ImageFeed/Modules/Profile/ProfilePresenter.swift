@@ -26,15 +26,15 @@ extension ProfilePresenter: IProfileViewOutput {
 	func viewDidLoad() {
 		view?.showProfile(profile: profile)
 	}
-	func didTapLogout() {
-		interactor.cleanUpStorage()
+	func logout() {
+		interactor.cleanUpUserData()
 	}
 }
 
 // MARK: - IProfileInteractorOutput
 
 extension ProfilePresenter: IProfileInteractorOutput {
-	func didCleanUpStorage() {
+	func didCleanUpUserData() {
 		let emptyCode = ""
 		router.navigate(.toAuth(emptyCode))
 	}

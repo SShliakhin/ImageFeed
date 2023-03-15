@@ -10,7 +10,7 @@ import UIKit
 // MARK: View Output (View -> Presenter)
 protocol IProfileViewOutput: AnyObject {
 	func viewDidLoad()
-	func didTapLogout()
+	func logout()
 }
 
 // MARK: View Input (Presenter -> View)
@@ -21,12 +21,12 @@ protocol IProfileViewInput: AnyObject {
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IProfileInteractorInput: AnyObject {
-	func cleanUpStorage()
+	func cleanUpUserData()
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IProfileInteractorOutput: AnyObject {
-	func didCleanUpStorage()
+	func didCleanUpUserData()
 	func didFetchProfileImageURL(_ url: URL)
 }
 
