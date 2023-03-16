@@ -1,11 +1,11 @@
 import UIKit
 
-protocol IBaseViewController: AnyObject {
+protocol IViewControllerWithErrorDialog: AnyObject {
 	func showErrorDialog(with message: String)
 	func showErrorDialog()
 }
 
-extension UIViewController: IBaseViewController {
+extension UIViewController: IViewControllerWithErrorDialog {
 	/// Показывает простой алерт с заложенным описанием ошибки
 	func showErrorDialog() {
 		let alert = UIAlertController(

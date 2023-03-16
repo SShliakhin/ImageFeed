@@ -13,7 +13,7 @@ protocol ISplashViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol ISplashViewInput: IBaseViewController {}
+protocol ISplashViewInput: IViewControllerWithErrorDialog, ILoadWithProgressHUD {}
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol ISplashInteractorInput: AnyObject {

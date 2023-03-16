@@ -9,7 +9,6 @@ import UIKit
 
 final class SingleImageViewController: UIViewController {
 	private let presenter: ISingleImageViewOutput
-	private let photo: Photo
 	
 	// MARK: - UI
 	private var image: UIImage? {
@@ -17,7 +16,9 @@ final class SingleImageViewController: UIViewController {
 			guard let image = image else { return }
 			fullScreenImageScrollView.configure(
 				frame: view.bounds,
-				image: image
+				image: image,
+				minZoomScale: 0.01,
+				maxZoomScale: 1.25
 			)
 		}
 	}
@@ -44,9 +45,8 @@ final class SingleImageViewController: UIViewController {
 	}()
 	
 	// MARK: - Init
-	init(presenter: ISingleImageViewOutput, photo: Photo) {
+	init(presenter: ISingleImageViewOutput) {
 		self.presenter = presenter
-		self.photo = photo
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -69,9 +69,12 @@ final class SingleImageViewController: UIViewController {
 // MARK: - IImagesListViewInput
 
 extension SingleImageViewController: ISingleImageViewInput {
-	func showImage() {
-		let photoViewModel = PhotoViewModel.init(from: photo)
-		image = photoViewModel.image
+	func displayPhotoByData(_ data: Data) {
+		if let image = UIImage(data: data) {
+			self.image = image
+		} else {
+			showErrorDialog(with: "No image from data")
+		}
 	}
 }
 
@@ -111,6 +114,13 @@ private extension SingleImageViewController {
 	
 	func applyStyle() {
 		view.backgroundColor = Theme.color(usage: .ypBlack)
+
+		fullScreenImageScrollView.configure(
+			frame: view.bounds,
+			image: Theme.image(kind: .imagePlaceholder),
+			minZoomScale: 1,
+			maxZoomScale: 1
+		)
 	}
 	
 	func applyLayout() {

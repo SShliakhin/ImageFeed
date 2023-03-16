@@ -57,10 +57,6 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: IAuthViewInput {}
 
-// MARK: - ILoadWithProgressHUD
-
-extension AuthViewController: ILoadWithProgressHUD {}
-
 // MARK: - Actions
 private extension AuthViewController {
 	@objc func loginButtonTapped(_ sender: UIButton) {

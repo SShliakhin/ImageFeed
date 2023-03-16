@@ -11,10 +11,12 @@ final class SingleImagePresenter {
 	weak var view: ISingleImageViewInput?
 	private let interactor: ISingleImageInteractorInput
 	private let router: ISingleImageRouter
+	private let photo: Photo
 	
-	init(interactor: ISingleImageInteractorInput, router: ISingleImageRouter) {
+	init(interactor: ISingleImageInteractorInput, router: ISingleImageRouter, photo: Photo) {
 		self.interactor = interactor
 		self.router = router
+		self.photo = photo
 	}
 }
 
@@ -22,7 +24,8 @@ final class SingleImagePresenter {
 
 extension SingleImagePresenter: ISingleImageViewOutput {
 	func viewDidLoad() {
-		view?.showImage()
+		view?.startIndicator()
+		interactor.fetchImageDataBy(url: photo.largeImageURL)
 	}
 	func didTapBack() {
 		guard let vc = view as? UIViewController else { return }
@@ -32,4 +35,14 @@ extension SingleImagePresenter: ISingleImageViewOutput {
 
 // MARK: - ISingleImageInteractorOutput
 
-extension SingleImagePresenter: ISingleImageInteractorOutput {}
+extension SingleImagePresenter: ISingleImageInteractorOutput {
+	func didFetchImageDataSuccess(data: Data) {
+		view?.stopIndicator()
+		view?.displayPhotoByData(data)
+	}
+
+	func didFetchImageDataFailure(error: APIError) {
+		view?.stopIndicator()
+		view?.showErrorDialog(with: error.description)
+	}
+}

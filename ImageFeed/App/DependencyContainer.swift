@@ -57,7 +57,11 @@ protocol IProfileModuleDependency {
 	var notificationCenter: NotificationCenter { get }
 }
 
-typealias AllDependencies = (IStartModuleDependency & IAuthModuleDependency & IImagesListModuleDependency & IProfileModuleDependency)
+protocol ISingleImageModuleDependency {
+	var singleImageDataLoader: ISingleImageService { get }
+}
+
+typealias AllDependencies = (IStartModuleDependency & IAuthModuleDependency & IImagesListModuleDependency & IProfileModuleDependency & ISingleImageModuleDependency)
 
 // MARK: - Services
 
@@ -75,6 +79,7 @@ protocol ServicesFactory {
 		apiClient: APIClient,
 		notificationCenter: NotificationCenter
 	) -> IImagesListService
+	func makeSingleImageService(apiClient: APIClient) -> ISingleImageService
 }
 
 // MARK: - Dependency container
@@ -110,6 +115,7 @@ final class DependencyContainer {
 			imagesListPageLoader: makeImagesListService(
 				apiClient: apiClient,
 				notificationCenter: notificationCenter),
+			singleImageDataLoader: makeSingleImageService(apiClient: apiClient),
 			notificationCenter: notificationCenter
 		)
 	}
@@ -120,6 +126,7 @@ final class DependencyContainer {
 		let oauth2TokenLoader: IOAuth2Service
 		let profilePictureURLLoader: IProfileImageURLService
 		let imagesListPageLoader: IImagesListService
+		let singleImageDataLoader: ISingleImageService
 		let notificationCenter: NotificationCenter
 	}
 }
@@ -201,10 +208,10 @@ extension DependencyContainer: ModuleFactory {
 	}
 	
 	func makeSingleImageModule(_ photo: Photo) -> Module {
-		let interactor = SingleImageInteractor()
+		let interactor = SingleImageInteractor(dep: dependencies)
 		let router = SingleImageRouter()
-		let presenter = SingleImagePresenter(interactor: interactor, router: router)
-		let view = SingleImageViewController(presenter: presenter, photo: photo)
+		let presenter = SingleImagePresenter(interactor: interactor, router: router, photo: photo)
+		let view = SingleImageViewController(presenter: presenter)
 		
 		view.modalPresentationStyle = .fullScreen
 		
@@ -270,5 +277,9 @@ extension DependencyContainer: ServicesFactory {
 			photosPerPage: 10,
 			orderBy: OrderBy.latest
 		)
+	}
+
+	func makeSingleImageService(apiClient: APIClient) -> ISingleImageService {
+		SingleImageService(network: apiClient)
 	}
 }

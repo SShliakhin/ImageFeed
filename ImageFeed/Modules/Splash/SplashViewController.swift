@@ -43,10 +43,6 @@ final class SplashViewController: UIViewController {
 
 extension SplashViewController: ISplashViewInput {}
 
-// MARK: - ILoadWithProgressHUD
-
-extension SplashViewController: ILoadWithProgressHUD {}
-
 // MARK: - UIComponent
 private extension SplashViewController {
 	func applyStyle() {

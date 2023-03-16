@@ -68,6 +68,7 @@
 		5AAA40912966E71200A6C835 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */; };
 		5ABFB28C29593D630037C159 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB28B29593D630037C159 /* Array+Extensions.swift */; };
 		5ABFB28E295947050037C159 /* UIView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABFB28D295947050037C159 /* UIView+Animations.swift */; };
+		5ACC3CF529C2949600F91A59 /* SingleImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC3CF429C2949600F91A59 /* SingleImageService.swift */; };
 		5AD89877298F445600C789BD /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD89876298F445600C789BD /* APIClient.swift */; };
 		5AD8987B298F760B00C789BD /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8987A298F760A00C789BD /* APIError.swift */; };
 		5AD8987D298F766F00C789BD /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8987C298F766F00C789BD /* Model.swift */; };
@@ -145,6 +146,7 @@
 		5AAA40902966E71200A6C835 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		5ABFB28B29593D630037C159 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		5ABFB28D295947050037C159 /* UIView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animations.swift"; sourceTree = "<group>"; };
+		5ACC3CF429C2949600F91A59 /* SingleImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageService.swift; sourceTree = "<group>"; };
 		5AD89876298F445600C789BD /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		5AD8987A298F760A00C789BD /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		5AD8987C298F766F00C789BD /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				5A0C7A8729B2C75400AA353D /* ProfileService.swift */,
 				5A0C7A8929B3DD4600AA353D /* ProfileImageURLService.swift */,
 				5A068F6029B90CE6005E51C1 /* ImagesListService.swift */,
+				5ACC3CF429C2949600F91A59 /* SingleImageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				5A9B20D429869B5F00D0A7E0 /* ProfileRouter.swift in Sources */,
 				5AF295622997633100768D75 /* RootViewController.swift in Sources */,
 				5A9B20DE2986D3FC00D0A7E0 /* ImagesListRouter.swift in Sources */,
+				5ACC3CF529C2949600F91A59 /* SingleImageService.swift in Sources */,
 				5AD8987D298F766F00C789BD /* Model.swift in Sources */,
 				5A82A94D2953E441006FDBA0 /* ImagesListCell.swift in Sources */,
 				5A8690EE298B278700BD7FC6 /* AuthContract.swift in Sources */,

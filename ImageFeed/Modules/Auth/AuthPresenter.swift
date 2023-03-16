@@ -8,7 +8,7 @@
 import UIKit
 
 final class AuthPresenter {
-	weak var view: (IAuthViewInput & ILoadWithProgressHUD)?
+	weak var view: IAuthViewInput?
 	private let interactor: IAuthInteractorInput
 	private let router: IAuthRouter
 	private var code: String
