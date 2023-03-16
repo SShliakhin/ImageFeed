@@ -28,15 +28,13 @@ final class ImagesListService {
 	
 	private var bearerToken: String?
 	private var task: NetworkTask?
+	private var lastLoadedPage = 0
+	private var duplicateСontrol: [String: Bool] = [:]
 	
 	private (set) var photos: [Photo] = [] {
 		didSet {
 			notificationCenter.post(name: didChangeNotification, object: self)
 		}
-	}
-	
-	private var lastLoadedPage: Int {
-		photos.count / photosPerPage
 	}
 	
 	init(
@@ -71,7 +69,13 @@ extension ImagesListService: IImagesListService {
 			guard let self = self else { return }
 			switch result {
 			case .success(let result):
-				let newPhotos = result.map { $0.convert() }
+				var newPhotos: [Photo] = []
+				for photo in result where self.duplicateСontrol[photo.id] == nil {
+					self.duplicateСontrol[photo.id] = true
+					newPhotos.append(photo.convert())
+				}
+				
+				self.lastLoadedPage += 1
 				self.photos += newPhotos
 				self.task = nil
 			case .failure(let error):
