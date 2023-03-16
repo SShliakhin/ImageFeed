@@ -13,17 +13,17 @@ struct PhotoViewModel {
 	let size: CGSize
 	let dateString: String
 	let isFavorite: Bool
-	var setStatusFavorite: (() -> Void)? = nil
+	var changeFavorite: (() -> Void)? = nil
 }
 
 extension PhotoViewModel {
-	init(from model: Photo, setStatusFavorite: (() -> Void)? = nil) {
+	init(from model: Photo, changeFavorite: (() -> Void)? = nil) {
 		image = UIImage(named: model.id)
 		imageURL = model.thumbImageURL
 		size = model.size
 		dateString = Theme.dateFormatter.string(from: model.createdAt)
 		isFavorite = model.isLiked
-		self.setStatusFavorite = setStatusFavorite
+		self.changeFavorite = changeFavorite
 	}
 }
 
@@ -31,6 +31,6 @@ extension PhotoViewModel {
 
 extension PhotoViewModel: CellViewModel {
 	func setup(cell: ImagesListCell) {
-		cell.picture = self
+		cell.photo = self
 	}
 }

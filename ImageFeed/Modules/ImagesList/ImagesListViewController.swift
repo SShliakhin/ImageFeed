@@ -47,6 +47,10 @@ final class ImagesListViewController: UIViewController {
 // MARK: - IImagesListViewInput
 
 extension ImagesListViewController: IImagesListViewInput {
+	func updateRowByIndex(_ index: Int) {
+		tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+	}
+
 	func reloadTableView() {
 		tableView.reloadData()
 	}

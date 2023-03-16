@@ -47,8 +47,10 @@ extension ImagesListPresenter: IImagesListViewOutput {
 	}
 	
 	func didChangeLikeStatusOf(photo: Photo) {
-		// TODO: - изменить статус лайка
-		print(#function, "изменить статус лайка")
+		if let index = photos.firstIndex(where: { $0.id == photo.id } ) {
+			view?.startIndicator()
+			interactor.changePhotoLike(photoId: photo.id, isLike: !photos[index].isLiked)
+		}
 	}
 	func didSelectPicture(_ photo: Photo) {
 		router.present(.toSingleImage(photo))
@@ -58,7 +60,20 @@ extension ImagesListPresenter: IImagesListViewOutput {
 // MARK: - IImagesListInteractorOutput
 
 extension ImagesListPresenter: IImagesListInteractorOutput {
-	func didLoadPhotos(_ photos: [Photo]) {
+	func didChangePhotoLikeSuccess(photoId: String, isLike: Bool) {
+		view?.stopIndicator()
+		if let index = photos.firstIndex(where: { $0.id == photoId } ) {
+			photos[index].isLiked = isLike
+			view?.updateRowByIndex(index)
+		}
+	}
+
+	func didChangePhotoLikeFailure(error: APIError) {
+		view?.stopIndicator()
+		view?.showErrorDialog(with: error.description)
+	}
+
+	func didFetchPhotos(_ photos: [Photo]) {
 		guard let view = view else { return }
 
 		view.stopIndicator()

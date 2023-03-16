@@ -33,6 +33,7 @@ enum UnsplashAPI: API {
 	case getMe
 	case getPublicUser(String)
 	case getListPhotos(Int,Int,OrderBy)
+	case likeUnlike(String)
 	
 	var scheme: HTTPScheme {
 		switch self {
@@ -52,6 +53,8 @@ enum UnsplashAPI: API {
 			return "api.unsplash.com"
 		case .getListPhotos:
 			return "api.unsplash.com"
+		case .likeUnlike:
+			return "api.unsplash.com"
 		}
 	}
 	var path: String {
@@ -66,6 +69,8 @@ enum UnsplashAPI: API {
 			return "/users/\(username)"
 		case .getListPhotos:
 			return "/photos"
+		case .likeUnlike(let id):
+			return "/photos/\(id)/like"
 		}
 	}
 	var parameters: [URLQueryItem]? {
@@ -95,6 +100,8 @@ enum UnsplashAPI: API {
 				URLQueryItem(name: "per_page", value: "\(perPage)"),
 				URLQueryItem(name: "order_by", value: orderBy.rawValue)
 			]
+		case .likeUnlike:
+			return nil
 		}
 	}
 }

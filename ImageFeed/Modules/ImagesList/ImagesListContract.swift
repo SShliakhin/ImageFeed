@@ -19,19 +19,23 @@ protocol IImagesListViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol IImagesListViewInput: ILoadWithProgressHUD {
+protocol IImagesListViewInput: ILoadWithProgressHUD, IViewControllerWithErrorDialog {
 	func reloadTableView()
 	func addRowsToTableView(indexPaths: [IndexPath])
+	func updateRowByIndex(_ index: Int)
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IImagesListInteractorInput: AnyObject {
 	func fetchPhotos()
+	func changePhotoLike(photoId: String, isLike: Bool)
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IImagesListInteractorOutput: AnyObject {
-	func didLoadPhotos(_ photos: [Photo])
+	func didFetchPhotos(_ photos: [Photo])
+	func didChangePhotoLikeSuccess(photoId: String, isLike: Bool)
+	func didChangePhotoLikeFailure(error: APIError)
 }
 
 // MARK: Router Input (Presenter -> Router)

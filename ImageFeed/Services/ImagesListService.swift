@@ -12,6 +12,11 @@ protocol IImagesListService {
 	
 	func fetchPhotosNextPage()
 	func setToken(_ bearerToken: String)
+	func changeLike(
+		photoId: String,
+		isLike: Bool,
+		_ completion: @escaping (Result<Bool, APIError>) -> Void
+	)
 }
 
 extension IImagesListService {
@@ -81,6 +86,40 @@ extension ImagesListService: IImagesListService {
 			case .failure(let error):
 				print(error.description)
 			}
+		}
+	}
+
+	func changeLike(
+		photoId: String,
+		isLike: Bool,
+		_ completion: @escaping (Result<Bool, APIError>
+		) -> Void) {
+		guard let bearerToken = bearerToken else { return }
+
+		assert(Thread.isMainThread)
+		guard task == nil else { return }
+
+		let resource = UnsplashAPI.likeUnlike(photoId)
+		var request = isLike
+		? PostRequest(endpoint: resource.url, body: "").urlRequest()
+		: Request(endpoint: resource.url, method: .delete).urlRequest()
+		request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
+
+		task = network.send(request) { [weak self] ( result: Result<LikeResult, APIError>) in
+			let likeResult: Result<Bool, APIError>
+
+			guard let self = self else { return }
+			switch result {
+			case .success:
+				if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+					self.photos[index].isLiked = isLike
+				}
+				likeResult = .success(isLike)
+				self.task = nil
+			case .failure(let error):
+				likeResult = .failure(error)
+			}
+			completion(likeResult)
 		}
 	}
 }

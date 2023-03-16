@@ -9,13 +9,13 @@ import Foundation
 
 final class ImagesListInteractor {
 	weak var output: IImagesListInteractorOutput?
-	private let imagesListPageLoader: IImagesListService
+	private let imagesListService: IImagesListService
 	private var imagesListServiceObserver: NSObjectProtocol?
 		
 	init(dep: IImagesListModuleDependency) {
-		self.imagesListPageLoader = dep.imagesListPageLoader
+		self.imagesListService = dep.imagesListPageLoader
 		self.imagesListServiceObserver = dep.notificationCenter.addObserver(
-			forName: self.imagesListPageLoader.didChangeNotification,
+			forName: self.imagesListService.didChangeNotification,
 			object: nil,
 			queue: .main
 		) { [weak self] _ in
@@ -23,20 +23,32 @@ final class ImagesListInteractor {
 			self.didFetchNextPageImagesList()
 		}
 		
-		imagesListPageLoader.fetchPhotosNextPage()
+		imagesListService.fetchPhotosNextPage()
 	}
 }
 
 private extension ImagesListInteractor {
 	func didFetchNextPageImagesList() {
-		output?.didLoadPhotos(imagesListPageLoader.photos)
+		output?.didFetchPhotos(imagesListService.photos)
 	}
 }
 
 // MARK: - IImagesListInteractorInput
 
 extension ImagesListInteractor: IImagesListInteractorInput {
+	func changePhotoLike(photoId: String, isLike: Bool) {
+		imagesListService.changeLike(photoId: photoId, isLike: isLike) { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let isLike):
+				self.output?.didChangePhotoLikeSuccess(photoId: photoId, isLike: isLike)
+			case .failure(let error):
+				self.output?.didChangePhotoLikeFailure(error: error)
+			}
+		}
+	}
+
 	func fetchPhotos() {
-		imagesListPageLoader.fetchPhotosNextPage()
+		imagesListService.fetchPhotosNextPage()
 	}
 }

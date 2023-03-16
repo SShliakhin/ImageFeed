@@ -51,16 +51,16 @@ final class ImagesListCell: UITableViewCell {
 	}()
 	
 	// MARK: - Properties
-	var picture: PhotoViewModel? {
+	var photo: PhotoViewModel? {
 		didSet {
-			guard let picture = picture else { return }
+			guard let photo = photo else { return }
 			pictureImageView.kf.indicatorType = .activity
 			pictureImageView.kf.setImage(
-				with: picture.imageURL,
+				with: photo.imageURL,
 				placeholder: Theme.image(kind: .imagePlaceholder)
 			)
-			setIsFavorite(picture.isFavorite)
-			dateLabel.text = picture.dateString
+			setIsFavorite(photo.isFavorite)
+			dateLabel.text = photo.dateString
 		}
 	}
 	
@@ -147,9 +147,6 @@ private extension ImagesListCell {
 // MARK: - Action
 extension ImagesListCell {
 	@objc private func likeButtonTapped(_ sender: UIButton) {
-		let currentLike = sender.backgroundImage(for: .normal) == Theme.image(kind: .favoriteActiveIcon)
-		setIsFavorite(!currentLike)
-		guard let didLikeTap = picture?.setStatusFavorite else { return }
-		didLikeTap()
+		photo?.changeFavorite?()
 	}
 }
