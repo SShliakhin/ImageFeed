@@ -19,7 +19,7 @@ protocol IImagesListViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol IImagesListViewInput: AnyObject {
+protocol IImagesListViewInput: ILoadWithProgressHUD {
 	func reloadTableView()
 	func addRowsToTableView(indexPaths: [IndexPath])
 }

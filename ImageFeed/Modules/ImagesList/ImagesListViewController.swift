@@ -58,10 +58,6 @@ extension ImagesListViewController: IImagesListViewInput {
 	}
 }
 
-// MARK: - ILoadWithProgressHUD
-
-extension ImagesListViewController: ILoadWithProgressHUD {}
-
 // MARK: - Actions
 private extension ImagesListViewController {
 	@objc func refreshContent() {

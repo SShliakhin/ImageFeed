@@ -8,7 +8,7 @@
 import Foundation
 
 final class ImagesListPresenter {
-	weak var view: (IImagesListViewInput & ILoadWithProgressHUD)?
+	weak var view: IImagesListViewInput?
 	private let interactor: IImagesListInteractorInput
 	private let router: IImagesListRouter
 	
