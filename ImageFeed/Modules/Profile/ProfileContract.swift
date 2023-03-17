@@ -14,7 +14,7 @@ protocol IProfileViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol IProfileViewInput: AnyObject {
+protocol IProfileViewInput: IViewControllerWithAlertDialog {
 	func showProfile(profile: ProfileResult)
 	func updateAvatarURL(_ profileImageURL: URL)
 }

@@ -27,7 +27,16 @@ extension ProfilePresenter: IProfileViewOutput {
 		view?.showProfile(profile: profile)
 	}
 	func logout() {
-		interactor.cleanUpUserData()
+		view?.showAlertDialog(
+			.init(
+				title: "Пока, пока!",
+				message: "Уверены, что хотите выйти?",
+				buttonText: "Да",
+				cancelButtonText: "Нет"
+			) { [weak self] in
+					self?.interactor.cleanUpUserData()
+				}
+		)
 	}
 }
 
