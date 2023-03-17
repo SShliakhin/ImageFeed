@@ -72,7 +72,7 @@ extension ProfileImageURLService: IProfileImageURLService {
 					completion(.success(smallPictureURL))
 					self.profileImageURL = smallPictureURL
 				} else {
-					completion(.failure(.noImageURL))
+					completion(.failure(.errorMessage("No image URL")))
 				}
 				self.task = nil
 			case .failure(let error):
