@@ -42,6 +42,10 @@ extension SplashPresenter: ISplashInteractorOutput {
 	
 	func didFetchProfileFailure(error: APIError) {
 		view?.stopIndicator()
-		view?.showErrorDialog()
+		view?.showErrorDialog(with: error.description) { [weak self] in
+			guard let self = self else { return }
+			let emptyCode = ""
+			self.router.navigate(.toAuth(emptyCode))
+		}
 	}
 }

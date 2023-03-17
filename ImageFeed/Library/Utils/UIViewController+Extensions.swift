@@ -1,8 +1,17 @@
 import UIKit
 
 protocol IViewControllerWithErrorDialog: AnyObject {
-	func showErrorDialog(with message: String)
-	func showErrorDialog()
+	func showErrorDialog(with message: String, completion: (() -> Void)?)
+	func showErrorDialog(completion: (() -> Void)?)
+}
+
+extension IViewControllerWithErrorDialog {
+	func showErrorDialog(with message: String, completion: (() -> Void)? = nil) {
+		showErrorDialog(with: message, completion: completion)
+	}
+	func showErrorDialog(completion: (() -> Void)? = nil) {
+		showErrorDialog(completion: completion)
+	}
 }
 
 struct AlertModel {
@@ -22,7 +31,7 @@ protocol IViewControllerWithAlertDialog: AnyObject {
 
 extension UIViewController: IViewControllerWithErrorDialog {
 	/// Показывает простой алерт с заложенным описанием ошибки
-	func showErrorDialog() {
+	func showErrorDialog(completion: (() -> Void)? = nil) {
 		let alert = UIAlertController(
 			title: "Что-то пошло не так(",
 			message: "Не удалось войти в систему",
@@ -32,14 +41,19 @@ extension UIViewController: IViewControllerWithErrorDialog {
 			.init(
 				title: "OK",
 				style: .default
-			)
+			) { _ in
+				guard let completion = completion else {
+					return
+				}
+				completion()
+			}
 		)
 		self.present(alert, animated: true)
 	}
 
-	/// Показывает простой алерт с описанием ошибки
+	/// Показывает простой алерт с описанием ошибки, может содержать completion
 	/// - Parameter message: описание ошибки
-	func showErrorDialog(with message: String) {
+	func showErrorDialog(with message: String, completion: (() -> Void)? = nil) {
 		let alert = UIAlertController(
 			title: "Warning",
 			message: message,
@@ -49,8 +63,14 @@ extension UIViewController: IViewControllerWithErrorDialog {
 			.init(
 				title: "OK",
 				style: .default
-			)
+			) { _ in
+				guard let completion = completion else {
+					return
+				}
+				completion()
+			}
 		)
+
 		self.present(alert, animated: true)
 	}
 }
