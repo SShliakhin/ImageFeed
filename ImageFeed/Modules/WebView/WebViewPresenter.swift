@@ -25,6 +25,14 @@ extension WebViewPresenter: IWebViewViewOutput {
 		}
 		view?.loadRequest(URLRequest(url: url))
 	}
+
+	func didUpdateProgressValue(_ newValue: Double) {
+		if fabs(newValue - 1.0) <= 0.0001 {
+			view?.setProgressHidden()
+		} else {
+			view?.setProgressValue(Float(newValue))
+		}
+	}
 	
 	func getAuthCode(from url: URL?) -> String? {
 		if

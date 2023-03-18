@@ -57,6 +57,14 @@ final class WebViewViewController: UIViewController {
 // MARK: - IWebViewViewInput
 
 extension WebViewViewController: IWebViewViewInput {
+	func setProgressValue(_ newValue: Float) {
+		progressView.progress = newValue
+	}
+
+	func setProgressHidden() {
+		progressView.isHidden = true
+	}
+
 	func loadRequest(_ request: URLRequest) {
 		webView.load(request)
 	}
@@ -86,13 +94,9 @@ private extension WebViewViewController {
 			\.estimatedProgress,
 			 options: []
 		) { [weak self] _, _ in
-			self?.updateProgress()
+			guard let self = self else { return }
+			self.presenter.didUpdateProgressValue(self.webView.estimatedProgress)
 		}
-	}
-	
-	func updateProgress() {
-		progressView.progress = Float(webView.estimatedProgress)
-		progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
 	}
 }
 
