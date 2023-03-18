@@ -50,7 +50,9 @@ final class ProfileViewController: UIViewController {
 		button.tintColor = Theme.color(usage: .ypRed)
 		return button
 	}()
-	
+
+	private lazy var animationLayers = Set<CALayer>()
+
 	// MARK: - Properties
 	var profileViewModel: ProfileResult? {
 		didSet {
@@ -78,7 +80,8 @@ final class ProfileViewController: UIViewController {
 		setup()
 		applyStyle()
 		applyLayout()
-		
+
+		setupAnimation()
 		presenter.viewDidLoad()
 	}
 }
@@ -88,13 +91,24 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController: IProfileViewInput {
 	func showProfile(profile: ProfileResult) {
 		profileViewModel = profile
+		removeAnimation()
 	}
 	func updateAvatarURL(_ profileImageURL: URL) {
-		profileImageView.kf.indicatorType = .activity
-		profileImageView.kf.setImage(
-			with: profileImageURL,
-			placeholder: Theme.image(kind: .personPlaceholder)
+		let indicator = GradientKFIndicator(
+			gradientLayer: Theme.gradientLayer(kind: .loader),
+			changeAnimation: Theme.changeAnimation(kind: .locations)
 		)
+		profileImageView.kf.indicatorType = .custom(indicator: indicator)
+		profileImageView.kf.setImage(with: profileImageURL) { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success:
+				break
+			case .failure(let error):
+				self.profileImageView.image = Theme.image(kind: .personPlaceholder)
+				self.showErrorDialog(with: "Аватарка не загружена по причине:  \(error.localizedDescription)")
+			}
+		}
 	}
 }
 
@@ -155,5 +169,22 @@ private extension ProfileViewController {
 			profileImageView.widthAnchor.constraint(equalToConstant: Theme.size(kind: .profileImage)),
 			hStackView.widthAnchor.constraint(equalTo: vStackView.widthAnchor, constant: -Theme.spacing(usage: .standard))
 		])
+	}
+	func setupAnimation() {
+		let changeAnimation = Theme.changeAnimation(kind: .locations)
+		let keyChangeAnimation = "locationsChange"
+		[
+			Theme.gradientLayer(kind: .label(nameLabel)),
+			Theme.gradientLayer(kind: .label2(loginNameLabel)),
+			Theme.gradientLayer(kind: .label2(descriptionLabel))
+		].forEach { layer in
+			animationLayers.insert(layer)
+			layer.add(changeAnimation, forKey: keyChangeAnimation)
+		}
+	}
+	func removeAnimation() {
+		animationLayers.forEach { layer in
+			layer.removeFromSuperlayer()
+		}
 	}
 }

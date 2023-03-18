@@ -187,4 +187,76 @@ enum Theme {
 		formatter.timeStyle = .none
 		return formatter
 	}()
+
+	// MARK: - Animation
+
+	// MARK: - Gradient
+	enum GradientKind {
+		case bottomForDate
+		case avatar(UIView)
+		case label(UIView)
+		case label2(UIView)
+		case loader
+	}
+
+	static func gradientLayer(kind: GradientKind) -> CAGradientLayer {
+		let baseGradient = CAGradientLayer()
+		baseGradient.locations = [0, 0.1, 0.3]
+		baseGradient.colors = [
+			UIColor(red: 0.682, green: 0.686, blue: 0.706, alpha: 1).cgColor,
+			UIColor(red: 0.531, green: 0.533, blue: 0.553, alpha: 1).cgColor,
+			UIColor(red: 0.431, green: 0.433, blue: 0.453, alpha: 1).cgColor
+		]
+		baseGradient.startPoint = CGPoint(x: 0, y: 0.5)
+		baseGradient.endPoint = CGPoint(x: 1, y: 0.5)
+
+		switch kind {
+		case .avatar(let view):
+			baseGradient.frame = CGRect(origin: .zero, size: CGSize(width: 70, height: 70))
+			baseGradient.cornerRadius = 35
+			baseGradient.masksToBounds = true
+			view.layer.insertSublayer(baseGradient, at: 0)
+		case .label(let view):
+			baseGradient.frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 33))
+			baseGradient.cornerRadius = 6
+			baseGradient.masksToBounds = true
+			view.layer.insertSublayer(baseGradient, at: 0)
+		case .label2(let view):
+			baseGradient.frame = CGRect(origin: .zero, size: CGSize(width: 150, height: 22))
+			baseGradient.cornerRadius = 6
+			baseGradient.masksToBounds = true
+			view.layer.insertSublayer(baseGradient, at: 0)
+		case .loader:
+			break
+		case .bottomForDate:
+			baseGradient.locations = [0, 0.5]
+			baseGradient.colors = [
+				color(usage: .ypBlack).withAlphaComponent(0.2).cgColor,
+				color(usage: .ypBlack).withAlphaComponent(0).cgColor
+			]
+		}
+
+		return baseGradient
+	}
+
+	// MARK: - BasicAnimation
+	enum BasicAnimationKind {
+		case locations
+	}
+
+	static func changeAnimation(kind: BasicAnimationKind) -> CABasicAnimation {
+		let baseAnimation = CABasicAnimation()
+		baseAnimation.duration = 1.0
+		baseAnimation.repeatCount = .infinity
+		baseAnimation.autoreverses = true
+		baseAnimation.fromValue = [0, 0.1, 0.3]
+		baseAnimation.toValue = [0, 0.8, 1]
+
+		switch kind {
+		case .locations:
+			baseAnimation.keyPath = "locations"
+		}
+
+		return baseAnimation
+	}
 }

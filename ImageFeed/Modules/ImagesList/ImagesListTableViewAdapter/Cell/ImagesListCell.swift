@@ -22,16 +22,8 @@ final class ImagesListCell: UITableViewCell {
 	
 	private lazy var gradientView: GradientView = {
 		let view = GradientView()
-		
-		view.configure(
-			colors: [
-				Theme.color(usage: .ypBlack).withAlphaComponent(0.2).cgColor,
-				Theme.color(usage: .ypBlack).withAlphaComponent(0).cgColor
-			],
-			locations: [0, 0.5],
-			startPoint: CGPoint(x: 0, y: 0.5),
-			endPoint: CGPoint(x: 1, y: 0.5)
-		)
+		let layer = Theme.gradientLayer(kind: .bottomForDate)
+		view.configure(from: layer)
 		
 		view.layer.cornerRadius = Theme.size(kind: .cornerRadius)
 		view.layer.maskedCorners = [
@@ -54,11 +46,22 @@ final class ImagesListCell: UITableViewCell {
 	var photo: PhotoViewModel? {
 		didSet {
 			guard let photo = photo else { return }
-			pictureImageView.kf.indicatorType = .activity
-			pictureImageView.kf.setImage(
-				with: photo.imageURL,
-				placeholder: Theme.image(kind: .imagePlaceholder)
+
+			let indicator = GradientKFIndicator(
+				gradientLayer: Theme.gradientLayer(kind: .loader),
+				changeAnimation: Theme.changeAnimation(kind: .locations)
 			)
+			pictureImageView.kf.indicatorType = .custom(indicator: indicator)
+			pictureImageView.kf.setImage(with: photo.imageURL){ [weak self] result in
+				guard let self = self else { return }
+				switch result {
+				case .success:
+					break
+				case .failure:
+					self.pictureImageView.image = Theme.image(kind: .imagePlaceholder)
+				}
+			}
+			
 			setIsFavorite(photo.isFavorite)
 			dateLabel.text = photo.dateString
 		}
