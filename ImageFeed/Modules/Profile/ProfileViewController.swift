@@ -101,10 +101,7 @@ extension ProfileViewController: IProfileViewInput {
 		profileImageView.kf.indicatorType = .custom(indicator: indicator)
 		profileImageView.kf.setImage(with: profileImageURL) { [weak self] result in
 			guard let self = self else { return }
-			switch result {
-			case .success:
-				break
-			case .failure(let error):
+			if case .failure(let error) = result {
 				self.profileImageView.image = Theme.image(kind: .personPlaceholder)
 				self.showErrorDialog(with: "Аватарка не загружена по причине:  \(error.localizedDescription)")
 			}

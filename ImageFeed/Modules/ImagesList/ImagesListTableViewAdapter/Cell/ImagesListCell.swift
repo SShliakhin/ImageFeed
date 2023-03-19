@@ -54,10 +54,7 @@ final class ImagesListCell: UITableViewCell {
 			pictureImageView.kf.indicatorType = .custom(indicator: indicator)
 			pictureImageView.kf.setImage(with: photo.imageURL){ [weak self] result in
 				guard let self = self else { return }
-				switch result {
-				case .success:
-					break
-				case .failure:
+				if case .failure = result {
 					self.pictureImageView.image = Theme.image(kind: .imagePlaceholder)
 				}
 			}

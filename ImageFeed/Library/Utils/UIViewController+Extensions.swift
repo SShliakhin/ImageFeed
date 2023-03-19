@@ -30,7 +30,6 @@ protocol IViewControllerWithAlertDialog: AnyObject {
 // MARK: - IViewControllerWithErrorDialog
 
 extension UIViewController: IViewControllerWithErrorDialog {
-	/// Показывает простой алерт с заложенным описанием ошибки
 	func showErrorDialog(completion: (() -> Void)? = nil) {
 		let alert = UIAlertController(
 			title: "Что-то пошло не так(",
@@ -42,17 +41,12 @@ extension UIViewController: IViewControllerWithErrorDialog {
 				title: "OK",
 				style: .default
 			) { _ in
-				guard let completion = completion else {
-					return
-				}
-				completion()
+				completion?()
 			}
 		)
 		self.present(alert, animated: true)
 	}
 
-	/// Показывает простой алерт с описанием ошибки, может содержать completion
-	/// - Parameter message: описание ошибки
 	func showErrorDialog(with message: String, completion: (() -> Void)? = nil) {
 		let alert = UIAlertController(
 			title: "Warning",
@@ -64,10 +58,7 @@ extension UIViewController: IViewControllerWithErrorDialog {
 				title: "OK",
 				style: .default
 			) { _ in
-				guard let completion = completion else {
-					return
-				}
-				completion()
+				completion?()
 			}
 		)
 

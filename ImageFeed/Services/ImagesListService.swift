@@ -84,7 +84,7 @@ extension ImagesListService: IImagesListService {
 				self.photos += newPhotos
 				self.task = nil
 			case .failure(let error):
-				print(error.description)
+				assertionFailure(error.description)
 			}
 		}
 	}

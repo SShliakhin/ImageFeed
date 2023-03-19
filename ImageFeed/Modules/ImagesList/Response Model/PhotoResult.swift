@@ -33,10 +33,14 @@ extension PhotoResult {
 
 extension PhotoResult {
 	func convert() -> Photo {
-		Photo(
+		var createAtString = "дата неизвестна"
+		if let createAt = self.createdAt {
+			createAtString = Theme.dateFormatter.string(from: createAt)
+		}
+		return Photo(
 			id: self.id,
 			size: .init(width: self.width, height: self.height),
-			createdAt: self.createdAt ?? Date(),
+			createdAtString: createAtString,
 			welcomeDescription: self.description ?? "",
 			thumbImageURL: self.urls.small,
 			largeImageURL: self.urls.full,

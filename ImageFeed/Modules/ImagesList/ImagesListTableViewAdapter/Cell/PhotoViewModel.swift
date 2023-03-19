@@ -8,7 +8,6 @@
 import UIKit
 
 struct PhotoViewModel {
-	let image: UIImage?
 	let imageURL: URL
 	let size: CGSize
 	let dateString: String
@@ -18,10 +17,9 @@ struct PhotoViewModel {
 
 extension PhotoViewModel {
 	init(from model: Photo, changeFavorite: (() -> Void)? = nil) {
-		image = UIImage(named: model.id)
 		imageURL = model.thumbImageURL
 		size = model.size
-		dateString = Theme.dateFormatter.string(from: model.createdAt)
+		dateString = model.createdAtString
 		isFavorite = model.isLiked
 		self.changeFavorite = changeFavorite
 	}

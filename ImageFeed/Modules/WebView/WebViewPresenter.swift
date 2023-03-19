@@ -27,7 +27,7 @@ extension WebViewPresenter: IWebViewViewOutput {
 	}
 
 	func didUpdateProgressValue(_ newValue: Double) {
-		if fabs(newValue - 1.0) <= 0.0001 {
+		if abs(newValue - 1.0) <= 0.0001 {
 			view?.setProgressHidden()
 		} else {
 			view?.setProgressValue(Float(newValue))
