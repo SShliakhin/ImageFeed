@@ -72,6 +72,8 @@
 		5ACC3CF729C2E26000F91A59 /* LikeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACC3CF629C2E26000F91A59 /* LikeResult.swift */; };
 		5ACDE11B29C5706700B8B847 /* GradientKFIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDE11A29C5706700B8B847 /* GradientKFIndicator.swift */; };
 		5ACDE11E29C7CB4900B8B847 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5ACDE11D29C7CB4900B8B847 /* .swiftlint.yml */; };
+		5ACDE12029C819F700B8B847 /* APIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDE11F29C819F700B8B847 /* APIHelper.swift */; };
+		5ACDE12229C821A300B8B847 /* WebViewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACDE12129C821A300B8B847 /* WebViewInteractor.swift */; };
 		5AD89877298F445600C789BD /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD89876298F445600C789BD /* APIClient.swift */; };
 		5AD8987B298F760B00C789BD /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8987A298F760A00C789BD /* APIError.swift */; };
 		5AD8987D298F766F00C789BD /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8987C298F766F00C789BD /* Model.swift */; };
@@ -153,6 +155,8 @@
 		5ACC3CF629C2E26000F91A59 /* LikeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeResult.swift; sourceTree = "<group>"; };
 		5ACDE11A29C5706700B8B847 /* GradientKFIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientKFIndicator.swift; sourceTree = "<group>"; };
 		5ACDE11D29C7CB4900B8B847 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		5ACDE11F29C819F700B8B847 /* APIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelper.swift; sourceTree = "<group>"; };
+		5ACDE12129C821A300B8B847 /* WebViewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewInteractor.swift; sourceTree = "<group>"; };
 		5AD89876298F445600C789BD /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		5AD8987A298F760A00C789BD /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		5AD8987C298F766F00C789BD /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 			children = (
 				5A8690F4298B3E5D00BD7FC6 /* WebViewContract.swift */,
 				5A8690F6298B3F2B00BD7FC6 /* WebViewPresenter.swift */,
+				5ACDE12129C821A300B8B847 /* WebViewInteractor.swift */,
 				5A1EA0C3299935E1003CF309 /* WebViewRouter.swift */,
 				5A5FB3592988FE0300F72BE1 /* WebViewViewController.swift */,
 			);
@@ -347,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				5AD89880298F77BE00C789BD /* UnsplashAPI.swift */,
+				5ACDE11F29C819F700B8B847 /* APIHelper.swift */,
 				5A0C7A8B29B4500C00AA353D /* OAuth2Service.swift */,
 				5A068F5E29B56F9F005E51C1 /* OAuth2TokenStorage.swift */,
 				5AD898822992D64900C789BD /* TokenStorage.swift */,
@@ -554,6 +560,7 @@
 				5A9B20E92986E29800D0A7E0 /* SingleImageInteractor.swift in Sources */,
 				5ACDE11B29C5706700B8B847 /* GradientKFIndicator.swift in Sources */,
 				5A8690F0298B2A4B00BD7FC6 /* AuthRouter.swift in Sources */,
+				5ACDE12229C821A300B8B847 /* WebViewInteractor.swift in Sources */,
 				5A581AD12993D02A00F7DE04 /* NetworkTask.swift in Sources */,
 				5AD89881298F77BE00C789BD /* UnsplashAPI.swift in Sources */,
 				5A9B20EB2986E55600D0A7E0 /* SingleImagePresenter.swift in Sources */,
@@ -571,6 +578,7 @@
 				5A82A922295261AF006FDBA0 /* AppDelegate.swift in Sources */,
 				5ACC3CF729C2E26000F91A59 /* LikeResult.swift in Sources */,
 				5A9B20D629869BC400D0A7E0 /* ProfileInteractor.swift in Sources */,
+				5ACDE12029C819F700B8B847 /* APIHelper.swift in Sources */,
 				5A82A94829533CE3006FDBA0 /* Theme.swift in Sources */,
 				5A068F5729B50EBA005E51C1 /* UIViewController+Extensions.swift in Sources */,
 				5AF2956D29985CD100768D75 /* SplashPresenter.swift in Sources */,

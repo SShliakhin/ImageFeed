@@ -9,9 +9,11 @@ import UIKit
 
 final class WebViewPresenter {
 	weak var view: IWebViewViewInput?
+	private let interactor: IWebViewInteractorInput
 	private let router: IWebViewRouter
 
-	init(router: IWebViewRouter) {
+	init(interactor: IWebViewInteractorInput, router: IWebViewRouter) {
+		self.interactor = interactor
 		self.router = router
 	}
 }
@@ -20,10 +22,8 @@ final class WebViewPresenter {
 
 extension WebViewPresenter: IWebViewViewOutput {
 	func viewDidload() {
-		guard let url = UnsplashAPI.getAuthorizationCodeRequest.url else {
-			fatalError("Can't construct url")
-		}
-		view?.loadRequest(URLRequest(url: url))
+		let request = interactor.getAuthRequest()
+		view?.loadRequest(request)
 	}
 
 	func didUpdateProgressValue(_ newValue: Double) {
@@ -35,16 +35,10 @@ extension WebViewPresenter: IWebViewViewOutput {
 	}
 
 	func getAuthCode(from url: URL?) -> String? {
-		if
-			let url = url,
-			let urlComponents = URLComponents(string: url.absoluteString),
-			urlComponents.path == "/oauth/authorize/native",
-			let items = urlComponents.queryItems,
-			let codeItem = items.first(where: { $0.name == "code" }) {
-			return codeItem.value
-		} else {
-			return nil
+		guard let url = url else {
+			fatalError("Can't construct url for code")
 		}
+		return interactor.getAuthCode(from: url)
 	}
 
 	func didGetAuthCode(_ code: String) {

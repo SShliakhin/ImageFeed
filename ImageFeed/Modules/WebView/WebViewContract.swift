@@ -23,5 +23,14 @@ protocol IWebViewViewInput: AnyObject {
 	func setProgressHidden()
 }
 
+// MARK: Interactor Input (Presenter -> Interactor)
+protocol IWebViewInteractorInput: AnyObject {
+	func getAuthCode(from url: URL) -> String?
+	func getAuthRequest() -> URLRequest
+}
+
+// MARK: Interactor Output (Interactor -> Presenter)
+protocol IWebViewInteractorOutput: AnyObject {}
+
 // MARK: Router Input (Presenter -> Router)
 protocol IWebViewRouter: MainRouting {}
