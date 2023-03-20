@@ -12,7 +12,7 @@ struct PhotoViewModel {
 	let size: CGSize
 	let dateString: String
 	let isFavorite: Bool
-	var changeFavorite: (() -> Void)? = nil
+	var changeFavorite: (() -> Void)?
 }
 
 extension PhotoViewModel {

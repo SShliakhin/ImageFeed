@@ -9,7 +9,7 @@ import UIKit
 
 protocol IImagesListService {
 	var photos: [Photo] { get }
-	
+
 	func fetchPhotosNextPage()
 	func setToken(_ bearerToken: String)
 	func changeLike(
@@ -25,23 +25,23 @@ extension IImagesListService {
 	}
 }
 
-final class ImagesListService {	
+final class ImagesListService {
 	private let notificationCenter: NotificationCenter
 	private let network: APIClient
 	private let photosPerPage: Int
 	private let orderBy: OrderBy
-	
+
 	private var bearerToken: String?
 	private var task: NetworkTask?
 	private var lastLoadedPage = 0
-	private var duplicateСontrol: [String: Bool] = [:]
-	
+	private var duplicateControl: [String: Bool] = [:]
+
 	private (set) var photos: [Photo] = [] {
 		didSet {
 			notificationCenter.post(name: didChangeNotification, object: self)
 		}
 	}
-	
+
 	init(
 		network: APIClient,
 		notificationCenter: NotificationCenter,
@@ -59,27 +59,27 @@ extension ImagesListService: IImagesListService {
 	func setToken(_ bearerToken: String) {
 		self.bearerToken = bearerToken
 	}
-	
+
 	func fetchPhotosNextPage() {
 		guard let bearerToken = bearerToken else { return }
-		
+
 		assert(Thread.isMainThread)
 		guard task == nil else { return }
-		
+
 		let resource = UnsplashAPI.getListPhotos(lastLoadedPage + 1, photosPerPage, orderBy)
 		var request = Request(endpoint: resource.url).urlRequest()
 		request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
-		
+
 		task = network.send(request) { [weak self] ( result: Result<[PhotoResult], APIError>) in
 			guard let self = self else { return }
 			switch result {
 			case .success(let result):
 				var newPhotos: [Photo] = []
-				for photo in result where self.duplicateСontrol[photo.id] == nil {
-					self.duplicateСontrol[photo.id] = true
+				for photo in result where self.duplicateControl[photo.id] == nil {
+					self.duplicateControl[photo.id] = true
 					newPhotos.append(photo.convert())
 				}
-				
+
 				self.lastLoadedPage += 1
 				self.photos += newPhotos
 				self.task = nil
@@ -92,8 +92,8 @@ extension ImagesListService: IImagesListService {
 	func changeLike(
 		photoId: String,
 		isLike: Bool,
-		_ completion: @escaping (Result<Bool, APIError>
-		) -> Void) {
+		_ completion: @escaping (Result<Bool, APIError>) -> Void
+	) {
 		guard let bearerToken = bearerToken else { return }
 
 		assert(Thread.isMainThread)

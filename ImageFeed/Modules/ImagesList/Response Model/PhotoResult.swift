@@ -15,7 +15,7 @@ struct PhotoResult: Model {
 	let likedByUser: Bool
 	let description: String?
 	let urls: PhotoUrlsResult
-	
+
 	struct PhotoUrlsResult: Model {
 		let full: URL
 		let small: URL

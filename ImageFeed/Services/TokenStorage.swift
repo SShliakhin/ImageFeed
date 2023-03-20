@@ -20,17 +20,17 @@ extension ITokenStorage {
 
 struct TokenStorage: ITokenStorage {
 	let userDefaults: UserDefaults
-	
+
 	var token: String? {
 		get {
 			userDefaults.string(forKey: bearerTokenKey)
 		}
-		
+
 		set {
 			userDefaults.set(newValue, forKey: bearerTokenKey)
 		}
 	}
-	
+
 	func removeToken() {
 		userDefaults.removeObject(forKey: bearerTokenKey)
 	}

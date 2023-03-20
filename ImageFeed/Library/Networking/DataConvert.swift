@@ -48,11 +48,11 @@ extension String: IRequiredDataConvert {
 
 struct DecodableConvert<T: Model>: IRequiredDataConvert {
 	let model: T
-	
+
 	init(_ model: T) {
 		self.model = model
 	}
-	
+
 	static func convert(from data: Data) throws -> DecodableConvert<T> {
 		let decoder = T.decoder
 		let model = try decoder.decode(T.self, from: data)
@@ -62,11 +62,11 @@ struct DecodableConvert<T: Model>: IRequiredDataConvert {
 
 struct DecodableArrayConvert<T: Model>: IRequiredDataConvert {
 	let models: [T]
-	
+
 	init(_ models: [T]) {
 		self.models = models
 	}
-	
+
 	static func convert(from data: Data) throws -> DecodableArrayConvert<T> {
 		let decoder = T.decoder
 		let models = try decoder.decode([T].self, from: data)

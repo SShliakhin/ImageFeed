@@ -27,14 +27,14 @@ enum OrderBy: String {
 }
 
 enum UnsplashAPI: API {
-	
+
 	case getAuthorizationCodeRequest
 	case getAuthTokenRequest(String)
 	case getMe
 	case getPublicUser(String)
-	case getListPhotos(Int,Int,OrderBy)
+	case getListPhotos(Int, Int, OrderBy)
 	case likeUnlike(String)
-	
+
 	var scheme: HTTPScheme {
 		switch self {
 		@unknown default:

@@ -1,6 +1,6 @@
 import Foundation
-
-enum APIError : Error {
+// swiftlint:disable switch_case_on_newline numbers_smell
+enum APIError: Error {
 	case unknownResponse
 	case networkError(Error)
 	case requestError(Int)
@@ -11,12 +11,12 @@ enum APIError : Error {
 	case errorMessage(String)
 }
 
-extension APIError : CustomStringConvertible {
+extension APIError: CustomStringConvertible {
 	static func error(from response: URLResponse?) -> APIError? {
 		guard let http = response as? HTTPURLResponse else {
 			return .unknownResponse
 		}
-		
+
 		switch http.statusCode {
 		case 200...299: return nil
 		case 400...499: return .requestError(http.statusCode)
@@ -24,7 +24,7 @@ extension APIError : CustomStringConvertible {
 		default: return .unhandledResponse
 		}
 	}
-	
+
 	private var localizedDescription: String {
 		switch self {
 		case .unknownResponse: return "Unknown Response"
@@ -37,7 +37,7 @@ extension APIError : CustomStringConvertible {
 		case .errorMessage(let message): return "\(message)"
 		}
 	}
-	
+
 	var description: String {
 		localizedDescription
 	}

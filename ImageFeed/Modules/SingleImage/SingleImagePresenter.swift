@@ -12,7 +12,7 @@ final class SingleImagePresenter {
 	private let interactor: ISingleImageInteractorInput
 	private let router: ISingleImageRouter
 	private let photo: Photo
-	
+
 	init(interactor: ISingleImageInteractorInput, router: ISingleImageRouter, photo: Photo) {
 		self.interactor = interactor
 		self.router = router
@@ -28,8 +28,8 @@ extension SingleImagePresenter: ISingleImageViewOutput {
 		interactor.fetchImageDataBy(url: photo.largeImageURL)
 	}
 	func didTapBack() {
-		guard let vc = view as? UIViewController else { return }
-		vc.dismiss(animated: true)
+		guard let view = view as? UIViewController else { return }
+		view.dismiss(animated: true)
 	}
 }
 

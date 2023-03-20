@@ -12,7 +12,7 @@ final class ProfilePresenter {
 	private let interactor: IProfileInteractorInput
 	private let router: IProfileRouter
 	private let profile: ProfileResult
-	
+
 	init(interactor: IProfileInteractorInput, router: IProfileRouter, profile: ProfileResult) {
 		self.interactor = interactor
 		self.router = router
@@ -35,7 +35,7 @@ extension ProfilePresenter: IProfileViewOutput {
 				cancelButtonText: "Нет"
 			) { [weak self] in
 					self?.interactor.cleanUpUserData()
-				}
+			}
 		)
 	}
 }

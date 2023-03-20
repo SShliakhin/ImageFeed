@@ -28,7 +28,7 @@ extension SplashInteractor: ISplashInteractorInput {
 	var hasToken: Bool {
 		storage.token != nil
 	}
-	
+
 	func fetchProfile() {
 		guard let token = storage.token else { return }
 		profileLoader.fetchProfile(bearerToken: token) { [weak self] result in
@@ -39,7 +39,8 @@ extension SplashInteractor: ISplashInteractorInput {
 				self.profileImageURLLoader.fetchProfileImageURL(
 					username: profile.someUsername,
 					bearerToken: token
-				) { _ in }
+				) { _ in
+				}
 				self.imagesListPageLoader.setToken(token)
 				self.imagesListPageLoader.fetchPhotosNextPage()
 			case .failure(let error):

@@ -8,7 +8,7 @@
 import UIKit
 
 enum Theme {
-	
+
 	// MARK: - Fonts
 	enum FontStyle {
 		case bold23
@@ -17,10 +17,10 @@ enum Theme {
 		case regular17
 		case regular13
 	}
-	
+
 	static func font(style: FontStyle) -> UIFont {
 		let customFont: UIFont
-		
+
 		switch style {
 		case .bold23:
 			customFont = UIFont(name: "YSDisplay-Bold", size: 23.0) ?? UIFont.systemFont(ofSize: 23.0)
@@ -33,10 +33,10 @@ enum Theme {
 		case .regular13:
 			customFont = UIFont(name: "YandexSansDisplay-Regular", size: 13.0) ?? UIFont.systemFont(ofSize: 13.0)
 		}
-		
+
 		return customFont
 	}
-	
+
 	// MARK: - Colors
 	enum Color {
 		case ypBlack
@@ -47,10 +47,10 @@ enum Theme {
 		case ypRed
 		case ypBlue
 	}
-	
+
 	static func color(usage: Color) -> UIColor {
 		let customColor: UIColor
-		
+
 		switch usage {
 		case .ypBlack:
 			customColor = UIColor(named: "ypBlack") ?? UIColor.black
@@ -67,10 +67,10 @@ enum Theme {
 		case .ypBlue:
 			customColor = UIColor(named: "ypBlue") ?? UIColor.systemBlue
 		}
-		
+
 		return customColor
 	}
-	
+
 	// MARK: - Images
 	enum ImageAsset: String {
 		case practicumLogo, unsplashLogo
@@ -80,20 +80,20 @@ enum Theme {
 		case backwardIcon, exitIcon, shareIcon
 		case avatar
 	}
-	
+
 	static func image(kind: ImageAsset) -> UIImage {
-		return UIImage(named: kind.rawValue) ?? .actions
+		return UIImage(named: kind.rawValue) ?? .actions // swiftlint:disable:this image_name_initialization
 	}
-	
+
 	// MARK: - ContentInset
 	enum ContentInset {
 		case table
 		case image
 	}
-	
+
 	static func contentInset(kind: ContentInset) -> UIEdgeInsets {
 		let customInsets: UIEdgeInsets
-		
+
 		switch kind {
 		case .table:
 			customInsets = UIEdgeInsets(
@@ -110,10 +110,10 @@ enum Theme {
 				right: 16
 			)
 		}
-		
+
 		return customInsets
 	}
-	
+
 	// MARK: - Spacing
 	enum Spacing {
 		case standard
@@ -122,10 +122,10 @@ enum Theme {
 		case standard4
 		case loginButtonToBottom
 	}
-	
+
 	static func spacing(usage: Spacing) -> CGFloat {
 		let customSpacing: CGFloat
-		
+
 		switch usage {
 		case .standard:
 			customSpacing = 8
@@ -138,10 +138,10 @@ enum Theme {
 		case .loginButtonToBottom:
 			customSpacing = 90
 		}
-		
+
 		return customSpacing
 	}
-	
+
 	// MARK: - Size
 	enum Size {
 		case cornerRadius
@@ -152,10 +152,10 @@ enum Theme {
 		case profileImageCornerRadius
 		case loginButtonHeight
 	}
-	
+
 	static func size(kind: Size) -> CGFloat {
 		let customSize: CGFloat
-		
+
 		switch kind {
 		case .cornerRadius:
 			customSize = 16
@@ -167,7 +167,7 @@ enum Theme {
 			let imageInsets = contentInset(kind: .image)
 			let aspectRatio = size.height / size.width
 			let cellWidth = UIScreen.main.bounds.width - imageInsets.left - imageInsets.right
-			
+
 			customSize = cellWidth * aspectRatio + imageInsets.top + imageInsets.bottom
 		case .profileImage:
 			customSize = 70
@@ -176,10 +176,10 @@ enum Theme {
 		case .loginButtonHeight:
 			customSize = 48
 		}
-		
+
 		return customSize
 	}
-	
+
 	// MARK: - DateFormatter
 	static let dateFormatter: DateFormatter = {
 		let formatter = DateFormatter()

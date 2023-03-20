@@ -25,7 +25,7 @@ final class OAuth2Service {
 	private let network: APIClient
 	private var task: NetworkTask?
 	private var lastAuthCode: String?
-	
+
 	init(network: APIClient) {
 		self.network = network
 	}
@@ -40,11 +40,11 @@ extension OAuth2Service: IOAuth2Service {
 		if lastAuthCode == authCode { return }
 		task?.cancel()
 		lastAuthCode = authCode
-		
+
 		let resourse = UnsplashAPI.getAuthTokenRequest(authCode)
 		let request = PostRequest(endpoint: resourse.url, body: "")
-		
-		task = network.send(request){ [weak self] (result: Result<OAuthTokenResponseBody, APIError>) in
+
+		task = network.send(request) { [weak self] (result: Result<OAuthTokenResponseBody, APIError>) in
 			guard let self = self else { return }
 			switch result {
 			case .success(let body):

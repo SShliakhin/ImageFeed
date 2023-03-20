@@ -12,7 +12,7 @@ final class AuthPresenter {
 	private let interactor: IAuthInteractorInput
 	private let router: IAuthRouter
 	private var code: String
-	
+
 	init(interactor: IAuthInteractorInput, router: IAuthRouter, code: String) {
 		self.interactor = interactor
 		self.router = router

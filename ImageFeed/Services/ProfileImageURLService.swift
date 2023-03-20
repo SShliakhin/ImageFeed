@@ -24,7 +24,7 @@ extension IProfileImageURLService {
 
 struct UserResult: Model {
 	let profileImage: ProfileImage?
-	
+
 	struct ProfileImage: Model {
 		let small: String?
 	}
@@ -34,7 +34,7 @@ final class ProfileImageURLService {
 	private let notificationCenter: NotificationCenter
 	private let network: APIClient
 	private var task: NetworkTask?
-	
+
 	private (set) var profileImageURL: String? {
 		didSet {
 			notificationCenter.post(
@@ -44,7 +44,7 @@ final class ProfileImageURLService {
 			)
 		}
 	}
-	
+
 	init(network: APIClient, notificationCenter: NotificationCenter) {
 		self.network = network
 		self.notificationCenter = notificationCenter
@@ -59,11 +59,11 @@ extension ProfileImageURLService: IProfileImageURLService {
 	) {
 		assert(Thread.isMainThread)
 		guard task == nil else { return }
-		
+
 		let resource = UnsplashAPI.getPublicUser(username)
 		var request = Request(endpoint: resource.url).urlRequest()
 		request.setValue("Bearer \(bearerToken)", forHTTPHeaderField: "Authorization")
-		
+
 		task = network.send(request) { [weak self] ( result: Result<UserResult, APIError>) in
 			guard let self = self else { return }
 			switch result {

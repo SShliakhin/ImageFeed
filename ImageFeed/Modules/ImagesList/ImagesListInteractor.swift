@@ -11,7 +11,7 @@ final class ImagesListInteractor {
 	weak var output: IImagesListInteractorOutput?
 	private let imagesListService: IImagesListService
 	private var imagesListServiceObserver: NSObjectProtocol?
-		
+
 	init(dep: IImagesListModuleDependency) {
 		self.imagesListService = dep.imagesListPageLoader
 		self.imagesListServiceObserver = dep.notificationCenter.addObserver(
@@ -22,7 +22,7 @@ final class ImagesListInteractor {
 			guard let self = self else { return }
 			self.didFetchNextPageImagesList()
 		}
-		
+
 		imagesListService.fetchPhotosNextPage()
 	}
 }

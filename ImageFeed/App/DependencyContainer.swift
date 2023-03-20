@@ -17,9 +17,9 @@ enum AnimatedTransitionType {
 }
 
 struct Module {
-	let vc: UIViewController
+	let viewController: UIViewController
 	var animatedType: AnimatedTransitionType = .none
-	var completion: (() -> Void)? = nil
+	var completion: (() -> Void)?
 }
 
 protocol ModuleFactory: AnyObject {
@@ -61,7 +61,13 @@ protocol ISingleImageModuleDependency {
 	var singleImageDataLoader: ISingleImageService { get }
 }
 
-typealias AllDependencies = (IStartModuleDependency & IAuthModuleDependency & IImagesListModuleDependency & IProfileModuleDependency & ISingleImageModuleDependency)
+typealias AllDependencies = (
+	IStartModuleDependency &
+	IAuthModuleDependency &
+	IImagesListModuleDependency &
+	IProfileModuleDependency &
+	ISingleImageModuleDependency
+)
 
 // MARK: - Services
 
@@ -89,9 +95,9 @@ final class DependencyContainer {
 	private let session: URLSession
 	private let storage: KeychainWrapper
 	private let rootVC: IRootViewController
-	private var dependencies: AllDependencies!
-	
-	public init(
+	private var dependencies: AllDependencies! // swiftlint:disable:this implicitly_unwrapped_optional
+
+	init(
 		rootVC: IRootViewController,
 		notificationCenter: NotificationCenter = .default,
 		configuration: URLSessionConfiguration = .default,
@@ -101,9 +107,9 @@ final class DependencyContainer {
 		self.notificationCenter = notificationCenter
 		self.session = URLSession(configuration: configuration)
 		self.storage = storage
-		
+
 		let apiClient = makeNetworkService()
-		
+
 		dependencies = Dependency(
 			storage: makeTokenStorage(storage),
 			profileLoader: makeProfileService(apiClient: apiClient),
@@ -114,12 +120,13 @@ final class DependencyContainer {
 			),
 			imagesListPageLoader: makeImagesListService(
 				apiClient: apiClient,
-				notificationCenter: notificationCenter),
+				notificationCenter: notificationCenter
+			),
 			singleImageDataLoader: makeSingleImageService(apiClient: apiClient),
 			notificationCenter: notificationCenter
 		)
 	}
-	
+
 	struct Dependency: AllDependencies {
 		let storage: ITokenStorage
 		let profileLoader: IProfileService
@@ -139,98 +146,98 @@ extension DependencyContainer: ModuleFactory {
 		let router = SplashRouter()
 		let presenter = SplashPresenter(interactor: interactor, router: router)
 		let view = SplashViewController(presenter: presenter)
-		
+
 		interactor.output = presenter
 		presenter.view = view
 		router.view = rootVC
-		return .init(vc: view)
+		return .init(viewController: view)
 	}
-	
+
 	func makeWebViewModule() -> Module {
 		let router = WebViewRouter()
 		let presenter = WebViewPresenter(router: router)
 		let view = WebViewViewController(presenter: presenter)
-		
+
 		view.modalPresentationStyle = .fullScreen
-		
+
 		presenter.view = view
 		router.view = rootVC
-		return .init(vc: view)
+		return .init(viewController: view)
 	}
-	
+
 	func makeAuthModule(_ code: String) -> Module {
 		let interactor = AuthInteractor(dep: dependencies)
 		let router = AuthRouter()
 		let presenter = AuthPresenter(interactor: interactor, router: router, code: code)
 		let view = AuthViewController(presenter: presenter)
-		
+
 		interactor.output = presenter
 		presenter.view = view
 		router.view = rootVC
-		
+
 		let navigationVC = UINavigationController(rootViewController: view)
 		navigationVC.navigationBar.isHidden = true
-		return .init(vc: navigationVC)
+		return .init(viewController: navigationVC)
 	}
-	
+
 	func makeTabBarModule(_ profile: ProfileResult) -> Module {
 		let view = TabBarController()
 		let imagesList = makeImagesListModule()
-		imagesList.vc.tabBarItem = .init(
+		imagesList.viewController.tabBarItem = .init(
 			title: "",
 			image: Theme.image(kind: .tabListIcon),
 			tag: 0
 		)
 		let profile = makeProfileModule(profile)
-		profile.vc.tabBarItem = .init(
+		profile.viewController.tabBarItem = .init(
 			title: "",
 			image: Theme.image(kind: .tabProfileIcon),
 			tag: 1
 		)
-		view.viewControllers = [imagesList.vc, profile.vc]
-		return .init(vc: view)
+		view.viewControllers = [imagesList.viewController, profile.viewController]
+		return .init(viewController: view)
 	}
-	
+
 	func makeImagesListModule() -> Module {
 		let interactor = ImagesListInteractor(dep: dependencies)
 		let router = ImagesListRouter()
 		let presenter = ImagesListPresenter(interactor: interactor, router: router)
 		let adapter = ImagesListTableViewAdapter(presenter: presenter)
 		let view = ImagesListViewController(presenter: presenter, adapter: adapter)
-		
+
 		interactor.output = presenter
 		presenter.view = view
 		router.view = rootVC
-		
+
 		let navigationVC = UINavigationController(rootViewController: view)
 		navigationVC.navigationBar.isHidden = true
-		return .init(vc: navigationVC)
+		return .init(viewController: navigationVC)
 	}
-	
+
 	func makeSingleImageModule(_ photo: Photo) -> Module {
 		let interactor = SingleImageInteractor(dep: dependencies)
 		let router = SingleImageRouter()
 		let presenter = SingleImagePresenter(interactor: interactor, router: router, photo: photo)
 		let view = SingleImageViewController(presenter: presenter)
-		
+
 		view.modalPresentationStyle = .fullScreen
-		
+
 		interactor.output = presenter
 		presenter.view = view
 		router.view = rootVC
-		return .init(vc: view)
+		return .init(viewController: view)
 	}
-	
+
 	func makeProfileModule(_ profile: ProfileResult) -> Module {
 		let interactor = ProfileInteractor(dep: dependencies)
 		let router = ProfileRouter()
 		let presenter = ProfilePresenter(interactor: interactor, router: router, profile: profile)
 		let view = ProfileViewController(presenter: presenter)
-		
+
 		interactor.output = presenter
 		presenter.view = view
 		router.view = rootVC
-		return .init(vc: view)
+		return .init(viewController: view)
 	}
 }
 
@@ -238,25 +245,25 @@ extension DependencyContainer: ModuleFactory {
 
 extension DependencyContainer: ServicesFactory {
 	func makeTokenStorage(_ storage: KeychainWrapper) -> ITokenStorage {
-		OAuth2TokenStorage.init(keychainWrapper: storage)
+		OAuth2TokenStorage(keychainWrapper: storage)
 	}
-	
+
 	func makeTokenStorage(_ storage: UserDefaults) -> ITokenStorage {
-		TokenStorage.init(userDefaults: storage)
+		TokenStorage(userDefaults: storage)
 	}
-	
+
 	func makeNetworkService() -> APIClient {
 		APIClient(session: session)
 	}
-	
+
 	func makeOAuth2Service(apiClient: APIClient) -> IOAuth2Service {
 		OAuth2Service(network: apiClient)
 	}
-	
+
 	func makeProfileService(apiClient: APIClient) -> IProfileService {
 		ProfileService(network: apiClient)
 	}
-	
+
 	func makeProfileImageURLService(
 		apiClient: APIClient,
 		notificationCenter: NotificationCenter
@@ -266,7 +273,7 @@ extension DependencyContainer: ServicesFactory {
 			notificationCenter: notificationCenter
 		)
 	}
-	
+
 	func makeImagesListService(
 		apiClient: APIClient,
 		notificationCenter: NotificationCenter

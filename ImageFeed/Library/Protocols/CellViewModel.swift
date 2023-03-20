@@ -14,7 +14,7 @@ extension CellViewModel {
 	static var cellAnyType: UIView.Type {
 		return CellType.self
 	}
-	
+
 	func setupAny(cell: UIView) {
 		if let cell = cell as? CellType {
 			setup(cell: cell)

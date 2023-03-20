@@ -36,7 +36,7 @@ extension SingleImageService: ISingleImageService {
 
 		let request = Request(endpoint: url)
 
-		task = network.send(request){ [weak self] (result: Result<Data, APIError>) in
+		task = network.send(request) { [weak self] (result: Result<Data, APIError>) in
 			guard let self = self else { return }
 			switch result {
 			case .success(let data):

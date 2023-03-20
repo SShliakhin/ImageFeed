@@ -13,11 +13,11 @@ final class ProfileInteractor {
 	private let storage: ITokenStorage
 	private let profilePictureURLLoader: IProfileImageURLService
 	private var profileImageServiceObserver: NSObjectProtocol?
-	
+
 	init(dep: IProfileModuleDependency) {
 		self.storage = dep.storage
 		self.profilePictureURLLoader = dep.profilePictureURLLoader
-		
+
 		profileImageServiceObserver = dep.notificationCenter.addObserver(
 			forName: profilePictureURLLoader.didChangeNotification,
 			object: nil,

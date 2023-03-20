@@ -79,7 +79,7 @@ extension UIViewController: IViewControllerWithAlertDialog {
 			.init(
 				title: model.buttonText,
 				style: .default
-			){ _ in
+			) { _ in
 				model.completion()
 			}
 		)

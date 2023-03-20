@@ -11,7 +11,7 @@ final class AuthInteractor {
 	weak var output: IAuthInteractorOutput?
 	private var storage: ITokenStorage
 	private let oauth2TokenLoader: IOAuth2Service
-	
+
 	init(dep: IAuthModuleDependency) {
 		self.storage = dep.storage
 		self.oauth2TokenLoader = dep.oauth2TokenLoader
