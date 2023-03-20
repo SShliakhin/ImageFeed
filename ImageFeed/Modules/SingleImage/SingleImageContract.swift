@@ -14,15 +14,20 @@ protocol ISingleImageViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol ISingleImageViewInput: AnyObject {
-	func showImage()
+protocol ISingleImageViewInput: IViewControllerWithErrorDialog, ILoadWithProgressHUD {
+	func displayPhotoByData(_ data: Data)
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
-protocol ISingleImageInteractorInput: AnyObject {}
+protocol ISingleImageInteractorInput: AnyObject {
+	func fetchImageDataBy(url: URL)
+}
 
 // MARK: Interactor Output (Interactor -> Presenter)
-protocol ISingleImageInteractorOutput: AnyObject {}
+protocol ISingleImageInteractorOutput: AnyObject {
+	func didFetchImageDataSuccess(data: Data)
+	func didFetchImageDataFailure(error: APIError)
+}
 
 // MARK: Router Input (Presenter -> Router)
 protocol ISingleImageRouter: MainRouting {}

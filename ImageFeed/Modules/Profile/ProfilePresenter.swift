@@ -12,7 +12,7 @@ final class ProfilePresenter {
 	private let interactor: IProfileInteractorInput
 	private let router: IProfileRouter
 	private let profile: ProfileResult
-	
+
 	init(interactor: IProfileInteractorInput, router: IProfileRouter, profile: ProfileResult) {
 		self.interactor = interactor
 		self.router = router
@@ -26,15 +26,24 @@ extension ProfilePresenter: IProfileViewOutput {
 	func viewDidLoad() {
 		view?.showProfile(profile: profile)
 	}
-	func didTapLogout() {
-		interactor.cleanUpStorage()
+	func logout() {
+		view?.showAlertDialog(
+			.init(
+				title: "Пока, пока!",
+				message: "Уверены, что хотите выйти?",
+				buttonText: "Да",
+				cancelButtonText: "Нет"
+			) { [weak self] in
+					self?.interactor.cleanUpUserData()
+			}
+		)
 	}
 }
 
 // MARK: - IProfileInteractorOutput
 
 extension ProfilePresenter: IProfileInteractorOutput {
-	func didCleanUpStorage() {
+	func didCleanUpUserData() {
 		let emptyCode = ""
 		router.navigate(.toAuth(emptyCode))
 	}

@@ -9,16 +9,18 @@ import UIKit
 
 // MARK: View Output (View -> Presenter)
 protocol IWebViewViewOutput: AnyObject {
-	func getAuthCode(from url: URL?) -> String?
-	
-	func didTapBack()
-	func didGetAuthCode(_ code: String)
 	func viewDidload()
+	func didUpdateProgressValue(_ newValue: Double)
+	func getAuthCode(from url: URL?) -> String?
+	func didGetAuthCode(_ code: String)
+	func didTapBack()
 }
 
 // MARK: View Input (Presenter -> View)
 protocol IWebViewViewInput: AnyObject {
 	func loadRequest(_ request: URLRequest)
+	func setProgressValue(_ newValue: Float)
+	func setProgressHidden()
 }
 
 // MARK: Router Input (Presenter -> Router)

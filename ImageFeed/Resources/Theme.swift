@@ -8,7 +8,7 @@
 import UIKit
 
 enum Theme {
-	
+
 	// MARK: - Fonts
 	enum FontStyle {
 		case bold23
@@ -17,10 +17,10 @@ enum Theme {
 		case regular17
 		case regular13
 	}
-	
+
 	static func font(style: FontStyle) -> UIFont {
 		let customFont: UIFont
-		
+
 		switch style {
 		case .bold23:
 			customFont = UIFont(name: "YSDisplay-Bold", size: 23.0) ?? UIFont.systemFont(ofSize: 23.0)
@@ -33,10 +33,10 @@ enum Theme {
 		case .regular13:
 			customFont = UIFont(name: "YandexSansDisplay-Regular", size: 13.0) ?? UIFont.systemFont(ofSize: 13.0)
 		}
-		
+
 		return customFont
 	}
-	
+
 	// MARK: - Colors
 	enum Color {
 		case ypBlack
@@ -47,10 +47,10 @@ enum Theme {
 		case ypRed
 		case ypBlue
 	}
-	
+
 	static func color(usage: Color) -> UIColor {
 		let customColor: UIColor
-		
+
 		switch usage {
 		case .ypBlack:
 			customColor = UIColor(named: "ypBlack") ?? UIColor.black
@@ -67,10 +67,10 @@ enum Theme {
 		case .ypBlue:
 			customColor = UIColor(named: "ypBlue") ?? UIColor.systemBlue
 		}
-		
+
 		return customColor
 	}
-	
+
 	// MARK: - Images
 	enum ImageAsset: String {
 		case practicumLogo, unsplashLogo
@@ -80,20 +80,20 @@ enum Theme {
 		case backwardIcon, exitIcon, shareIcon
 		case avatar
 	}
-	
+
 	static func image(kind: ImageAsset) -> UIImage {
-		return UIImage(named: kind.rawValue) ?? .actions
+		return UIImage(named: kind.rawValue) ?? .actions // swiftlint:disable:this image_name_initialization
 	}
-	
+
 	// MARK: - ContentInset
 	enum ContentInset {
 		case table
 		case image
 	}
-	
+
 	static func contentInset(kind: ContentInset) -> UIEdgeInsets {
 		let customInsets: UIEdgeInsets
-		
+
 		switch kind {
 		case .table:
 			customInsets = UIEdgeInsets(
@@ -110,10 +110,10 @@ enum Theme {
 				right: 16
 			)
 		}
-		
+
 		return customInsets
 	}
-	
+
 	// MARK: - Spacing
 	enum Spacing {
 		case standard
@@ -122,10 +122,10 @@ enum Theme {
 		case standard4
 		case loginButtonToBottom
 	}
-	
+
 	static func spacing(usage: Spacing) -> CGFloat {
 		let customSpacing: CGFloat
-		
+
 		switch usage {
 		case .standard:
 			customSpacing = 8
@@ -138,24 +138,24 @@ enum Theme {
 		case .loginButtonToBottom:
 			customSpacing = 90
 		}
-		
+
 		return customSpacing
 	}
-	
+
 	// MARK: - Size
 	enum Size {
 		case cornerRadius
 		case likeButton
 		case gradientHeight
-		case cellHeight(image: UIImage?)
+		case cellHeight(size: CGSize)
 		case profileImage
 		case profileImageCornerRadius
 		case loginButtonHeight
 	}
-	
+
 	static func size(kind: Size) -> CGFloat {
 		let customSize: CGFloat
-		
+
 		switch kind {
 		case .cornerRadius:
 			customSize = 16
@@ -163,14 +163,11 @@ enum Theme {
 			customSize = 42
 		case .gradientHeight:
 			customSize = 30
-		case let .cellHeight(image):
-			guard let image = image else { return 0 }
+		case let .cellHeight(size):
 			let imageInsets = contentInset(kind: .image)
-			
-			let imageSize = image.size
-			let aspectRatio = imageSize.height / imageSize.width
+			let aspectRatio = size.height / size.width
 			let cellWidth = UIScreen.main.bounds.width - imageInsets.left - imageInsets.right
-			
+
 			customSize = cellWidth * aspectRatio + imageInsets.top + imageInsets.bottom
 		case .profileImage:
 			customSize = 70
@@ -179,10 +176,10 @@ enum Theme {
 		case .loginButtonHeight:
 			customSize = 48
 		}
-		
+
 		return customSize
 	}
-	
+
 	// MARK: - DateFormatter
 	static let dateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
@@ -190,4 +187,76 @@ enum Theme {
 		formatter.timeStyle = .none
 		return formatter
 	}()
+
+	// MARK: - Animation
+
+	// MARK: - Gradient
+	enum GradientKind {
+		case bottomForDate
+		case avatar(UIView)
+		case label(UIView)
+		case label2(UIView)
+		case loader
+	}
+
+	static func gradientLayer(kind: GradientKind) -> CAGradientLayer {
+		let baseGradient = CAGradientLayer()
+		baseGradient.locations = [0, 0.1, 0.3]
+		baseGradient.colors = [
+			UIColor(red: 0.682, green: 0.686, blue: 0.706, alpha: 1).cgColor,
+			UIColor(red: 0.531, green: 0.533, blue: 0.553, alpha: 1).cgColor,
+			UIColor(red: 0.431, green: 0.433, blue: 0.453, alpha: 1).cgColor
+		]
+		baseGradient.startPoint = CGPoint(x: 0, y: 0.5)
+		baseGradient.endPoint = CGPoint(x: 1, y: 0.5)
+
+		switch kind {
+		case .avatar(let view):
+			baseGradient.frame = CGRect(origin: .zero, size: CGSize(width: 70, height: 70))
+			baseGradient.cornerRadius = 35
+			baseGradient.masksToBounds = true
+			view.layer.insertSublayer(baseGradient, at: 0)
+		case .label(let view):
+			baseGradient.frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 33))
+			baseGradient.cornerRadius = 6
+			baseGradient.masksToBounds = true
+			view.layer.insertSublayer(baseGradient, at: 0)
+		case .label2(let view):
+			baseGradient.frame = CGRect(origin: .zero, size: CGSize(width: 150, height: 22))
+			baseGradient.cornerRadius = 6
+			baseGradient.masksToBounds = true
+			view.layer.insertSublayer(baseGradient, at: 0)
+		case .loader:
+			break
+		case .bottomForDate:
+			baseGradient.locations = [0, 0.5]
+			baseGradient.colors = [
+				color(usage: .ypBlack).withAlphaComponent(0.2).cgColor,
+				color(usage: .ypBlack).withAlphaComponent(0).cgColor
+			]
+		}
+
+		return baseGradient
+	}
+
+	// MARK: - BasicAnimation
+	enum BasicAnimationKind {
+		case locations
+	}
+
+	static func changeAnimation(kind: BasicAnimationKind) -> CABasicAnimation {
+		let baseAnimation = CABasicAnimation()
+		baseAnimation.duration = 1.0
+		baseAnimation.repeatCount = .infinity
+		baseAnimation.autoreverses = true
+		baseAnimation.fromValue = [0, 0.1, 0.3]
+		baseAnimation.toValue = [0, 0.8, 1]
+
+		switch kind {
+		case .locations:
+			baseAnimation.keyPath = "locations"
+		}
+
+		return baseAnimation
+	}
 }

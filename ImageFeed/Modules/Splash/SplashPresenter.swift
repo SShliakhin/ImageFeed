@@ -8,10 +8,10 @@
 import Foundation
 
 final class SplashPresenter {
-	weak var view: (ISplashViewInput & ILoadWithProgressHUD)?
+	weak var view: ISplashViewInput?
 	private let interactor: ISplashInteractorInput
 	private let router: MainRouting
-	
+
 	init(interactor: ISplashInteractorInput, router: MainRouting) {
 		self.interactor = interactor
 		self.router = router
@@ -39,9 +39,13 @@ extension SplashPresenter: ISplashInteractorOutput {
 		view?.stopIndicator()
 		self.router.navigate(.toMainModule(profile))
 	}
-	
+
 	func didFetchProfileFailure(error: APIError) {
 		view?.stopIndicator()
-		view?.showErrorDialog()
+		view?.showErrorDialog(with: error.description) { [weak self] in
+			guard let self = self else { return }
+			let emptyCode = ""
+			self.router.navigate(.toAuth(emptyCode))
+		}
 	}
 }

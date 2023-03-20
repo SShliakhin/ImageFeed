@@ -6,19 +6,20 @@
 //
 
 import Foundation
+import WebKit
 
 final class ProfileInteractor {
 	weak var output: IProfileInteractorOutput?
 	private let storage: ITokenStorage
 	private let profilePictureURLLoader: IProfileImageURLService
 	private var profileImageServiceObserver: NSObjectProtocol?
-	
+
 	init(dep: IProfileModuleDependency) {
 		self.storage = dep.storage
 		self.profilePictureURLLoader = dep.profilePictureURLLoader
-		
+
 		profileImageServiceObserver = dep.notificationCenter.addObserver(
-			forName: ProfileImageURLService.didChangeNotification,
+			forName: profilePictureURLLoader.didChangeNotification,
 			object: nil,
 			queue: .main
 		) { [weak self] _ in
@@ -42,8 +43,28 @@ private extension ProfileInteractor {
 // MARK: - IProfileInteractorInput
 
 extension ProfileInteractor: IProfileInteractorInput {
-	func cleanUpStorage() {
+	func cleanUpUserData() {
+		removeWebData()
+		removeToken()
+		output?.didCleanUpUserData()
+	}
+}
+
+// MARK: - Private methods
+private extension ProfileInteractor {
+	func removeToken() {
 		storage.removeToken()
-		output?.didCleanUpStorage()
+	}
+
+	func removeWebData() {
+		// Очищаем все куки из хранилища.
+		HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+		// Запрашиваем все данные из локального хранилища.
+		WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+			// Массив полученных записей удаляем из хранилища.
+			records.forEach { record in
+				WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+			}
+		}
 	}
 }

@@ -20,13 +20,21 @@ extension String {
 	static func key(_ constant: Constant) -> Self { constant.rawValue }
 }
 
+enum OrderBy: String {
+	case latest
+	case oldest
+	case popular
+}
+
 enum UnsplashAPI: API {
-	
+
 	case getAuthorizationCodeRequest
 	case getAuthTokenRequest(String)
 	case getMe
 	case getPublicUser(String)
-	
+	case getListPhotos(Int, Int, OrderBy)
+	case likeUnlike(String)
+
 	var scheme: HTTPScheme {
 		switch self {
 		@unknown default:
@@ -43,6 +51,10 @@ enum UnsplashAPI: API {
 			return "api.unsplash.com"
 		case .getPublicUser:
 			return "api.unsplash.com"
+		case .getListPhotos:
+			return "api.unsplash.com"
+		case .likeUnlike:
+			return "api.unsplash.com"
 		}
 	}
 	var path: String {
@@ -55,6 +67,10 @@ enum UnsplashAPI: API {
 			return "/me"
 		case .getPublicUser(let username):
 			return "/users/\(username)"
+		case .getListPhotos:
+			return "/photos"
+		case .likeUnlike(let id):
+			return "/photos/\(id)/like"
 		}
 	}
 	var parameters: [URLQueryItem]? {
@@ -77,6 +93,14 @@ enum UnsplashAPI: API {
 		case .getMe:
 			return nil
 		case .getPublicUser:
+			return nil
+		case let .getListPhotos(page, perPage, orderBy):
+			return [
+				URLQueryItem(name: "page", value: "\(page)"),
+				URLQueryItem(name: "per_page", value: "\(perPage)"),
+				URLQueryItem(name: "order_by", value: orderBy.rawValue)
+			]
+		case .likeUnlike:
 			return nil
 		}
 	}

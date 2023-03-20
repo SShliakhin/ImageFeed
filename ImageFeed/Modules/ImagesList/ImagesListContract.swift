@@ -10,22 +10,32 @@ import UIKit
 // MARK: View Output (View -> Presenter)
 protocol IImagesListViewOutput: AnyObject {
 	func viewDidLoad()
-	func didSelectPicture(_ picture: Picture)
+	func didRefreshContent()
+	func hasNoAnimatedBy(_ indexPath: IndexPath) -> Bool
+	func getPhotos() -> [Photo]
+	func didSelectPicture(_ photo: Photo)
+	func didChangeLikeStatusOf(photo: Photo)
+	func didDisplayLastPhoto()
 }
 
 // MARK: View Input (Presenter -> View)
-protocol IImagesListViewInput: AnyObject {
-	func showImages(pictures: [Picture])
+protocol IImagesListViewInput: ILoadWithProgressHUD, IViewControllerWithErrorDialog {
+	func reloadTableView()
+	func addRowsToTableView(indexPaths: [IndexPath])
+	func updateRowByIndex(_ index: Int)
 }
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IImagesListInteractorInput: AnyObject {
-	func loadImages()
+	func fetchPhotos()
+	func changePhotoLike(photoId: String, isLike: Bool)
 }
 
 // MARK: Interactor Output (Interactor -> Presenter)
 protocol IImagesListInteractorOutput: AnyObject {
-	func didloadImages(pictures: [Picture])
+	func didFetchPhotos(_ photos: [Photo])
+	func didChangePhotoLikeSuccess(photoId: String, isLike: Bool)
+	func didChangePhotoLikeFailure(error: APIError)
 }
 
 // MARK: Router Input (Presenter -> Router)

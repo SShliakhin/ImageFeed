@@ -14,7 +14,7 @@ protocol IAuthViewOutput: AnyObject {
 }
 
 // MARK: View Input (Presenter -> View)
-protocol IAuthViewInput: IBaseViewController {}
+protocol IAuthViewInput: IViewControllerWithErrorDialog, ILoadWithProgressHUD {}
 
 // MARK: Interactor Input (Presenter -> Interactor)
 protocol IAuthInteractorInput: AnyObject {

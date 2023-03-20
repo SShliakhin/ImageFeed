@@ -10,7 +10,7 @@ import SwiftKeychainWrapper
 
 struct OAuth2TokenStorage: ITokenStorage {
 	let keychainWrapper: KeychainWrapper
-	
+
 	var token: String? {
 		get {
 			keychainWrapper.string(forKey: bearerTokenKey)
@@ -23,7 +23,7 @@ struct OAuth2TokenStorage: ITokenStorage {
 			keychainWrapper.set(newValue, forKey: bearerTokenKey)
 		}
 	}
-	
+
 	func removeToken() {
 		keychainWrapper.removeObject(forKey: bearerTokenKey)
 	}

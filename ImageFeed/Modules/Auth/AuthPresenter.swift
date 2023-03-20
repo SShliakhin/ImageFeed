@@ -8,11 +8,11 @@
 import UIKit
 
 final class AuthPresenter {
-	weak var view: (IAuthViewInput & ILoadWithProgressHUD)?
+	weak var view: IAuthViewInput?
 	private let interactor: IAuthInteractorInput
 	private let router: IAuthRouter
 	private var code: String
-	
+
 	init(interactor: IAuthInteractorInput, router: IAuthRouter, code: String) {
 		self.interactor = interactor
 		self.router = router
@@ -44,6 +44,6 @@ extension AuthPresenter: IAuthInteractorOutput {
 	}
 	func didFetchBearerTokenFailure(error: APIError) {
 		view?.stopIndicator()
-		view?.showErrorDialog()
+		view?.showErrorDialog(with: error.description)
 	}
 }

@@ -11,21 +11,21 @@ import WebKit
 final class WebViewViewController: UIViewController {
 	private let presenter: IWebViewViewOutput
 	private var estimatedProgressObservation: NSKeyValueObservation?
-	
+
 	// MARK: - UI
 	private lazy var webView: WKWebView = {
 		let view = WKWebView()
 		view.backgroundColor = Theme.color(usage: .ypWhite)
 		return view
 	}()
-	
+
 	private lazy var backButton: UIButton = {
 		let button = UIButton()
 		button.setImage(Theme.image(kind: .backwardIcon), for: .normal)
 		button.tintColor = Theme.color(usage: .ypBlack)
 		return button
 	}()
-	
+
 	private lazy var progressView: UIProgressView = {
 		let progressView = UIProgressView(progressViewStyle: .bar)
 		progressView.tintColor = Theme.color(usage: .ypBlack)
@@ -37,19 +37,19 @@ final class WebViewViewController: UIViewController {
 		self.presenter = presenter
 		super.init(nibName: nil, bundle: nil)
 	}
-	
+
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
+
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		setup()
 		applyStyle()
 		applyLayout()
-		
+
 		presenter.viewDidload()
 	}
 }
@@ -57,6 +57,14 @@ final class WebViewViewController: UIViewController {
 // MARK: - IWebViewViewInput
 
 extension WebViewViewController: IWebViewViewInput {
+	func setProgressValue(_ newValue: Float) {
+		progressView.progress = newValue
+	}
+
+	func setProgressHidden() {
+		progressView.isHidden = true
+	}
+
 	func loadRequest(_ request: URLRequest) {
 		webView.load(request)
 	}
@@ -84,15 +92,11 @@ private extension WebViewViewController {
 	func setupEstimatedProgressObservation() {
 		estimatedProgressObservation = webView.observe(
 			\.estimatedProgress,
-			 options: []
+			options: []
 		) { [weak self] _, _ in
-			self?.updateProgress()
+			guard let self = self else { return }
+			self.presenter.didUpdateProgressValue(self.webView.estimatedProgress)
 		}
-	}
-	
-	func updateProgress() {
-		progressView.progress = Float(webView.estimatedProgress)
-		progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
 	}
 }
 
@@ -110,26 +114,32 @@ private extension WebViewViewController {
 		backButton.addTarget(self, action: #selector(backButtonTapped), for: .primaryActionTriggered)
 		webView.navigationDelegate = self
 	}
-	
+
 	func applyStyle() {
 		view.backgroundColor = Theme.color(usage: .ypWhite)
 	}
-	
+
 	func applyLayout() {
 		[webView, backButton, progressView].forEach { item in
 			item.translatesAutoresizingMaskIntoConstraints = false
 			view.addSubview(item)
 		}
-		
+
 		NSLayoutConstraint.activate([
 			webView.topAnchor.constraint(equalTo: view.topAnchor),
 			webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			
-			backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Theme.spacing(usage: .standard2)),
-			backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Theme.spacing(usage: .standard2)),
-			
+
+			backButton.topAnchor.constraint(
+				equalTo: view.safeAreaLayoutGuide.topAnchor,
+				constant: Theme.spacing(usage: .standard2)
+			),
+			backButton.leadingAnchor.constraint(
+				equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+				constant: Theme.spacing(usage: .standard2)
+			),
+
 			progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 			progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			progressView.trailingAnchor.constraint(equalTo: view.trailingAnchor)

@@ -1,22 +1,22 @@
 import Foundation
-
-enum APIError : Error {
+// swiftlint:disable switch_case_on_newline numbers_smell
+enum APIError: Error {
 	case unknownResponse
 	case networkError(Error)
 	case requestError(Int)
 	case serverError(Int)
 	case decodingError(DecodingError)
 	case dataConversionError(String)
-	case noImageURL
 	case unhandledResponse
+	case errorMessage(String)
 }
 
-extension APIError : CustomStringConvertible {
+extension APIError: CustomStringConvertible {
 	static func error(from response: URLResponse?) -> APIError? {
 		guard let http = response as? HTTPURLResponse else {
 			return .unknownResponse
 		}
-		
+
 		switch http.statusCode {
 		case 200...299: return nil
 		case 400...499: return .requestError(http.statusCode)
@@ -24,7 +24,7 @@ extension APIError : CustomStringConvertible {
 		default: return .unhandledResponse
 		}
 	}
-	
+
 	private var localizedDescription: String {
 		switch self {
 		case .unknownResponse: return "Unknown Response"
@@ -33,11 +33,11 @@ extension APIError : CustomStringConvertible {
 		case .serverError(let statusCode): return "Server error (HTTP \(statusCode))"
 		case .decodingError(let decodingError): return "Decoding error: \(decodingError)"
 		case .dataConversionError(let message): return "\(message)"
-		case .noImageURL: return "No image URL"
 		case .unhandledResponse: return "Unhandled response"
+		case .errorMessage(let message): return "\(message)"
 		}
 	}
-	
+
 	var description: String {
 		localizedDescription
 	}
