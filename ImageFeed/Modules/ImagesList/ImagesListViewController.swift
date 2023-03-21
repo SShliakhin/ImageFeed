@@ -22,7 +22,7 @@ final class ImagesListViewController: UIViewController {
 	}
 
 	// MARK: - Init
-	init(presenter: ImagesListPresenter, adapter: ImagesListTableViewAdapter) {
+	init(presenter: IImagesListViewOutput, adapter: ImagesListTableViewAdapter) {
 		self.presenter = presenter
 		self.adapter = adapter
 		super.init(nibName: nil, bundle: nil)
