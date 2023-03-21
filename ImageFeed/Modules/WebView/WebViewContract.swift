@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: View Output (View -> Presenter)
 protocol IWebViewViewOutput: AnyObject {
-	func viewDidload()
+	func viewDidLoad()
 	func didUpdateProgressValue(_ newValue: Double)
 	func getAuthCode(from url: URL?) -> String?
 	func didGetAuthCode(_ code: String)

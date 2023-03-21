@@ -21,7 +21,7 @@ final class WebViewPresenter {
 // MARK: - IWebViewViewOutput
 
 extension WebViewPresenter: IWebViewViewOutput {
-	func viewDidload() {
+	func viewDidLoad() {
 		let request = interactor.getAuthRequest()
 		view?.loadRequest(request)
 	}

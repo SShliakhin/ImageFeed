@@ -50,7 +50,7 @@ final class WebViewViewController: UIViewController {
 		applyStyle()
 		applyLayout()
 
-		presenter.viewDidload()
+		presenter.viewDidLoad()
 	}
 }
 
