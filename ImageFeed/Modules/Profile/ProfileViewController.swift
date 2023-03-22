@@ -54,7 +54,7 @@ final class ProfileViewController: UIViewController {
 	private lazy var animationLayers = Set<CALayer>()
 
 	// MARK: - Properties
-	var profileViewModel: ProfileResult? {
+	private var profileViewModel: ProfileResult? {
 		didSet {
 			guard let profile = profileViewModel else { return }
 			nameLabel.text = profile.name
