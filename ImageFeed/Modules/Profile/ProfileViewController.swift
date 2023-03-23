@@ -24,6 +24,10 @@ final class ProfileViewController: UIViewController {
 
 	private lazy var nameLabel: UILabel = {
 		let label = UILabel()
+
+		// UI-tests
+		label.accessibilityIdentifier = "nameLabel"
+
 		label.font = Theme.font(style: .bold23)
 		label.textColor = Theme.color(usage: .ypWhite)
 		return label
@@ -45,6 +49,10 @@ final class ProfileViewController: UIViewController {
 
 	private lazy var logoutButton: UIButton = {
 		let button = UIButton(type: .custom)
+
+		// UI-tests
+		button.accessibilityIdentifier = "logoutButton"
+
 		let image = Theme.image(kind: .exitIcon)
 		button.setBackgroundImage(image, for: .normal)
 		button.tintColor = Theme.color(usage: .ypRed)

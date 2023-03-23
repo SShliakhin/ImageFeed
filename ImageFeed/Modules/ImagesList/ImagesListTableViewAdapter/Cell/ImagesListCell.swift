@@ -10,7 +10,7 @@ import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
 	// MARK: - UI
-	private lazy var pictureImageView: UIImageView = {
+	private lazy var photoImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.layer.cornerRadius = Theme.size(kind: .cornerRadius)
@@ -18,7 +18,14 @@ final class ImagesListCell: UITableViewCell {
 		return imageView
 	}()
 
-	private lazy var likeButton = UIButton(type: .custom)
+	private lazy var likeButton: UIButton = {
+		let button = UIButton(type: .custom)
+
+		// UI-tests
+		button.accessibilityIdentifier = "likeButton"
+
+		return button
+	}()
 
 	private lazy var gradientView: GradientView = {
 		let view = GradientView()
@@ -51,11 +58,11 @@ final class ImagesListCell: UITableViewCell {
 				gradientLayer: Theme.gradientLayer(kind: .loader),
 				changeAnimation: Theme.changeAnimation(kind: .locations)
 			)
-			pictureImageView.kf.indicatorType = .custom(indicator: indicator)
-			pictureImageView.kf.setImage(with: photo.imageURL) { [weak self] result in
+			photoImageView.kf.indicatorType = .custom(indicator: indicator)
+			photoImageView.kf.setImage(with: photo.imageURL) { [weak self] result in
 				guard let self = self else { return }
 				if case .failure = result {
-					self.pictureImageView.image = Theme.image(kind: .imagePlaceholder)
+					self.photoImageView.image = Theme.image(kind: .imagePlaceholder)
 				}
 			}
 
@@ -80,7 +87,7 @@ final class ImagesListCell: UITableViewCell {
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		setIsFavorite(false)
-		pictureImageView.kf.cancelDownloadTask()
+		photoImageView.kf.cancelDownloadTask()
 	}
 }
 
@@ -101,7 +108,7 @@ private extension ImagesListCell {
 
 	func applyLayout() {
 		[
-			pictureImageView,
+			photoImageView,
 			likeButton,
 			gradientView,
 			dateLabel
@@ -113,30 +120,30 @@ private extension ImagesListCell {
 		let pictureInsets = Theme.contentInset(kind: .image)
 
 		NSLayoutConstraint.activate([
-			pictureImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: pictureInsets.top),
-			pictureImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -pictureInsets.bottom),
-			pictureImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: pictureInsets.left),
-			pictureImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -pictureInsets.right),
+			photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: pictureInsets.top),
+			photoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -pictureInsets.bottom),
+			photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: pictureInsets.left),
+			photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -pictureInsets.right),
 
-			likeButton.trailingAnchor.constraint(equalTo: pictureImageView.trailingAnchor),
-			likeButton.topAnchor.constraint(equalTo: pictureImageView.topAnchor),
+			likeButton.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor),
+			likeButton.topAnchor.constraint(equalTo: photoImageView.topAnchor),
 			likeButton.heightAnchor.constraint(equalToConstant: Theme.size(kind: .likeButton)),
 			likeButton.widthAnchor.constraint(equalToConstant: Theme.size(kind: .likeButton)),
 
-			gradientView.leadingAnchor.constraint(equalTo: pictureImageView.leadingAnchor),
-			gradientView.trailingAnchor.constraint(equalTo: pictureImageView.trailingAnchor),
-			gradientView.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor),
+			gradientView.leadingAnchor.constraint(equalTo: photoImageView.leadingAnchor),
+			gradientView.trailingAnchor.constraint(equalTo: photoImageView.trailingAnchor),
+			gradientView.bottomAnchor.constraint(equalTo: photoImageView.bottomAnchor),
 			gradientView.heightAnchor.constraint(equalToConstant: Theme.size(kind: .gradientHeight)),
 
 			dateLabel.leadingAnchor.constraint(
-				equalTo: pictureImageView.leadingAnchor,
+				equalTo: photoImageView.leadingAnchor,
 				constant: Theme.spacing(usage: .standard)
 			),
 			dateLabel.trailingAnchor.constraint(
-				lessThanOrEqualTo: pictureImageView.trailingAnchor,
+				lessThanOrEqualTo: photoImageView.trailingAnchor,
 				constant: -Theme.spacing(usage: .standard)
 			),
-			dateLabel.bottomAnchor.constraint(equalTo: pictureImageView.bottomAnchor, constant: -Theme.spacing(usage: .standard))
+			dateLabel.bottomAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: -Theme.spacing(usage: .standard))
 		])
 	}
 
