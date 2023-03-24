@@ -15,8 +15,8 @@ final class ImagesListTableViewAdapter: NSObject {
 	}
 }
 
-extension ImagesListTableViewAdapter {
-	func itemCount() -> Int {
+private extension ImagesListTableViewAdapter {
+	var itemsCount: Int {
 		getPhotos().count
 	}
 	func getPhotos() -> [Photo] {
@@ -28,7 +28,7 @@ extension ImagesListTableViewAdapter {
 
 extension ImagesListTableViewAdapter: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		itemCount()
+		itemsCount
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -47,7 +47,7 @@ extension ImagesListTableViewAdapter: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		guard let photo = getPhotos()[safe: indexPath.row] else { return }
-		presenter.didSelectPicture(photo)
+		presenter.didSelectPhoto(photo)
 	}
 
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -67,7 +67,8 @@ extension ImagesListTableViewAdapter: UITableViewDelegate {
 			delay: 0.1
 		)
 
-		if indexPath.row == itemCount() - 1 {
+		// на время UI-tests выключать
+		if indexPath.row == itemsCount - 1 {
 			presenter.didDisplayLastPhoto()
 		}
 	}

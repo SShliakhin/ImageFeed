@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: View Output (View -> Presenter)
 protocol IWebViewViewOutput: AnyObject {
-	func viewDidload()
+	func viewDidLoad()
 	func didUpdateProgressValue(_ newValue: Double)
 	func getAuthCode(from url: URL?) -> String?
 	func didGetAuthCode(_ code: String)
@@ -22,6 +22,15 @@ protocol IWebViewViewInput: AnyObject {
 	func setProgressValue(_ newValue: Float)
 	func setProgressHidden()
 }
+
+// MARK: Interactor Input (Presenter -> Interactor)
+protocol IWebViewInteractorInput: AnyObject {
+	func getAuthCode(from url: URL) -> String?
+	func getAuthRequest() -> URLRequest
+}
+
+// MARK: Interactor Output (Interactor -> Presenter)
+protocol IWebViewInteractorOutput: AnyObject {}
 
 // MARK: Router Input (Presenter -> Router)
 protocol IWebViewRouter: MainRouting {}

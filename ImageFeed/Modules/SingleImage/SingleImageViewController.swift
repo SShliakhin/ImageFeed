@@ -33,6 +33,10 @@ final class SingleImageViewController: UIViewController {
 
 	private lazy var backButton: UIButton = {
 		let button = UIButton()
+
+		// UI-tests
+		button.accessibilityIdentifier = "backButton"
+
 		button.setImage(Theme.image(kind: .backwardIcon), for: .normal)
 		button.tintColor = Theme.color(usage: .ypWhite)
 		return button

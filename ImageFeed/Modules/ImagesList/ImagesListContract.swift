@@ -12,10 +12,11 @@ protocol IImagesListViewOutput: AnyObject {
 	func viewDidLoad()
 	func didRefreshContent()
 	func hasNoAnimatedBy(_ indexPath: IndexPath) -> Bool
+
 	func getPhotos() -> [Photo]
-	func didSelectPicture(_ photo: Photo)
 	func didChangeLikeStatusOf(photo: Photo)
 	func didDisplayLastPhoto()
+	func didSelectPhoto(_ photo: Photo)
 }
 
 // MARK: View Input (Presenter -> View)

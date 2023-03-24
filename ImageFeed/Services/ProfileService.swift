@@ -7,7 +7,7 @@ protocol IProfileService {
 	)
 }
 
-struct ProfileResult: Model {
+struct ProfileResult: Model, Equatable {
 	let firstName: String?
 	let lastName: String?
 	let username: String?

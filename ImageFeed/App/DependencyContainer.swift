@@ -46,6 +46,10 @@ protocol IAuthModuleDependency {
 	var oauth2TokenLoader: IOAuth2Service { get }
 }
 
+protocol IWebViewModuleDependency {
+	var apiHelper: IWebViewAPIHelper { get }
+}
+
 protocol IImagesListModuleDependency {
 	var imagesListPageLoader: IImagesListService { get }
 	var notificationCenter: NotificationCenter { get }
@@ -64,6 +68,7 @@ protocol ISingleImageModuleDependency {
 typealias AllDependencies = (
 	IStartModuleDependency &
 	IAuthModuleDependency &
+	IWebViewModuleDependency &
 	IImagesListModuleDependency &
 	IProfileModuleDependency &
 	ISingleImageModuleDependency
@@ -123,7 +128,8 @@ final class DependencyContainer {
 				notificationCenter: notificationCenter
 			),
 			singleImageDataLoader: makeSingleImageService(apiClient: apiClient),
-			notificationCenter: notificationCenter
+			notificationCenter: notificationCenter,
+			apiHelper: APIHelper()
 		)
 	}
 
@@ -135,6 +141,7 @@ final class DependencyContainer {
 		let imagesListPageLoader: IImagesListService
 		let singleImageDataLoader: ISingleImageService
 		let notificationCenter: NotificationCenter
+		let apiHelper: IWebViewAPIHelper
 	}
 }
 
@@ -154,8 +161,9 @@ extension DependencyContainer: ModuleFactory {
 	}
 
 	func makeWebViewModule() -> Module {
+		let interactor = WebViewInteractor(dep: dependencies)
 		let router = WebViewRouter()
-		let presenter = WebViewPresenter(router: router)
+		let presenter = WebViewPresenter(interactor: interactor, router: router)
 		let view = WebViewViewController(presenter: presenter)
 
 		view.modalPresentationStyle = .fullScreen
@@ -282,7 +290,7 @@ extension DependencyContainer: ServicesFactory {
 			network: apiClient,
 			notificationCenter: notificationCenter,
 			photosPerPage: 10,
-			orderBy: OrderBy.latest
+			orderBy: UnsplashAPI.FotoOrderBy.latest
 		)
 	}
 

@@ -7,54 +7,49 @@
 
 import Foundation
 
-enum Constant: String {
-	case accessKey = "c8SI91LkiH6yY5SDWDKLtjNOYdgPaKAEwmD2dWs35eU"
-	case secretKey = "qg_ghS6ZMMDJP1aU1oiC6Bts3KTDKBt03G28yhrTMrM"
-	case redirectURI = "urn:ietf:wg:oauth:2.0:oob"
-	case accessScope = "public+read_user+write_likes"
-	case grantType = "authorization_code"
-	case responseType = "code"
-}
-
 extension String {
-	static func key(_ constant: Constant) -> Self { constant.rawValue }
+	static func key(_ constant: UnsplashAPI.Constant) -> Self { constant.rawValue }
 }
 
-enum OrderBy: String {
-	case latest
-	case oldest
-	case popular
-}
+enum UnsplashAPI {
 
-enum UnsplashAPI: API {
+	enum Constant: String {
+		case accessKey = "c8SI91LkiH6yY5SDWDKLtjNOYdgPaKAEwmD2dWs35eU"
+		case secretKey = "qg_ghS6ZMMDJP1aU1oiC6Bts3KTDKBt03G28yhrTMrM"
+		case redirectURI = "urn:ietf:wg:oauth:2.0:oob"
+		case accessScope = "public+read_user+write_likes"
+		case grantType = "authorization_code"
+		case responseType = "code"
+		case defaultBaseURLString = "api.unsplash.com"
+		case authorizeURLString = "unsplash.com"
+	}
+
+	enum FotoOrderBy: String {
+		case latest
+		case oldest
+		case popular
+	}
 
 	case getAuthorizationCodeRequest
 	case getAuthTokenRequest(String)
 	case getMe
 	case getPublicUser(String)
-	case getListPhotos(Int, Int, OrderBy)
+	case getListPhotos(Int, Int, FotoOrderBy)
 	case likeUnlike(String)
+}
 
+// MARK: - API
+
+extension UnsplashAPI: API {
 	var scheme: HTTPScheme {
-		switch self {
-		@unknown default:
-			return .https
-		}
+		.https
 	}
 	var baseURL: String {
 		switch self {
-		case .getAuthorizationCodeRequest:
-			return "unsplash.com"
-		case .getAuthTokenRequest:
-			return "unsplash.com"
-		case .getMe:
-			return "api.unsplash.com"
-		case .getPublicUser:
-			return "api.unsplash.com"
-		case .getListPhotos:
-			return "api.unsplash.com"
-		case .likeUnlike:
-			return "api.unsplash.com"
+		case .getAuthorizationCodeRequest, .getAuthTokenRequest:
+			return .key(.authorizeURLString)
+		case .getMe, .getPublicUser, .getListPhotos, .likeUnlike:
+			return .key(.defaultBaseURLString)
 		}
 	}
 	var path: String {

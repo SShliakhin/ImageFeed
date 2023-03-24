@@ -29,7 +29,7 @@ final class ImagesListService {
 	private let notificationCenter: NotificationCenter
 	private let network: APIClient
 	private let photosPerPage: Int
-	private let orderBy: OrderBy
+	private let orderBy: UnsplashAPI.FotoOrderBy
 
 	private var bearerToken: String?
 	private var task: NetworkTask?
@@ -46,7 +46,7 @@ final class ImagesListService {
 		network: APIClient,
 		notificationCenter: NotificationCenter,
 		photosPerPage: Int,
-		orderBy: OrderBy
+		orderBy: UnsplashAPI.FotoOrderBy
 	) {
 		self.network = network
 		self.notificationCenter = notificationCenter

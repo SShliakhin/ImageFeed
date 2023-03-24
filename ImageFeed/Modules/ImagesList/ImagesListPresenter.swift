@@ -52,7 +52,7 @@ extension ImagesListPresenter: IImagesListViewOutput {
 			interactor.changePhotoLike(photoId: photo.id, isLike: !photos[index].isLiked)
 		}
 	}
-	func didSelectPicture(_ photo: Photo) {
+	func didSelectPhoto(_ photo: Photo) {
 		router.present(.toSingleImage(photo))
 	}
 }
