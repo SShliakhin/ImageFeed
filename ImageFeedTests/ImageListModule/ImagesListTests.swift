@@ -109,8 +109,8 @@ final class ImagesListTests: XCTestCase {
 
 		var newStatus = status
 		let photos = presenter.getPhotos()
-		if let index = photos.firstIndex(where: { $0.id == idPhoto }) {
-			newStatus = photos[index].isLiked
+		if let photo = photos.first(where: { $0.id == idPhoto }) {
+			newStatus = photo.isLiked
 		}
 
 		// assert
@@ -206,10 +206,16 @@ final class ImagesListServiceStub: IImagesListService {
 
 	func fetchPhotosNextPage() {
 		guard presenterIsReady else { return }
-		if (lastLoadedPage + 1) * photosPerPage >= Photo.stubPhotos.count {
+
+		var allPhotos = lastLoadedPage * photosPerPage
+		var allPhotosPlusPage = allPhotos + photosPerPage
+		if allPhotosPlusPage > Photo.stubPhotos.count {
 			lastLoadedPage = 0
+			allPhotos = 0
+			allPhotosPlusPage = photosPerPage
 		}
-		let newPhotos = Photo.stubPhotos[lastLoadedPage * photosPerPage ..< (lastLoadedPage + 1) * photosPerPage]
+		let newPhotos = Photo.stubPhotos[allPhotos ..< allPhotosPlusPage]
+
 		photos += newPhotos
 		lastLoadedPage += 1
 	}

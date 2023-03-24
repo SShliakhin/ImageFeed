@@ -16,7 +16,7 @@ final class ImagesListTableViewAdapter: NSObject {
 }
 
 private extension ImagesListTableViewAdapter {
-	func itemCount() -> Int {
+	var itemsCount: Int {
 		getPhotos().count
 	}
 	func getPhotos() -> [Photo] {
@@ -28,7 +28,7 @@ private extension ImagesListTableViewAdapter {
 
 extension ImagesListTableViewAdapter: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		itemCount()
+		itemsCount
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,8 +68,8 @@ extension ImagesListTableViewAdapter: UITableViewDelegate {
 		)
 
 		// на время UI-tests выключать
-//		if indexPath.row == itemCount() - 1 {
-//			presenter.didDisplayLastPhoto()
-//		}
+		if indexPath.row == itemsCount - 1 {
+			presenter.didDisplayLastPhoto()
+		}
 	}
 }
