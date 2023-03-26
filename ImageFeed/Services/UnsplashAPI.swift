@@ -24,7 +24,7 @@ enum UnsplashAPI {
 		case authorizeURLString = "unsplash.com"
 	}
 
-	enum FotoOrderBy: String {
+	enum PhotoOrderBy: String {
 		case latest
 		case oldest
 		case popular
@@ -34,7 +34,7 @@ enum UnsplashAPI {
 	case getAuthTokenRequest(String)
 	case getMe
 	case getPublicUser(String)
-	case getListPhotos(Int, Int, FotoOrderBy)
+	case getListPhotos(Int, Int, PhotoOrderBy)
 	case likeUnlike(String)
 }
 

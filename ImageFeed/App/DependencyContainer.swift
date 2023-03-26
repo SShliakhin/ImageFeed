@@ -290,7 +290,7 @@ extension DependencyContainer: ServicesFactory {
 			network: apiClient,
 			notificationCenter: notificationCenter,
 			photosPerPage: 10,
-			orderBy: UnsplashAPI.FotoOrderBy.latest
+			orderBy: UnsplashAPI.PhotoOrderBy.latest
 		)
 	}
 
